@@ -7,47 +7,46 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 public class ClientTest {
-    Database Catalog;
-    ArrayList<Client> ClientList;
-    Client BananaMan;
-    Client TheseNuts;
-    Client NutsRUs;
+    Database catalog;
+    Client bananaMan;
+    Client theseNuts;
+    Client nutsRUs;
 
     @Before
     public void setUp() {
-        Catalog = new Database();
-        BananaMan = new Client("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
-        TheseNuts = new Client("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
-        NutsRUs = new Client("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
-        Catalog.addClient(BananaMan);
-        Catalog.addClient(TheseNuts);
-        Catalog.addClient(NutsRUs);
+        catalog = new Database();
+        bananaMan = new Client("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
+        theseNuts = new Client("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
+        nutsRUs = new Client("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
+        catalog.addClient(bananaMan);
+        catalog.addClient(theseNuts);
+        catalog.addClient(nutsRUs);
     }
 
     @Test
     public void testGetInfo() {
-        assertEquals("Bananaman", BananaMan.getName());
-        assertEquals("Banana drive 123", BananaMan.getAddress());
-        assertEquals("B. Ananas", BananaMan.getRefPerson());
-        assertEquals("banana.man@Bananaman.com", BananaMan.getEmail());
+        assertEquals("Bananaman", bananaMan.getName());
+        assertEquals("Banana drive 123", bananaMan.getAddress());
+        assertEquals("B. Ananas", bananaMan.getRefPerson());
+        assertEquals("banana.man@Bananaman.com", bananaMan.getEmail());
     }
 
 
     @Test
     public void testUpdateInfo() {
-        BananaMan.setName("Pineapple boi");
-        BananaMan.setAddress("Orange street 456");
-        BananaMan.setRefPerson("Spongebob");
-        BananaMan.setEmail("Bigboi@Bananaman.com");
-        assertEquals("Pineapple boi", BananaMan.getName());
-        assertEquals(BananaMan.getAddress(), "Orange street 456");
-        assertEquals(BananaMan.getRefPerson(), "Spongebob");
-        assertEquals(BananaMan.getEmail(), "Bigboi@Bananaman.com");
+        bananaMan.setName("Pineapple boi");
+        bananaMan.setAddress("Orange street 456");
+        bananaMan.setRefPerson("Spongebob");
+        bananaMan.setEmail("Bigboi@Bananaman.com");
+        assertEquals("Pineapple boi", bananaMan.getName());
+        assertEquals(bananaMan.getAddress(), "Orange street 456");
+        assertEquals(bananaMan.getRefPerson(), "Spongebob");
+        assertEquals(bananaMan.getEmail(), "Bigboi@Bananaman.com");
     }
 
     @Test
     public void testFindClient() {
-        assertEquals(Catalog.searchClient("N. U. Tting"), new ArrayList<>(Arrays.asList(TheseNuts, NutsRUs)));
+        assertEquals(catalog.searchClient("N. U. Tting"), new ArrayList<>(Arrays.asList(theseNuts, nutsRUs)));
     }
 
 }
