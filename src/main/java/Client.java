@@ -1,40 +1,45 @@
 public class Client {
-    String Name;
-    String Address;
-    String RefPerson;
-    String Email;
+    String name;
+    String address;
+    String refPerson;
+    String email;
 
-    public Client(String Name, String Address, String RefPerson, String Email){}
+    public Client(String name, String address, String refPerson, String email) {
+        this.name = name;
+        this.address = address;
+        this.refPerson = refPerson;
+        this.email = email;
+    }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public void setRefPerson(String refPerson) {
-        RefPerson = refPerson;
+        this.refPerson = refPerson;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public String getRefPerson() {
-        return RefPerson;
+        return refPerson;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 }

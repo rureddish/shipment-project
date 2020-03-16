@@ -6,26 +6,26 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestClient {
-    DataBase Catalog;
+public class ClientTest {
+    Database Catalog;
     ArrayList<Client> ClientList;
     Client BananaMan;
     Client TheseNuts;
     Client NutsRUs;
+
     @Before
-    public void setUp(){
-        Catalog = new DataBase();
+    public void setUp() {
+        Catalog = new Database();
         BananaMan = new Client("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
         TheseNuts = new Client("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
         NutsRUs = new Client("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
-        Catalog.ClientList = new ArrayList<Client>();
-        Catalog.ClientList.add(BananaMan);
-        Catalog.ClientList.add(TheseNuts);
-        Catalog.ClientList.add(NutsRUs);
+        Catalog.addClient(BananaMan);
+        Catalog.addClient(TheseNuts);
+        Catalog.addClient(NutsRUs);
     }
 
     @Test
-    public void testGetInfo(){
+    public void testGetInfo() {
         assertEquals("Bananaman", BananaMan.getName());
         assertEquals("Banana drive 123", BananaMan.getAddress());
         assertEquals("B. Ananas", BananaMan.getRefPerson());
@@ -34,7 +34,7 @@ public class TestClient {
 
 
     @Test
-    public void testUpdateInfo(){
+    public void testUpdateInfo() {
         BananaMan.setName("Pineapple boi");
         BananaMan.setAddress("Orange street 456");
         BananaMan.setRefPerson("Spongebob");
@@ -46,8 +46,8 @@ public class TestClient {
     }
 
     @Test
-    public void testFindClient(){
-        assertEquals(Catalog.searchClient("N. U. Tting"), new ArrayList<Client>(Arrays.asList(new Client[]{TheseNuts, NutsRUs})));
+    public void testFindClient() {
+        assertEquals(Catalog.searchClient("N. U. Tting"), new ArrayList<>(Arrays.asList(TheseNuts, NutsRUs)));
     }
 
 }
