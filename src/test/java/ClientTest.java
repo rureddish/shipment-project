@@ -48,5 +48,9 @@ public class ClientTest {
     public void testFindClient() {
         assertEquals(catalog.searchClient("N. U. Tting"), new ArrayList<>(Arrays.asList(theseNuts, nutsRUs)));
     }
+    @Test
+    public void testFindNonExistingClient(){
+        assertEquals(catalog.searchClient("Not nutting"), new ArrayList<Client>());
+    }
 
 }
