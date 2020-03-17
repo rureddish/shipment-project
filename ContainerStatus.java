@@ -31,30 +31,50 @@ public class ContainerStatus {
 	}
 	
 	public void displayStatus() {
+		printTemperature();
+		
+		
+		printHumidity();
+		
+		
+		printPressure();
+		
+		
+		printTime();
+	}
+
+
+	private void printTime() {
+		System.out.print("Time(Min):      ");
+		for(int i = 0; i<time.size(); i++) {
+			System.out.print(time.get(i)+"     ");
+		}
+		System.out.println();
+	}
+
+
+	private void printTemperature() {
 		System.out.print("Temperature(C): ");
 		for(int i = 0; i<tempTime.size(); i++) {
 			System.out.print(tempTime.get(i)+"  ");
 		}
 		System.out.println();
-		
-		
+	}
+
+
+	private void printHumidity() {
 		System.out.print("Humidity:       ");
 		for(int i = 0; i<humidityTime.size(); i++) {
 			System.out.print(humidityTime.get(i) + "  ");
 		}
 		System.out.println();
-		
-		
+	}
+
+
+	private void printPressure() {
 		System.out.print("Pressure:       ");
 		for(int i = 0; i<pressureTime.size(); i++) {
 			System.out.print(pressureTime.get(i) + " ");
-		}
-		System.out.println();
-		
-		
-		System.out.print("Time(Min):      ");
-		for(int i = 0; i<time.size(); i++) {
-			System.out.print(time.get(i)+"     ");
 		}
 		System.out.println();
 	}
