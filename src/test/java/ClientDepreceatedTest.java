@@ -1,3 +1,5 @@
+import dk.dtu.gbar.gitlab.shipment.ClientDepreceated;
+import dk.dtu.gbar.gitlab.shipment.Database;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -6,18 +8,18 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class ClientTest {
+public class ClientDepreceatedTest {
     Database catalog;
-    Client bananaMan;
-    Client theseNuts;
-    Client nutsRUs;
+    ClientDepreceated bananaMan;
+    ClientDepreceated theseNuts;
+    ClientDepreceated nutsRUs;
 
     @Before
     public void setUp() {
         catalog = new Database();
-        bananaMan = new Client("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
-        theseNuts = new Client("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
-        nutsRUs = new Client("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
+        bananaMan = new ClientDepreceated("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
+        theseNuts = new ClientDepreceated("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
+        nutsRUs = new ClientDepreceated("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
         catalog.addClient(bananaMan);
         catalog.addClient(theseNuts);
         catalog.addClient(nutsRUs);
@@ -50,7 +52,7 @@ public class ClientTest {
     }
     @Test
     public void testFindNonExistingClient(){
-        assertEquals(catalog.searchClient("Not nutting"), new ArrayList<Client>());
+        assertEquals(catalog.searchClient("Not nutting"), new ArrayList<ClientDepreceated>());
     }
 
 }

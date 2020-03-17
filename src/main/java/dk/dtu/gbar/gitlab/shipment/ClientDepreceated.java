@@ -1,10 +1,12 @@
-public class Client {
+package dk.dtu.gbar.gitlab.shipment;
+
+public class ClientDepreceated {
     String name;
     String address;
     String refPerson;
     String email;
 
-    public Client(String name, String address, String refPerson, String email) {
+    public ClientDepreceated(String name, String address, String refPerson, String email) {
         this.name = name;
         this.address = address;
         this.refPerson = refPerson;

@@ -1,3 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea/
 /ShipmentProject.iml
+/src/main/resources/persistence/database.log
+/src/main/resources/persistence/database.lck
+/src/main/resources/persistence/database.tmp/
+/src/main/resources/persistence/database.script
+/src/main/resources/persistence/database.properties
+/target/

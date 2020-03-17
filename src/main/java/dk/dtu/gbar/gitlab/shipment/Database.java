@@ -1,15 +1,17 @@
+package dk.dtu.gbar.gitlab.shipment;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Database {
 
-    private ArrayList<Client> clientList;
+    private ArrayList<ClientDepreceated> clientList;
 
     public Database() {
         this.clientList = new ArrayList<>();
     }
 
-    public ArrayList<Client> searchClient(String criterium) {
+    public ArrayList<ClientDepreceated> searchClient(String criterium) {
         return clientList.stream().filter(c -> c.email.equals(criterium)
                 || c.address.equals(criterium)
                 || c.name.equals(criterium)
@@ -17,7 +19,7 @@ public class Database {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void addClient(Client c) {
+    public void addClient(ClientDepreceated c) {
         clientList.add(c);
     }
 }
