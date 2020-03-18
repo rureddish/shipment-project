@@ -1,6 +1,7 @@
-package M3;
+import dk.dtu.gbar.gitlab.shipment.Container;
+import dk.dtu.gbar.gitlab.shipment.ContainerStatus;
 
-public class Test {
+public class ContainerTest {
 
 	public static void main(String[] args) {
 		Container j1234 = new Container("j1234");

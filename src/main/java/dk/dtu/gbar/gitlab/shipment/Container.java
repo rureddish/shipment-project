@@ -1,4 +1,4 @@
-package M3;
+package dk.dtu.gbar.gitlab.shipment;
 
 
 
