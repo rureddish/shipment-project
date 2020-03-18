@@ -2,6 +2,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "DESTINATION", schema = "PUBLIC", catalog = "SHIPMENT")
@@ -9,6 +10,20 @@ public class Destination {
     private int id;
     private String name;
     private String coordinates;
+
+    @ManyToMany
+    @JoinTable(name = "JOURNEY_DESTINATION",
+            joinColumns = @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID"))
+    private Set<Journey> journeySet;
+
+    public Set<Journey> getJourneySet() {
+        return journeySet;
+    }
+
+    public void setJourneySet(Set<Journey> journeySet) {
+        this.journeySet = journeySet;
+    }
 
     @Id
     @Column(name = "ID", nullable = false)

@@ -2,12 +2,26 @@ package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "JOURNEY", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Journey {
     private int id;
     private String name;
+    @ManyToMany
+    @JoinTable(name = "JOURNEY_DESTINATION",
+            joinColumns = @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID"))
+    private Set<Destination> path;
+
+    public Set<Destination> getPath() {
+        return path;
+    }
+
+    public void setPath(Set<Destination> path) {
+        this.path = path;
+    }
 
     @Id
     @Column(name = "ID", nullable = false)

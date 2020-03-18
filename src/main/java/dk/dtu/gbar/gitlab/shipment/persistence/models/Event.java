@@ -10,6 +10,7 @@ public class Event {
     private int id;
     private int containerFk;
     private int clientFk;
+    private int journeyFk;
     private String message;
     private Date date;
 
@@ -42,6 +43,16 @@ public class Event {
 
     public void setClientFk(int clientFk) {
         this.clientFk = clientFk;
+    }
+
+    @Basic
+    @Column(name = "JOURNEY_FK", nullable = false)
+    public int getJourneyFk() {
+        return journeyFk;
+    }
+
+    public void setJourneyFk(int journeyFk) {
+        this.journeyFk = journeyFk;
     }
 
     @Basic

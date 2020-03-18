@@ -2,6 +2,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+
 @Entity
 @Table(name = "JOURNEY_DESTINATION", schema = "PUBLIC", catalog = "SHIPMENT")
 public class JourneyDestination {
@@ -10,6 +11,54 @@ public class JourneyDestination {
     private Integer previousFk;
     private Integer nextFk;
     private Integer destinationFk;
+
+    @ManyToOne
+    @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
+    private Journey journey;
+
+    @ManyToOne
+    @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID")
+    private Destination destination;
+
+    @OneToOne
+    @JoinColumn(name = "PREVIOUS_FK", referencedColumnName = "ID")
+    private Destination next;
+
+    @OneToOne
+    @JoinColumn(name = "NEXT_FK", referencedColumnName = "ID")
+    private Destination prev;
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination) {
+        this.destination = destination;
+    }
+
+    public Destination getNext() {
+        return next;
+    }
+
+    public void setNext(Destination next) {
+        this.next = next;
+    }
+
+    public Destination getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Destination prev) {
+        this.prev = prev;
+    }
 
     @Id
     @Column(name = "ID", nullable = false)

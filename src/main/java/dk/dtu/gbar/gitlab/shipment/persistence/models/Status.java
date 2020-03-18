@@ -10,9 +10,46 @@ public class Status {
     private int id;
     private int containerFk;
     private int clientFk;
+    private int journeyFk;
     private String statusName;
     private String statusValue;
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "CONTAINER_FK", referencedColumnName = "ID")
+    private Container container;
+
+    @ManyToOne
+    @JoinColumn(name = "JOURNEY_FK",referencedColumnName = "ID")
+    private Journey journey;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -43,6 +80,16 @@ public class Status {
 
     public void setClientFk(int clientFk) {
         this.clientFk = clientFk;
+    }
+
+    @Basic
+    @Column(name = "JOURNEY_FK",nullable = false)
+    public int getJourneyFk() {
+        return journeyFk;
+    }
+
+    public void setJourneyFk(int journeyFk) {
+        this.journeyFk = journeyFk;
     }
 
     @Basic

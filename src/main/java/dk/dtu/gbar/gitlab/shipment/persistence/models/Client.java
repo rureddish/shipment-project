@@ -2,6 +2,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -12,6 +13,17 @@ public class Client {
     private String lastName;
     private String email;
     private String address;
+
+    @OneToMany(mappedBy = "client")
+    private Set<Container> containers;
+
+    public Set<Container> getContainers() {
+        return containers;
+    }
+
+    public void setContainers(Set<Container> containers) {
+        this.containers = containers;
+    }
 
     @Id
     @Column(name = "ID", nullable = false)
