@@ -1,16 +1,19 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
+@Immutable
 @Table(name = "EVENT", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Event {
     private int id;
-    private int containerFk;
-    private int clientFk;
-    private int journeyFk;
+    private Container container; // container FK
+    private Client client; //client FK
+    private Journey journey; // journey FK
     private String message;
     private Date date;
 
@@ -25,34 +28,34 @@ public class Event {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "CONTAINER_FK", nullable = false)
-    public int getContainerFk() {
-        return containerFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTAINER_FK", referencedColumnName = "ID")
+    public Container getContainer() {
+        return container;
     }
 
-    public void setContainerFk(int containerFk) {
-        this.containerFk = containerFk;
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
-    @Basic
-    @Column(name = "CLIENT_FK", nullable = false)
-    public int getClientFk() {
-        return clientFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientFk(int clientFk) {
-        this.clientFk = clientFk;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    @Basic
-    @Column(name = "JOURNEY_FK", nullable = false)
-    public int getJourneyFk() {
-        return journeyFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
+    public Journey getJourney() {
+        return journey;
     }
 
-    public void setJourneyFk(int journeyFk) {
-        this.journeyFk = journeyFk;
+    public void setJourney(Journey journey) {
+        this.journey = journey;
     }
 
     @Basic
@@ -81,23 +84,25 @@ public class Event {
         if (o == null || getClass() != o.getClass()) return false;
         Event that = (Event) o;
         return id == that.id &&
-                containerFk == that.containerFk &&
-                clientFk == that.clientFk &&
+                Objects.equals(container, that.container) &&
+                Objects.equals(client, that.client) &&
+                Objects.equals(journey, that.journey) &&
                 Objects.equals(message, that.message) &&
                 Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, containerFk, clientFk, message, date);
+        return Objects.hash(id, container, client, journey, message, date);
     }
 
     protected Event() {
     }
 
-    public Event(int containerFk, int clientFk, String message, Date date) {
-        this.containerFk = containerFk;
-        this.clientFk = clientFk;
+    public Event(Container container, Client client, Journey journey, String message, Date date) {
+        this.container = container;
+        this.client = client;
+        this.journey = journey;
         this.message = message;
         this.date = date;
     }

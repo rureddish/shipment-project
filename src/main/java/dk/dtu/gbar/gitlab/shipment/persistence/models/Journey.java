@@ -9,12 +9,12 @@ import java.util.Set;
 public class Journey {
     private int id;
     private String name;
-    @ManyToMany
+    private Set<Destination> path;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "JOURNEY_DESTINATION",
             joinColumns = @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID"))
-    private Set<Destination> path;
-
     public Set<Destination> getPath() {
         return path;
     }

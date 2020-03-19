@@ -8,7 +8,9 @@
             jdbc:hsqldb:file:./src/main/resources/persistence/database
         </property>
         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">20</property>
+        <!-- CAUTION TO N+1 PROBLEM WITH ORM -->
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Client"/>

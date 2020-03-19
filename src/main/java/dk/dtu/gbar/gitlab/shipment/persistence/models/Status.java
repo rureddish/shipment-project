@@ -1,55 +1,23 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Immutable
 @Table(name = "STATUS", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Status {
     private int id;
-    private int containerFk;
-    private int clientFk;
-    private int journeyFk;
     private String statusName;
     private String statusValue;
-    private Date date;
+    private Timestamp date;
+    private Client client; //client FK
+    private Container container; //container FK
+    private Journey journey; //Journey FK
 
-    @ManyToOne
-    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "CONTAINER_FK", referencedColumnName = "ID")
-    private Container container;
-
-    @ManyToOne
-    @JoinColumn(name = "JOURNEY_FK",referencedColumnName = "ID")
-    private Journey journey;
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Container getContainer() {
-        return container;
-    }
-
-    public void setContainer(Container container) {
-        this.container = container;
-    }
-
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
-    }
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -62,34 +30,34 @@ public class Status {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "CONTAINER_FK", nullable = false)
-    public int getContainerFk() {
-        return containerFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
+    public Client getClient() {
+        return client;
     }
 
-    public void setContainerFk(int containerFk) {
-        this.containerFk = containerFk;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    @Basic
-    @Column(name = "CLIENT_FK", nullable = false)
-    public int getClientFk() {
-        return clientFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTAINER_FK", referencedColumnName = "ID")
+    public Container getContainer() {
+        return container;
     }
 
-    public void setClientFk(int clientFk) {
-        this.clientFk = clientFk;
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
-    @Basic
-    @Column(name = "JOURNEY_FK",nullable = false)
-    public int getJourneyFk() {
-        return journeyFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
+    public Journey getJourney() {
+        return journey;
     }
 
-    public void setJourneyFk(int journeyFk) {
-        this.journeyFk = journeyFk;
+    public void setJourney(Journey journey) {
+        this.journey = journey;
     }
 
     @Basic
@@ -114,11 +82,11 @@ public class Status {
 
     @Basic
     @Column(name = "DATE", nullable = false)
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -128,8 +96,8 @@ public class Status {
         if (o == null || getClass() != o.getClass()) return false;
         Status that = (Status) o;
         return id == that.id &&
-                containerFk == that.containerFk &&
-                clientFk == that.clientFk &&
+                Objects.equals(client, that.client) &&
+                Objects.equals(container, that.container) &&
                 Objects.equals(statusName, that.statusName) &&
                 Objects.equals(statusValue, that.statusValue) &&
                 Objects.equals(date, that.date);
@@ -137,17 +105,17 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, containerFk, clientFk, statusName, statusValue, date);
+        return Objects.hash(id, container, client, statusName, statusValue, date);
     }
 
     protected Status() {
     }
 
-    public Status(int containerFk, int clientFk, String statusName, String statusValue, Date date) {
-        this.containerFk = containerFk;
-        this.clientFk = clientFk;
+    public Status(String statusName, String statusValue, Client client, Container container, Journey journey) {
         this.statusName = statusName;
         this.statusValue = statusValue;
-        this.date = date;
+        this.client = client;
+        this.container = container;
+        this.journey = journey;
     }
 }

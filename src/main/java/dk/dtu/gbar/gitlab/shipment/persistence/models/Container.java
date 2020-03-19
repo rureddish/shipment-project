@@ -8,20 +8,14 @@ import java.util.Set;
 @Table(name = "CONTAINER", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Container {
     private int id;
-    private Integer clientFk;
     private String name;
-    private Integer journeyId;
-
-    @ManyToOne
-    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
-    private Client client;
-
-    @OneToMany(mappedBy = "container")
+    private Client client; // Client fk
+    private Journey journey; //Journey fk
     private Set<Status> allStatuses;
-
-    @OneToMany(mappedBy = "journey")
     private Set<Status> currentStatus;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
     public Client getClient() {
         return client;
     }
@@ -30,14 +24,27 @@ public class Container {
         this.client = client;
     }
 
+    @OneToMany(mappedBy = "container",fetch = FetchType.LAZY)
     public Set<Status> getAllStatuses() {
         return allStatuses;
+    }
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
     }
 
     public void setAllStatuses(Set<Status> allStatuses) {
         this.allStatuses = allStatuses;
     }
 
+    @OneToMany(mappedBy = "journey")
     public Set<Status> getCurrentStatus() {
         return currentStatus;
     }
@@ -58,16 +65,6 @@ public class Container {
     }
 
     @Basic
-    @Column(name = "CLIENT_FK", nullable = true)
-    public Integer getClientFk() {
-        return clientFk;
-    }
-
-    public void setClientFk(Integer clientFk) {
-        this.clientFk = clientFk;
-    }
-
-    @Basic
     @Column(name = "NAME", nullable = true, length = 255)
     public String getName() {
         return name;
@@ -77,15 +74,6 @@ public class Container {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "JOURNEY_ID", nullable = true)
-    public Integer getJourneyId() {
-        return journeyId;
-    }
-
-    public void setJourneyId(Integer journeyId) {
-        this.journeyId = journeyId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,23 +81,29 @@ public class Container {
         if (o == null || getClass() != o.getClass()) return false;
         Container that = (Container) o;
         return id == that.id &&
-                Objects.equals(clientFk, that.clientFk) &&
+                Objects.equals(client, that.client) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(journeyId, that.journeyId);
+                Objects.equals(journey, that.journey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, clientFk, name, journeyId);
+        return Objects.hash(id, client, name, journey);
     }
 
     protected Container() {
     }
 
-    public Container(Integer clientFk, String name, Integer journeyId) {
-        this.clientFk = clientFk;
+    public Container(Client client, String name, Journey journey) {
+        this.client = client;
         this.name = name;
-        this.journeyId = journeyId;
+        this.journey = journey;
+    }
+
+    public Container(String name) {
+        this.name = name;
+        this.journey = null;
+        this.client = null;
     }
 
 

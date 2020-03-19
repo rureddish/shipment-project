@@ -1,22 +1,25 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Immutable
 @Table(name = "DESTINATION", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Destination {
     private int id;
     private String name;
     private String coordinates;
+    private Set<Journey> journeySet;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "JOURNEY_DESTINATION",
             joinColumns = @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID"))
-    private Set<Journey> journeySet;
-
     public Set<Journey> getJourneySet() {
         return journeySet;
     }

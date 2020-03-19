@@ -7,27 +7,13 @@ import java.util.Objects;
 @Table(name = "JOURNEY_DESTINATION", schema = "PUBLIC", catalog = "SHIPMENT")
 public class JourneyDestination {
     private int id;
-    private Integer journeyFk;
-    private Integer previousFk;
-    private Integer nextFk;
-    private Integer destinationFk;
+    private Journey journey; // journey FK
+    private Destination destination; //destination FK
+    private Destination next; //next destination FK
+    private Destination previous; //prev destination FK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
-    private Journey journey;
-
-    @ManyToOne
-    @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID")
-    private Destination destination;
-
-    @OneToOne
-    @JoinColumn(name = "PREVIOUS_FK", referencedColumnName = "ID")
-    private Destination next;
-
-    @OneToOne
-    @JoinColumn(name = "NEXT_FK", referencedColumnName = "ID")
-    private Destination prev;
-
     public Journey getJourney() {
         return journey;
     }
@@ -36,6 +22,8 @@ public class JourneyDestination {
         this.journey = journey;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DESTINATION_FK", referencedColumnName = "ID")
     public Destination getDestination() {
         return destination;
     }
@@ -44,6 +32,8 @@ public class JourneyDestination {
         this.destination = destination;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PREVIOUS_FK", referencedColumnName = "ID")
     public Destination getNext() {
         return next;
     }
@@ -52,12 +42,14 @@ public class JourneyDestination {
         this.next = next;
     }
 
-    public Destination getPrev() {
-        return prev;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NEXT_FK", referencedColumnName = "ID")
+    public Destination getPrevious() {
+        return previous;
     }
 
-    public void setPrev(Destination prev) {
-        this.prev = prev;
+    public void setPrevious(Destination previous) {
+        this.previous = previous;
     }
 
     @Id
@@ -70,45 +62,6 @@ public class JourneyDestination {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "JOURNEY_FK", nullable = true)
-    public Integer getJourneyFk() {
-        return journeyFk;
-    }
-
-    public void setJourneyFk(Integer journeyFk) {
-        this.journeyFk = journeyFk;
-    }
-
-    @Basic
-    @Column(name = "PREVIOUS_FK", nullable = true)
-    public Integer getPreviousFk() {
-        return previousFk;
-    }
-
-    public void setPreviousFk(Integer previousFk) {
-        this.previousFk = previousFk;
-    }
-
-    @Basic
-    @Column(name = "NEXT_FK", nullable = true)
-    public Integer getNextFk() {
-        return nextFk;
-    }
-
-    public void setNextFk(Integer nextFk) {
-        this.nextFk = nextFk;
-    }
-
-    @Basic
-    @Column(name = "DESTINATION_FK", nullable = true)
-    public Integer getDestinationFk() {
-        return destinationFk;
-    }
-
-    public void setDestinationFk(Integer destinationFk) {
-        this.destinationFk = destinationFk;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -116,25 +69,25 @@ public class JourneyDestination {
         if (o == null || getClass() != o.getClass()) return false;
         JourneyDestination that = (JourneyDestination) o;
         return id == that.id &&
-                Objects.equals(journeyFk, that.journeyFk) &&
-                Objects.equals(previousFk, that.previousFk) &&
-                Objects.equals(nextFk, that.nextFk) &&
-                Objects.equals(destinationFk, that.destinationFk);
+                Objects.equals(journey, that.journey) &&
+                Objects.equals(previous, that.previous) &&
+                Objects.equals(next, that.next) &&
+                Objects.equals(destination, that.destination);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, journeyFk, previousFk, nextFk, destinationFk);
+        return Objects.hash(id, journey, previous, next, destination);
     }
 
     protected JourneyDestination() {
     }
 
-    public JourneyDestination(Integer journeyFk, Integer previousFk, Integer nextFk, Integer destinationFk) {
-        this.journeyFk = journeyFk;
-        this.previousFk = previousFk;
-        this.nextFk = nextFk;
-        this.destinationFk = destinationFk;
+    public JourneyDestination(Journey journey, Destination destination, Destination next, Destination previous) {
+        this.journey = journey;
+        this.destination = destination;
+        this.next = next;
+        this.previous = previous;
     }
 }
 

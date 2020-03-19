@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "CLIENT", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Client {
@@ -13,10 +12,9 @@ public class Client {
     private String lastName;
     private String email;
     private String address;
-
-    @OneToMany(mappedBy = "client")
     private Set<Container> containers;
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     public Set<Container> getContainers() {
         return containers;
     }

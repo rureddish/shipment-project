@@ -5,7 +5,7 @@ import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 
 import java.util.List;
 
-public class ClientDao extends Connection implements ClientDaoInterface {
+public class ClientDao extends Connection implements ClientInterface {
     @Override
     public Client getById(int id) {
         return getSession().get(Client.class, id);
@@ -29,7 +29,7 @@ public class ClientDao extends Connection implements ClientDaoInterface {
 
     @Override
     public void deleteAll() {
-        getSession().createSQLQuery("TRUNCATE CLIENT").executeUpdate();
+        getSession().createSQLQuery("TRUNCATE TABLE CLIENT AND COMMIT").executeUpdate();
 
     }
 }
