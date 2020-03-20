@@ -3,7 +3,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ContainerDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ContainerDaoInterface;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Status;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 
 import java.util.List;
 
@@ -52,10 +52,15 @@ public class ContainerService implements ContainerDaoInterface {
         containerDao.closeTransaction();
     }
 
+    /**
+     *
+     * @param container
+     * @return
+     */
     @Override
-    public List<Status> getLastStatuses(Container container) {
+    public List<ContainerStatus> getLastStatuses(Container container) {
         containerDao.openSession();
-        List<Status> s = containerDao.getLastStatuses(container);
+        List<ContainerStatus> s = containerDao.getLastStatuses(container);
         containerDao.closeSession();
         return s;
     }

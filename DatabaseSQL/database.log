@@ -1,0 +1,9 @@
+/*C4*/SET SCHEMA PUBLIC
+alter catalog SHIPMENT rename to "shipment"
+set schema PUBLIC
+/*C5*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/alter catalog "shipment" rename to SHIPMENT
+set schema PUBLIC
+/*C6*/SET SCHEMA PUBLIC
+DISCONNECT

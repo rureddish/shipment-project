@@ -3,78 +3,56 @@ package dk.dtu.gbar.gitlab.shipment.persistence.models;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Immutable
-@Table(name = "EVENT", schema = "PUBLIC", catalog = "SHIPMENT")
 public class Event {
-    private int id;
-    private Container container; // container FK
-    private Client client; //client FK
-    private Journey journey; // journey FK
-    private String message;
-    private Date date;
+    private Integer id;
+    private String eventName;
+    private String eventMessage;
+    private Timestamp date;
+    private Journey journeyEventParent; //journey this event belongs to
 
     @Id
-    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTAINER_FK", referencedColumnName = "ID")
-    public Container getContainer() {
-        return container;
+    @Basic
+    @Column(name = "event_name", nullable = false, length = 255)
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setContainer(Container container) {
-        this.container = container;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_FK", referencedColumnName = "ID")
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "JOURNEY_FK", referencedColumnName = "ID")
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     @Basic
-    @Column(name = "MESSAGE", nullable = false, length = 1000)
-    public String getMessage() {
-        return message;
+    @Column(name = "event_message", nullable = false, length = 512)
+    public String getEventMessage() {
+        return eventMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setEventMessage(String eventMessage) {
+        this.eventMessage = eventMessage;
     }
 
     @Basic
-    @Column(name = "DATE", nullable = false)
-    public Date getDate() {
+    @Column(name = "date", nullable = false)
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -82,28 +60,40 @@ public class Event {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Event that = (Event) o;
-        return id == that.id &&
-                Objects.equals(container, that.container) &&
-                Objects.equals(client, that.client) &&
-                Objects.equals(journey, that.journey) &&
-                Objects.equals(message, that.message) &&
-                Objects.equals(date, that.date);
+        Event event = (Event) o;
+        return Objects.equals(id, event.id) &&
+                Objects.equals(eventName, event.eventName) &&
+                Objects.equals(eventMessage, event.eventMessage) &&
+                Objects.equals(date, event.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, container, client, journey, message, date);
+        return Objects.hash(id, eventName, eventMessage, date);
     }
 
-    protected Event() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "journey_fk", referencedColumnName = "id", nullable = false)
+    public Journey getJourneyEventParent() {
+        return journeyEventParent;
     }
 
-    public Event(Container container, Client client, Journey journey, String message, Date date) {
-        this.container = container;
-        this.client = client;
-        this.journey = journey;
-        this.message = message;
+    public void setJourneyEventParent(Journey journeyByJourneyFk) {
+        this.journeyEventParent = journeyByJourneyFk;
+    }
+
+    protected Event(){}
+
+    public Event(String eventName, String eventMessage, Timestamp date, Journey journeyEventParent) {
+        this.eventName = eventName;
+        this.eventMessage = eventMessage;
         this.date = date;
+        this.journeyEventParent = journeyEventParent;
+    }
+
+    public Event(String eventName, String eventMessage, Journey journeyEventParent) {
+        this.eventName = eventName;
+        this.eventMessage = eventMessage;
+        this.journeyEventParent = journeyEventParent;
     }
 }

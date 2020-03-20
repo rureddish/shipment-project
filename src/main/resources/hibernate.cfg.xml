@@ -4,22 +4,26 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">
-            jdbc:hsqldb:file:./src/main/resources/persistence/database
-        </property>
+        <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
         <property name="connection.pool_size">20</property>
+        <!-- DEBUG -->
+        <property name="show_sql">false</property>
+        <property name="format_sql">false</property>
         <!-- CAUTION TO N+1 PROBLEM WITH ORM -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Client"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Container"/>
-        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Destination"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Event"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Journey"/>
-        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.JourneyDestination"/>
-        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Status"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Location"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Path"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.PathPort"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Port"/>
+
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

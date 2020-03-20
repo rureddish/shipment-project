@@ -3,11 +3,13 @@ package dk.dtu.gbar.gitlab.shipment;
 import dk.dtu.gbar.gitlab.shipment.persistence.HibernateUtil;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Status;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,18 +27,27 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-      /*
-        ClientService cs = new ClientService();
+
+        /*ClientService cs = new ClientService();
         ContainerService con = new ContainerService();
-        Client alice = cs.getById(1,true);
-        Set<Container> own = alice.getContainers();
-        for(Container c : own){
-            List<Status> last;
-            last =con.getLastStatuses(c);
-            for (Status s : last){
-                System.out.printf("%s %s %s\n",s.getStatusName(),s.getStatusValue(),s.getDate());
+        Client alice = cs.getById(0, true);
+        Collection<Container> own = alice.getClientsContainers();
+        for (Container c : own) {
+            List<ContainerStatus> last;
+            last = con.getLastStatuses(c);
+            for (ContainerStatus s : last) {
+                System.out.printf("%s %s %s\n", s.getStatusName(), s.getStatusValue(), s.getDate());
             }
         }*/
-        HibernateUtil.shutdown();
+        /*ClientService clientService = new ClientService();
+        ContainerService cs = new ContainerService();
+        Client alice = new Client("First Client", "Alice", "mail@test.com", "World trade center");
+        Container aliceContainer = new Container("Container 1", false, alice);
+        clientService.save(alice);
+        cs.save(aliceContainer);
+        Client client = clientService.getById(alice.getId(),true);
+        System.out.printf("%s %s %s\n", client.getId(), client.getClientName(), client.getReferencePerson());
+        client.getClientsContainers().forEach(c -> System.out.println(c.getName()));*/
+        //HibernateUtil.shutdown();
     }
 }

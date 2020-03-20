@@ -2,7 +2,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.dao;
 
 import dk.dtu.gbar.gitlab.shipment.persistence.Connection;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Status;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -34,12 +34,12 @@ public class ContainerDao extends Connection implements ContainerDaoInterface {
     }
 
     @Override
-    public List<Status> getLastStatuses(Container container) {
-        Query<Status> query = getSession().createQuery("FROM Status " +
-                "WHERE container = :id " +
-                "AND id in (SELECT MAX(id) FROM Status " +
-                "GROUP BY statusName)",Status.class);
-        query.setParameter("id",container);
+    public List<ContainerStatus> getLastStatuses(Container container) {
+        Query<ContainerStatus> query = getSession().createQuery("FROM ContainerStatus " +
+                "WHERE journeyStatusParent = (FROM Journey WHERE journeyContainer = :container) " +
+                "AND id in (SELECT MAX(id) FROM ContainerStatus " +
+                "GROUP BY statusName)",ContainerStatus.class);
+        query.setParameter("container",container);
         return query.list();
     }
 }

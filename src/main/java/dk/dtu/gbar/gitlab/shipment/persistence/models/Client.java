@@ -1,61 +1,57 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "CLIENT", schema = "PUBLIC", catalog = "SHIPMENT")
+@Table(name = "client")
 public class Client {
-    private int id;
-    private String firstName;
-    private String lastName;
+    private Integer id;
+    private String clientName;
+    private String referencePerson;
     private String email;
     private String address;
-    private Set<Container> containers;
-
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    public Set<Container> getContainers() {
-        return containers;
-    }
-
-    public void setContainers(Set<Container> containers) {
-        this.containers = containers;
-    }
+    private ClientStatus clientStatus;
+    private Collection<Container> clientsContainers;
+    private Collection<Journey> clientsJourneys;
 
     @Id
-    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "FIRST_NAME", nullable = false, length = 255)
-    public String getFirstName() {
-        return firstName;
+    @Column(name = "client_name", nullable = false, length = 255)
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    @Basic
-    @Column(name = "LAST_NAME", nullable = false, length = 255)
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     @Basic
-    @Column(name = "EMAIL", nullable = false, length = 255)
+    @Column(name = "reference_person", nullable = false, length = 255)
+    public String getReferencePerson() {
+        return referencePerson;
+    }
+
+    public void setReferencePerson(String referencePerson) {
+        this.referencePerson = referencePerson;
+    }
+
+    @Basic
+    @Column(name = "email", nullable = false, length = 255)
     public String getEmail() {
         return email;
     }
@@ -65,7 +61,7 @@ public class Client {
     }
 
     @Basic
-    @Column(name = "ADDRESS", nullable = false, length = 255)
+    @Column(name = "address", nullable = false, length = 255)
     public String getAddress() {
         return address;
     }
@@ -74,30 +70,66 @@ public class Client {
         this.address = address;
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    public ClientStatus getClientStatus() {
+        return clientStatus;
+    }
+
+    public void setClientStatus(ClientStatus clientStatus) {
+        this.clientStatus = clientStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Client that = (Client) o;
-        return id == that.id &&
-                Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(address, that.address);
+        Client client = (Client) o;
+        return Objects.equals(id, client.id) &&
+                Objects.equals(clientName, client.clientName) &&
+                Objects.equals(referencePerson, client.referencePerson) &&
+                Objects.equals(email, client.email) &&
+                Objects.equals(clientStatus, client.clientStatus) &&
+                Objects.equals(address, client.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, address);
+        return Objects.hash(id, clientName, referencePerson, email, address, clientStatus);
+    }
+
+    @OneToMany(mappedBy = "containerOwner", fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<Container> getClientsContainers() {
+        return clientsContainers;
+    }
+
+    public void setClientsContainers(Collection<Container> containersById) {
+        this.clientsContainers = containersById;
+    }
+
+    @OneToMany(mappedBy = "journeyClient", fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<Journey> getClientsJourneys() {
+        return clientsJourneys;
+    }
+
+    public void setClientsJourneys(Collection<Journey> journeysById) {
+        this.clientsJourneys = journeysById;
     }
 
     protected Client() {
     }
 
-    public Client(String firstName, String lastName, String email, String address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Client(String clientName, String referencePerson, String email, String address, ClientStatus clientStatus) {
+        this.clientName = clientName;
+        this.referencePerson = referencePerson;
         this.email = email;
         this.address = address;
+        this.clientStatus = clientStatus;
+    }
+
+    public Client(String clientName, String referencePerson, String email, String address) {
+        this(clientName, referencePerson, email, address, ClientStatus.ACTIVE);
     }
 }
