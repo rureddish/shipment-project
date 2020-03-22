@@ -18,7 +18,7 @@
 #Sample Feature Definition Template
 
 @tag
-Feature: Register Container for Journey
+Feature: Create Journey for Container
 #Description: A container is registered in a Journey
 #Actor: Client
 
@@ -30,20 +30,16 @@ Feature: Register Container for Journey
 #automatically created by the system (e.g., journey id).
 
   @tag1
-  Scenario: Succesful Registration of Journey by Client
+  Scenario: Succesful Creation of Journey for Container
     Given a client
-    And 
-    When client register journey
-    Then a journey exists
-    And new id is created
+    And a container with id "DTU01"
+    When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges", company "DTU"
+    Then a journey is created for the container with id "DTU01"
+    And new journey id is created automatically
+    
+  Scenario: Missing Information
+    Given a client
+    And a container with id "DTU01"
+    When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges"
+    Then error message is displayed
 
-  @tag2
-  Scenario Outline: Missing information
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
-
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
