@@ -31,10 +31,10 @@ Feature: Create Journey for Container
 
   @tag1
   Scenario: Succesful Creation of Journey for Container
-    Given a client
-    And a container with id "DTU01"
+  	Given a client
+    And a container with id "01"
     When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges", company "DTU"
-    Then a journey is created for the container with id "DTU01"
+    Then a journey is created for the container with id "01"
     And new journey id is created automatically
     
   Scenario: Missing Information

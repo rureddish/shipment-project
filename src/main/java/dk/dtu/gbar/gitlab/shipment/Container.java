@@ -8,7 +8,24 @@ public class Container {
 	private double pressure;
 	private String journeyID;
 	private String containerID;
+	private String content;
 	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Container() {
+		
+	}
+	
+	public void setContainerID(String containerID) {
+		this.containerID = containerID;
+	}
+
 	public Container(String containerID) {
 		this.containerID = containerID;
 	}

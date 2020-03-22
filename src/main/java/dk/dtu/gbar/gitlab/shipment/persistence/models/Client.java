@@ -118,7 +118,7 @@ public class Client {
         this.clientsJourneys = journeysById;
     }
 
-    protected Client() {
+    public Client() {
     }
 
     public Client(String clientName, String referencePerson, String email, String address, ClientStatus clientStatus) {
