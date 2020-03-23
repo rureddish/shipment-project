@@ -27,22 +27,21 @@ public class StepDefinition {
 
 	@When("client creates journey for container with port of origin {string}, destination {string}, content {string}, company {string}")
 	public void client_creates_journey_for_container_with_port_of_origin_destination_content_company(String portOfOrigin, String destination, String containerContent, String company) {
-		journey.setPortOfOrigin(portOfOrigin);
-		journey.setDestination(destination);
-		journey.setCompany(company);
+		Journey journey = new Journey(portOfOrigin, destination, company, container.getContainerID());
 		container.setContent(containerContent);
-		journey.setContainerID(container.getContainerID());
+		
 		container.setJourneyID(journey.getJourneyID());
 	}
 
 	@Then("a journey is created for the container with id {string}")
-	public void a_journey_is_created_for_the_container_with_id(String string) {
-	    assertEquals(journey.getContainerID(), container.getContainerID());
+	public void a_journey_is_created_for_the_container_with_id(String containerID) {
+	    assertEquals(journey.getContainerID(), containerID);
+	    assertEquals(container.getContainerID(), containerID);
 	}
 	
-	@Then("new journey id is created automatically")
-	public void new_journey_id_is_created_automatically() {
-	    
+	@Then("new journey id {string} is created")
+	public void new_journey_id_is_created(String newJourneyId) {
+		assertEquals(journey.getJourneyID(), newJourneyId);
 	}
 
 	@When("client creates journey for container with port of origin {string}, destination {string}, content {string}")

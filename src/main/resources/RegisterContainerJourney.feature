@@ -35,11 +35,11 @@ Feature: Create Journey for Container
     And a container with id "01"
     When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges", company "DTU"
     Then a journey is created for the container with id "01"
-    And new journey id is created automatically
+    And new journey id "DTU01" is created
     
   Scenario: Missing Information
     Given a client
-    And a container with id "DTU01"
+    And a container with id "01"
     When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges"
     Then error message is displayed
 

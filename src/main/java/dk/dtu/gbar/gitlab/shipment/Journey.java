@@ -9,7 +9,7 @@ public class Journey {
 		return journeyID;
 	}
 
-	public void setJourneyID(String journeyID) {
+	private void setJourneyID(String journeyID) {
 		this.journeyID = journeyID;
 	}
 
@@ -19,6 +19,15 @@ public class Journey {
 
 	public void setContainerID(String containerID) {
 		this.containerID = containerID;
+	}
+	public Journey(String portOfOrigin, String destination, String company, String containerID) {
+		super();
+		this.portOfOrigin = portOfOrigin;
+		this.destination = destination;
+		this.company = company;
+		this.containerID = containerID;
+		
+		this.setJourneyID(this.company+this.containerID);
 	}
 	private String containerID;
 	
