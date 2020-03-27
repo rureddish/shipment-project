@@ -14,7 +14,6 @@ public class ClientDao extends Connection implements ClientInterface {
     @Override
     public Client getById(int id) {
         return getSession().get(Client.class, id);
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-import dk.dtu.gbar.gitlab.shipment.ClientDepreceated;
+import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Database;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,16 +10,16 @@ import static org.junit.Assert.assertEquals;
 
 public class ClientDepreceatedTest {
     Database catalog;
-    ClientDepreceated bananaMan;
-    ClientDepreceated theseNuts;
-    ClientDepreceated nutsRUs;
+    Client bananaMan;
+    Client theseNuts;
+    Client nutsRUs;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Database.incompleteClientError, Database.clientAlreadyExistsError {
         catalog = new Database();
-        bananaMan = new ClientDepreceated("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
-        theseNuts = new ClientDepreceated("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
-        nutsRUs = new ClientDepreceated("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
+        bananaMan = new Client("Bananaman", "Banana drive 123", "B. Ananas", "banana.man@Bananaman.com");
+        theseNuts = new Client("Thesenuts", "Nutting alley 456", "N. U. Tting", "these.nuts@nutcity.com");
+        nutsRUs = new Client("NutsRUs", "Nuttingham 420", "N. U. Tting", "nutsrus@nutcity.com");
         catalog.addClient(bananaMan);
         catalog.addClient(theseNuts);
         catalog.addClient(nutsRUs);
@@ -52,7 +52,7 @@ public class ClientDepreceatedTest {
     }
     @Test
     public void testFindNonExistingClient(){
-        assertEquals(catalog.searchClient("Not nutting"), new ArrayList<ClientDepreceated>());
+        assertEquals(catalog.searchClient("Not nutting"), new ArrayList<Client>());
     }
 
 }
