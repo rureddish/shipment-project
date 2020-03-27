@@ -19,22 +19,29 @@ public class Database {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void addClient(Client c) throws incompleteClientError, clientAlreadyExistsError {
+    public ResponseObject addClient(Client c)  {
         if (searchClient(c.name).contains(c)){
+            ResponseObject response = new ResponseObject(0, "client already exists");
             System.out.println("Client could not be registered, a client by this name already exists");
+            return response;
         }
         else if (c.getName()==null||c.getAddress()==null||c.getEmail()==null||c.getRefPerson()==null){
+            ResponseObject response = new ResponseObject(0, "client info missing");
             System.out.println("Client could not be registered, info is missing");
+            return response;
         }
         else{
             clientList.add(c);
-
+            ResponseObject response = new ResponseObject(0, "client added");
+            return response;
         }
-
     }
 
-    public void remove(Client properclient) {
-
+    public ResponseObject remove(Client c) {
+        clientList.remove(c);
+        System.out.println("client has been removed");
+        ResponseObject response = new ResponseObject(0, "client removed");
+        return response;
     }
     public static class incompleteClientError extends Exception{
         public incompleteClientError(){

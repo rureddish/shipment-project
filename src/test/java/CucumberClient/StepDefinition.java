@@ -2,6 +2,7 @@ package CucumberClient;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Database;
+import dk.dtu.gbar.gitlab.shipment.ResponseObject;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,59 +10,76 @@ import io.cucumber.java.en.When;
 
 import javax.xml.crypto.Data;
 
+import static org.junit.Assert.assertEquals;
+
 public class StepDefinition {
     Client properclient = new Client();
-    Database clientsandcontainers = new Database();
-    Client incompleteClient  = new Client();
+    Database clientsandcontainers;
+    Client incompleteClient;
+    ResponseObject response;
 
-    @Given("a Client {string} with {string}, {string} and {string}")
-    public void aClientWithAnd(String clientname, String address, String referenceperson, String email) {
-        properclient.setName(clientname);
-        properclient.setAddress(address);
-        properclient.setEmail(email);
-        properclient.setRefPerson(referenceperson);
+    @Given("a Client with all info filled in")
+    public void aClientWithAllInfoFilledIn() {
+        properclient.setName("clientname");
+        properclient.setAddress("address");
+        properclient.setEmail("email");
+        properclient.setRefPerson("referenceperson");
     }
 
-    @And("a database not containing the client {string}")
-    public void aDatabaseWithoutTheClient(String clientname) {
+    @And("a database not containing the client")
+    public void aDatabaseWithoutTheClient() {
+        clientsandcontainers = new Database();
     }
 
-    @When("{string} is registered")
-    public void isRegistered(String arg0) throws Database.incompleteClientError, Database.clientAlreadyExistsError {
-        clientsandcontainers.addClient(properclient);
+    @When("the client is registered")
+    public void isRegistered() throws Database.incompleteClientError, Database.clientAlreadyExistsError {
+        response = clientsandcontainers.addClient(properclient);
     }
 
-    @Then("{string} appears in database")
-    public void appearsInDatabase(String clientname) {
-        clientsandcontainers.searchClient(clientname).contains(properclient);
+    @Then("the client appears in database")
+    public void appearsInDatabase() {
+        assertEquals(response.getErrorMessage(),"client added");
     }
 
-    @Given("a Client {string} that is missing info")
-    public void aClientThatIsMissingInfo(String clientname) {
-        incompleteClient.setName(clientname);
+    @Given("a Client that is missing info")
+    public void aClientThatIsMissingInfo() {
+        incompleteClient  = new Client();
+        incompleteClient.setName("incomplete client");
     }
 
-    @And("a database that already contains a client {string}")
-    public void aDatabaseThatAlreadyContainsAClient(String clientname) throws Database.incompleteClientError, Database.clientAlreadyExistsError {
+    @And("a database that contains the client")
+    public void aDatabaseThatAlreadyContainsAClient() throws Database.incompleteClientError, Database.clientAlreadyExistsError {
+        clientsandcontainers = new Database();
         clientsandcontainers.addClient(properclient);
     }
 
     @Then("error message incompleteclient is displayed")
-    public void errorMessageIncompleteclientIsDisplayed() throws Database.incompleteClientError {
-        System.out.println("Client could not be registered, info is missing");
+    public void errorMessageIncompleteclientIsDisplayed() {
+        assertEquals(response.getErrorMessage(),"client info missing" );
     }
 
     @Then("error message clientAlreadyRegistered is displayed")
-    public void errorMessageClientAlreadyRegisteredIsDisplayed() throws Database.clientAlreadyExistsError {
-        System.out.println("Client could not be registered, a client by this name already exists");
+    public void errorMessageClientAlreadyRegisteredIsDisplayed() {
+        assertEquals(response.getErrorMessage(),"client already exists");
     }
 
-    @When("client {string} has their address updated to {string}")
-    public void clientHasTheirAddressUpdatedTo(String clientname, String newaddress) {
-    clientsandcontainers.searchClient(clientname).get(0).setAddress(newaddress);
+    @When("the client has their address updated")
+    public void clientHasTheirAddressUpdatedTo() {
+    response = properclient.setAddress("newaddress");
     }
 
-    @Then("the address of client {string} is now {string}")
-    public void theAddressOfClientIsNow(String clientname, String newaddress) {
+    @Then("the address of the client is now the new address")
+    public void theAddressOfClientIsNow() {
+        assertEquals(response.getErrorMessage(), "address updated");
+    }
+
+    @When("the client is removed")
+    public void theClientIsRemoved() {
+        response = clientsandcontainers.remove(properclient);
+    }
+
+    @Then("display message saying client has been removed")
+    public void displayMessageSayingClientHasBeenRemoved() {
+        assertEquals(response.getErrorMessage(),"client removed");
     }
 }

@@ -20,8 +20,10 @@ public class Client {
         this.name = name;
     }
 
-    public void setAddress(String address) {
+    public ResponseObject setAddress(String address) {
         this.address = address;
+        ResponseObject response = new ResponseObject(0,"address updated");
+        return response;
     }
 
     public void setRefPerson(String refPerson) {
