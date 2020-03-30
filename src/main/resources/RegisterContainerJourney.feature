@@ -42,3 +42,4 @@ Feature: Create Journey for Container
     And a container with id "01"
     When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges"
     Then error message is displayed
+

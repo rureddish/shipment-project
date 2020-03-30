@@ -4,53 +4,28 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Database {
+    private ClientList clientList;
+    private ContainerList containerList;
 
-    private ArrayList<Client> clientList;
 
     public Database() {
-        this.clientList = new ArrayList<>();
+        this.clientList = new ClientList();
+        this.containerList = new ContainerList();
     }
 
-    public ArrayList<Client> searchClient(String criterium) {
-        return clientList.stream().filter(c -> c.email.contains(criterium)
-                || c.address.contains(criterium)
-                || c.name.contains(criterium)
-                || c.refPerson.contains(criterium))
-                .collect(Collectors.toCollection(ArrayList::new));
+    public ClientList getClientList() {
+        return clientList;
     }
 
-    public ResponseObject addClient(Client c)  {
-        if (searchClient(c.name).contains(c)){
-            ResponseObject response = new ResponseObject(0, "client already exists");
-            System.out.println("Client could not be registered, a client by this name already exists");
-            return response;
-        }
-        else if (c.getName()==null||c.getAddress()==null||c.getEmail()==null||c.getRefPerson()==null){
-            ResponseObject response = new ResponseObject(0, "client info missing");
-            System.out.println("Client could not be registered, info is missing");
-            return response;
-        }
-        else{
-            clientList.add(c);
-            ResponseObject response = new ResponseObject(0, "client added");
-            return response;
-        }
+    public void setClientList(ClientList clientList) {
+        this.clientList = clientList;
     }
 
-    public ResponseObject remove(Client c) {
-        clientList.remove(c);
-        System.out.println("client has been removed");
-        ResponseObject response = new ResponseObject(0, "client removed");
-        return response;
+    public ContainerList getContainerList() {
+        return containerList;
     }
-    public static class incompleteClientError extends Exception{
-        public incompleteClientError(){
-            System.out.println("Client could not be registered, info is missing");
-        }
-    }
-    public static class clientAlreadyExistsError extends Exception{
-        public clientAlreadyExistsError(){
-            System.out.println("Client could not be registered, a client by this name already exists");
-        }
+
+    public void setContainerList(ContainerList containerList) {
+        this.containerList = containerList;
     }
 }
