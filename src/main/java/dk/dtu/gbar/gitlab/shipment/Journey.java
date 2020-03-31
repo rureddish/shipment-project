@@ -2,46 +2,46 @@ package dk.dtu.gbar.gitlab.shipment;
 
 public class Journey {
 	private String portOfOrigin;
-	private String destination;
+	private String portOfDestination;
 	private String company;
 	private String journeyID;
+	private Container container;
+	
+//	public Journey() {
+//		super();
+//	}
+
+	public Journey(String portOfOrigin, String portOfDestination, String company, Container container) {
+		super();
+		this.portOfOrigin = portOfOrigin;
+		this.portOfDestination = portOfDestination;
+		this.company = company;
+		this.container = container;
+		this.journeyID = this.company + this.container;
+	}
+	
 	public String getJourneyID() {
 		return journeyID;
 	}
 
-	private void setJourneyID(String journeyID) {
-		this.journeyID = journeyID;
+//	private void setJourneyID(String journeyID) {
+//		this.journeyID = journeyID;
+//	}
+
+	public Container getContainer() {
+		return container;
 	}
 
-	public String getContainerID() {
-		return containerID;
+	public void setContainer(Container container) {
+		this.container = container;
 	}
-
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-	public Journey(String portOfOrigin, String destination, String company, String containerID) {
-		super();
-		this.portOfOrigin = portOfOrigin;
-		this.destination = destination;
-		this.company = company;
-		this.containerID = containerID;
 		
-		this.setJourneyID(this.company+this.containerID);
-	}
-	private String containerID;
-	
-	
 	public String getCompany() {
 		return company;
 	}
 
 	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	public Journey() {
-		super();
 	}
 	
 	public String getPortOfOrigin() {
@@ -50,11 +50,11 @@ public class Journey {
 	public void setPortOfOrigin(String portOfOrigin) {
 		this.portOfOrigin = portOfOrigin;
 	}
-	public String getDestination() {
-		return destination;
+	public String getPortOfDestination() {
+		return portOfDestination;
 	}
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setPortOfDestination(String destination) {
+		this.portOfDestination = destination;
 	}
 	
 	

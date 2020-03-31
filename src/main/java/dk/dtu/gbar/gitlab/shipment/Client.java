@@ -9,7 +9,7 @@ public class Client {
     String email;
     String clientID;
     ResponseObject response;
-
+ 
     public Client(String name, String address, String refPerson, String email) {
         this.name = name;
         this.address = address;

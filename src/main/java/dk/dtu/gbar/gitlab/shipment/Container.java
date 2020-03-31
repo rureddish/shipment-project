@@ -5,7 +5,7 @@ public class Container {
     private double temp;
     private double humidity;
     private double pressure;
-    private String journeyID;
+    private Journey journey;
     private String containerID;
     private String content;
     private String ownerID;
@@ -39,12 +39,12 @@ public class Container {
 		this.pressure = pressure;
 	}
 
-	public String getJourneyID() {
-		return journeyID;
+	public Journey getJourney() {
+		return journey;
 	}
 
-	public void setJourneyID(String journeyID) {
-		this.journeyID = journeyID;
+	public void setJourney(Journey journey) {
+		this.journey = journey;
 	}
 
 	public String getContainerID() {

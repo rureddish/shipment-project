@@ -17,8 +17,8 @@
 ## (Comments)
 #Sample Feature Definition Template
 
-@tag
-Feature: Create Journey for Container
+#@tag
+#Feature: Create Journey for Container
 #Description: A container is registered in a Journey
 #Actor: Client
 
@@ -29,17 +29,10 @@ Feature: Create Journey for Container
 #while some information should be 
 #automatically created by the system (e.g., journey id).
 
-  @tag1
-  Scenario: Succesful Creation of Journey for Container
-  	Given a client
-    And a container with id "01"
-    When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges", company "DTU"
-    Then a journey is created for the container with id "01"
-    And new journey id "DTU01" is created
-    
-  Scenario: Missing Information
-    Given a client
-    And a container with id "01"
-    When client creates journey for container with port of origin "Madrid", destination "Copenhagen", content "Oranges"
-    Then error message is displayed
-
+  #@tag1
+  #Scenario: Successful registration of containers for journey
+  #	Given a client with name "Andrei", address "259 Lyngby", ref person "Yann" and email "Andrei@roumania" 
+    #And an empty container
+    #When client registers a container of "Oranges" for a journey from "Copenhagen" to "Hong Kong" with the company "CGM"
+    #Then the container is registered for the journey
+    #And a message SuccessfulRegistration is displayed
