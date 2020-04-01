@@ -24,9 +24,3 @@ Feature: Constructing and searching the database
     And a container being used by another client
     When The container is registered for the client
     Then Display container used by other client
-
-  Scenario: Trying to register container with id already used
-    Given a container with id "id"
-    When trying to register another container with id "id"
-    Then display a container with this id already exists
-

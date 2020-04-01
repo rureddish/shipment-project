@@ -6,10 +6,6 @@ public class Journey {
 	private String company;
 	private String journeyID;
 	private Container container;
-	
-//	public Journey() {
-//		super();
-//	}
 
 	public Journey(String portOfOrigin, String portOfDestination, String company, Container container) {
 		super();
@@ -23,10 +19,6 @@ public class Journey {
 	public String getJourneyID() {
 		return journeyID;
 	}
-
-//	private void setJourneyID(String journeyID) {
-//		this.journeyID = journeyID;
-//	}
 
 	public Container getContainer() {
 		return container;
@@ -56,6 +48,4 @@ public class Journey {
 	public void setPortOfDestination(String destination) {
 		this.portOfDestination = destination;
 	}
-	
-	
 }

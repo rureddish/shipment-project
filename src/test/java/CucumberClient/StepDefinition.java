@@ -125,22 +125,5 @@ public class StepDefinition {
         assertEquals("Container already in use", response.getErrorMessage());
     }
 
-    @Given("a container with id {string}")
-    public void a_container_with_id(String containerId) {
-        container = new Container();
-        container.setContainerID(containerId);
-    }
 
-    @When("trying to register another container with id {string}")
-    public void tryingToRegisterAContainerWithId(String id) {
-        othercontainer = new Container();
-        othercontainer.setOwnerID(id);
-        database.getContainerList().addContainer(othercontainer);
-        response = database.getContainerList().addContainer(othercontainer);
-    }
-
-    @Then("display a container with this id already exists")
-    public void displayAContainerWithThisIdAlreadyExists() {
-        assertEquals("Container with this id already exists", response.getErrorMessage());
-    }
 }

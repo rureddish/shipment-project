@@ -38,7 +38,6 @@ public class StepDefinition {
 	public void client_registers_a_container_of_for_a_journey_from_to_with_the_company(String content, String portOfOrigin, String portOfDestination, String company) {
 		journey = new Journey(portOfOrigin, portOfDestination, company, container);
 		container.setContent(content);
-		container.setJourney(journey);
 		//For the feature with the database
 		response = database.getJourneyList().addJourney(journey);
 	}
@@ -46,7 +45,6 @@ public class StepDefinition {
 	@Then("the container is registered for the journey")
 	public void the_container_is_registered_for_the_journey() {
 		assertEquals(journey.getContainer(), container);
-		assertEquals(container.getJourney(), journey);
 	}
 
 	@Then("the journey that contains the container is stored in the database")
@@ -58,7 +56,5 @@ public class StepDefinition {
 	public void a_message_SuccessfulRegistration_is_displayed() {
 		assertEquals(response.getErrorMessage(), "Journey added");
 	}
-
-	
 	
 }
