@@ -1,15 +1,19 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 import dk.dtu.gbar.gitlab.shipment.persistence.HibernateUtil;
+import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
 
+import javax.persistence.criteria.Root;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -48,6 +52,10 @@ public class Main {
         Client client = clientService.getById(alice.getId(),true);
         System.out.printf("%s %s %s\n", client.getId(), client.getClientName(), client.getReferencePerson());
         client.getClientsContainers().forEach(c -> System.out.println(c.getName()));*/
-        //HibernateUtil.shutdown();
+        /*ClientService cs = new ClientService();
+        SearchCriteria search = new SearchCriteria("clientName","Alice");
+        Client alice = cs.search(search).get(0);
+        System.out.println(alice.getClientName());
+        HibernateUtil.shutdown();*/
     }
 }

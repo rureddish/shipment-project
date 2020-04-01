@@ -3,6 +3,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientInterface;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
+import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -79,6 +80,12 @@ public class ClientService implements ClientInterface {
         clientDao.openSession();
         clientDao.deleteAll();
         clientDao.closeSession();
+    }
+    public List<Client> search (SearchCriteria search){
+        clientDao.openSession();
+        List<Client> clients = clientDao.search(search);
+        clientDao.closeSession();
+        return clients;
     }
 
     public ClientDao getClientDao() {
