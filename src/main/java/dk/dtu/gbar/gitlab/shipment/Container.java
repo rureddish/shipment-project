@@ -2,73 +2,40 @@ package dk.dtu.gbar.gitlab.shipment;
 
 
 public class Container {
-    private double temp;
-    private double humidity;
-    private double pressure;
     private Journey journey;
     private String containerID;
     private String content;
     private String ownerID;
 
+    private ContainerStatus status;
+
     public Container() {
-    	ownerID = "";
-	}
+        ownerID = "";
+    }
 
+    // getters and setters
+    public String getOwnerID() {
+        return ownerID;
+    }
 
-	public double getTemp() {
-		return temp;
-	}
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
 
-	public void setTemp(double temp) {
-		this.temp = temp;
-	}
+    public String getContainerID() {
+        return containerID;
+    }
 
-	public double getHumidity() {
-		return humidity;
-	}
+    public void setContainerID(String containerID) {
+        this.containerID = containerID;
+    }
 
-	public void setHumidity(double humidity) {
-		this.humidity = humidity;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public double getPressure() {
-		return pressure;
-	}
-
-	public void setPressure(double pressure) {
-		this.pressure = pressure;
-	}
-
-	public Journey getJourney() {
-		return journey;
-	}
-
-	public void setJourney(Journey journey) {
-		this.journey = journey;
-	}
-
-	public String getContainerID() {
-		return containerID;
-	}
-
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getOwnerID() {
-		return ownerID;
-	}
-
-	public void setOwnerID(String ownerID) {
-		this.ownerID = ownerID;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
 

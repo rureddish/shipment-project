@@ -19,7 +19,6 @@ public class Client {
     }
 
     public Client() {
-
     }
 
     public ResponseObject addContainer(Container container) {
@@ -33,14 +32,14 @@ public class Client {
         return response;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ResponseObject setAddress(String address) {
         this.address = address;
         ResponseObject response = new ResponseObject(0, "address updated");
         return response;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setRefPerson(String refPerson) {
