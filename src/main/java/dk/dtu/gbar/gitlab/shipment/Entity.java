@@ -2,7 +2,8 @@ package dk.dtu.gbar.gitlab.shipment;
 
 public class Entity {
     protected Integer ID;
-    private String[] SearchTerms;
+    protected String[] searchTerms;
+    
     public Integer getID() {
         return ID;
     }

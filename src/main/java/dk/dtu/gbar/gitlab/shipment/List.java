@@ -5,10 +5,13 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class List<V extends Entity> {
-    public List() {}
     protected HashMap<Integer,V> list;
-    protected int idNumber = 0;
+    protected int idNumber = 0;	
 
+    public List() {
+    	list = new HashMap<>();
+    }
+    
     public void add(V object) {
         idNumber++;
         object.setID(idNumber);
@@ -19,10 +22,7 @@ public class List<V extends Entity> {
         return list;
     }
 
-    public void setList(HashMap<Integer, V> list) {
-        this.list = list;
-    }
-
+  
     public int getIdNumber() {
         return idNumber;
     }

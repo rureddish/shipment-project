@@ -5,8 +5,7 @@ import java.util.HashMap;
 
 public class ContainerList extends List<Container> {
     public ContainerList() {
-        super();
-        list = new HashMap<>();
+        super();	//create the hashMap list
     }
 
     public ArrayList<Container> searchByLocation (String criterium){

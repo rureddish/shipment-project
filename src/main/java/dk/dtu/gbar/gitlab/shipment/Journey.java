@@ -5,24 +5,26 @@ public class Journey extends Entity {
 	private Port destination;
 	private Container container;
 	private Client client;
-	private String cargo;
+//	private String cargo;
 
-	public Journey(Port origin, Port destination, String cargo, Client client) {
+	public Journey(Port origin, Port destination, Client client, Container container) {
 		this.origin = origin;
 		this.destination = destination;
-		this.cargo = cargo;
+//		this.cargo = cargo;
 		this.client = client;
+		this.container = container;
+		this.searchTerms = new String[] {"Port of origin", "Port of destination", "client"};
 	}
 
 	//getters and setters
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+//	public void setCargo(String cargo) {
+//		this.cargo = cargo;
+//	}
 
-	public String getCargo() {
-		return cargo;
-	}
+//	public String getCargo() {
+//		return cargo;
+//	}
 
 	public Container getContainer() {
 		return container;

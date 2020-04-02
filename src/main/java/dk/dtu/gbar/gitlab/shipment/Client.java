@@ -5,7 +5,7 @@ public class Client extends Entity {
     String address;
     String refPerson;
     String email;
-    Integer clientID;
+//    Integer clientID;
 
     public Client(String name, String address, String refPerson, String email) {
         this.name = name;

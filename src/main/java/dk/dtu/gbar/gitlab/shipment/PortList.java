@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class PortList extends List<Port> {
     public PortList() {
         super();
-        list = new HashMap<>();
     }
 
     public ArrayList<Port> searchByString (String criterium){

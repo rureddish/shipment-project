@@ -6,8 +6,7 @@ import java.util.HashMap;
 public class ClientList extends List<Client>{
     //private HashMap<Integer, Client> list;
     public ClientList() {
-        super();
-        list = new HashMap<>();
+        super(); 
     }
 
     public ArrayList<Client> searchByString (String criterium){
