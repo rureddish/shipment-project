@@ -26,9 +26,11 @@ Actor : Logistic Company
 
 	@tag1
 	  Scenario: Successful update of the journey information
-	  	Given a user
-	    And a container of "Oranges", with ID "containerID", owner ID "ownerID" and registered for a journey from "Copenhagen" to "Hong Kong" with company "CGM"
-	    And a database containing the journey
+	  	Given a shipper
+	  	And a client with name "Andrei", address "259 Lyngby", ref person "Yann" and email "Andrei@roumania"
+	  	And the port of Copenhagen
+  		And the port of Hong Kong
+	    And a container of "Oranges", located at Copenhagen and registered by the client for a journey from Copenhagen to Hong Kong 
 	    And new information on the journey
 	    When the user update the journey information
 	    Then the journey information are updated
