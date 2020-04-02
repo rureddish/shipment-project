@@ -1,23 +1,27 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-public class Journey {
-	private String portOfOrigin;
-	private String portOfDestination;
-	private String company;
-	private String journeyID;
+public class Journey extends Entity {
+	private Port origin;
+	private Port destination;
 	private Container container;
+	private Client client;
+	private String cargo;
 
-	public Journey(String portOfOrigin, String portOfDestination, String company, Container container) {
-		super();
-		this.portOfOrigin = portOfOrigin;
-		this.portOfDestination = portOfDestination;
-		this.company = company;
-		this.container = container;
-		this.journeyID = this.company + this.container;
+	public Journey(Port origin, Port destination, String cargo, Client client) {
+		this.origin = origin;
+		this.destination = destination;
+		this.cargo = cargo;
+		this.client = client;
 	}
-	
-	public String getJourneyID() {
-		return journeyID;
+
+	//getters and setters
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
+	public String getCargo() {
+		return cargo;
 	}
 
 	public Container getContainer() {
@@ -28,24 +32,19 @@ public class Journey {
 		this.container = container;
 	}
 		
-	public String getCompany() {
-		return company;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setClient(Client client) {
+		this.client = client;
 	}
-	
-	public String getPortOfOrigin() {
-		return portOfOrigin;
+
+	public Port getOrigin() {
+		return origin;
 	}
-	public void setPortOfOrigin(String portOfOrigin) {
-		this.portOfOrigin = portOfOrigin;
-	}
-	public String getPortOfDestination() {
-		return portOfDestination;
-	}
-	public void setPortOfDestination(String destination) {
-		this.portOfDestination = destination;
+
+	public Port getDestination() {
+		return destination;
 	}
 }

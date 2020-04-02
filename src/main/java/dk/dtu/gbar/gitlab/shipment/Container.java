@@ -1,41 +1,23 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 
-public class Container {
-    private Journey journey;
-    private String containerID;
-    private String content;
-    private String ownerID;
-
+public class Container extends Entity {
+    private Port location;
+    private Journey[] journeyHistory;
     private ContainerStatus status;
 
-    public Container() {
-        ownerID = "";
+    public Container(Port location) {
+        this.location=location;
+        location.getPortcontainers().add(this);
     }
 
     // getters and setters
-    public String getOwnerID() {
-        return ownerID;
+
+
+    public Port getLocation() {
+        return location;
     }
 
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
-    }
 
-    public String getContainerID() {
-        return containerID;
-    }
-
-    public void setContainerID(String containerID) {
-        this.containerID = containerID;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
 

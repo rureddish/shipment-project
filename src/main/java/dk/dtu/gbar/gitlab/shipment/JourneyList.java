@@ -1,50 +1,42 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
-public class JourneyList {
-    private ArrayList<Journey> list;
-
+public class JourneyList extends List<Journey> {
     public JourneyList() {
-        this.list = new ArrayList<Journey>();
+        super();
+        list = new HashMap<>();
     }
 
-    public ResponseObject searchJourney(String criterium) {
-        ArrayList<Journey> journeys = list.stream().filter(c -> c.getJourneyID().contains(criterium)
-                || c.getPortOfOrigin().contains(criterium)
-                || c.getPortOfDestination().contains(criterium)
-                || c.getCompany().contains(criterium))
-                .collect(Collectors.toCollection(ArrayList::new));
-        if (journeys.size() > 0) {
-            String search = journeys.get(0).getJourneyID();
-            return new ResponseObject(0, search);
-        } else {
-            return new ResponseObject(0, "No journey found");
+    public ArrayList<Journey> searchByString (String criterium){
+        ArrayList<Journey> results = new ArrayList<>();
+        for (Journey journey: list.values()){
+            if (journey.getClient().getName().equals(criterium)||journey.getCargo().equals(criterium)){
+                results.add(journey);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    //override List.add to ensure port of origin has containers
+    public void add(Journey journey){
+        if (!journey.getOrigin().getPortcontainers().isEmpty()){
+            idNumber++;
+            journey.setContainer(journey.getOrigin().getPortcontainers().remove());
+            list.put(idNumber,journey);
+        }
+        else{
+            System.out.println("no containers in port");
         }
     }
 
-    public ResponseObject addJourney(Journey j) {
-        list.add(j);
-        ResponseObject response = new ResponseObject(0, "Journey added");
-        return response;
-    }
 
-    public ResponseObject remove(Container container) {
-        list.remove(container);
-        System.out.println("client has been removed");
-        ResponseObject response = new ResponseObject(0, "client removed");
-        return response;
-    }
 
-    public ArrayList<Journey> getList() {
+    public HashMap<Integer, Journey> getList() {
         return list;
     }
-
-    public void setList(ArrayList<Journey> list) {
-        this.list = list;
-    }
-
-
 }
 
