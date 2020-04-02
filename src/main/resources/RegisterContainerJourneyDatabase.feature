@@ -23,11 +23,10 @@ Feature: Create Journey for Container - Database
   @tag1
   Scenario: Successful registration of containers for journey
   	Given a client with name "Andrei", address "259 Lyngby", ref person "Yann" and email "Andrei@roumania" 
-    And an empty container
-    And a database not containing the journey and the container
-    When client registers a container of "Oranges" for a journey from "Copenhagen" to "Hong Kong" with the company "CGM"
-    Then the journey that contains the container is stored in the database
-    And a message SuccessfulRegistration is displayed
+    And an unused container in "Copenhagen"
+    When client registers a container of "Oranges" for a journey to "Hong Kong" with the company
+    Then the container is registered for the journey
+    #And a message SuccessfulRegistration is displayed
     
   #Scenario: Missing Information / Wrong information
     #Given a client with name "Andrei", address "259 Lyngby", ref person "Yann" and email "Andrei@roumania" 
