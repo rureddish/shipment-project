@@ -5,8 +5,8 @@ public class Client extends Entity {
     String address;
     String refPerson;
     String email;
-//    Integer clientID;
 
+    //constructor with mandatory info
     public Client(String name, String address, String refPerson, String email) {
         this.name = name;
         this.address = address;

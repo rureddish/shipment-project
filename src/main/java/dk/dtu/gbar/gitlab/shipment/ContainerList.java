@@ -1,25 +1,22 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.function.Predicate;
 
-public class ContainerList extends List<Container> {
+public class ContainerList extends EntityList<Container> {
     public ContainerList() {
-        super();	//create the hashMap list
+        super();
     }
 
-    public ArrayList<Container> searchByLocation (String criterium){
-        ArrayList<Container> results = new ArrayList<>();
-        for (Container l: list.values()){
-            if (l.getLocation().equals(criterium)){
-                results.add(l);
-            }
-        }
-        return results;
+
+    //search all relevant fields by string
+    public List<Container> searchByString(String string){
+        return search(locationContains(string));
     }
 
-    public HashMap<Integer, Container> getList() {
-        return list;
+    // search predicates
+    public Predicate<Container> locationContains(String string) {
+        return (str -> str.getLocation().getPlaceName().contains(string));
     }
 
 }

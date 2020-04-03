@@ -1,52 +1,59 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 public class Journey extends Entity {
-	private Port origin;
-	private Port destination;
-	private Container container;
-	private Client client;
-//	private String cargo;
+    private Container container;
+    private Client client;
+	private ContainerStatus status;
+	private Location origin;
+	private Location destination;
+    private String cargo;
+	private Location atSea = new Location("At sea");
+	private boolean isConcluded = false;
 
-	public Journey(Port origin, Port destination, Client client, Container container) {
-		this.origin = origin;
-		this.destination = destination;
-//		this.cargo = cargo;
-		this.client = client;
-		this.container = container;
-		this.searchTerms = new String[] {"Port of origin", "Port of destination", "client"};
+	public Journey(Location origin, Location destination, Client client, String cargo) {
+        this.origin = origin;
+        this.destination = destination;
+        this.cargo = cargo;
+        this.client = client;
+    }
+
+    public void embark(){
+		container.setLocation(atSea);
 	}
 
-	//getters and setters
-
-//	public void setCargo(String cargo) {
-//		this.cargo = cargo;
-//	}
-
-//	public String getCargo() {
-//		return cargo;
-//	}
-
-	public Container getContainer() {
-		return container;
+	public void arrive(){
+		container.setLocation(destination);
+		isConcluded = true;
+		container.getJourneyHistory().add(this);
 	}
 
-	public void setContainer(Container container) {
-		this.container = container;
-	}
-		
-	public Client getClient() {
-		return client;
-	}
+    // getters and setters
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+	public boolean isConcluded() {return isConcluded; }
 
-	public Port getOrigin() {
-		return origin;
-	}
+	public String getCargo() {return cargo; }
 
-	public Port getDestination() {
-		return destination;
-	}
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Location getOrigin() {
+        return origin;
+    }
+
+    public Location getDestination() {
+        return destination;
+    }
 }

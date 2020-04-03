@@ -2,11 +2,11 @@ package dk.dtu.gbar.gitlab.shipment;
 
 import java.util.*;
 
-public class Port extends Entity {
+public class Location extends Entity {
     private String placeName;
     private Queue<Container> portcontainers = new LinkedList<Container>();
 
-    public Port(String placeName){
+    public Location(String placeName){
         this.placeName = placeName;
     }
 
@@ -14,15 +14,8 @@ public class Port extends Entity {
         return placeName;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
-
     public Queue<Container> getPortcontainers() {
         return portcontainers;
     }
 
-    public void setPortcontainers(Queue<Container> portcontainers) {
-        this.portcontainers = portcontainers;
-    }
 }
