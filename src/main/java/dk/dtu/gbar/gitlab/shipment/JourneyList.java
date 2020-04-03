@@ -18,8 +18,7 @@ public class JourneyList extends EntityList<Journey> {
             journey.setID(idNumber);
             journey.setContainer(journey.getOrigin().getPortcontainers().remove());
             list.put(idNumber,journey);
-        }
-        else{
+        } else{
             System.out.println("no containers in port");
         }
     }
