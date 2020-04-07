@@ -23,7 +23,7 @@ public class EntityList<V extends Entity> {
     }
 
     public void remove(Entity entity) {
-        list.remove(entity);
+        list.remove(entity.getID());
     }
 
     // search list by predicates

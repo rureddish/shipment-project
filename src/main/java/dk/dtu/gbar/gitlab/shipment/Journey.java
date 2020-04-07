@@ -1,39 +1,87 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import java.util.Stack;
+
+
 public class Journey extends Entity {
     private Container container;
     private Client client;
-	private ContainerStatus status;
+	private Stack<ContainerStatus> containerStatusHistory;	//LIFO
 	private Location origin;
 	private Location destination;
-    private String cargo;
-	private Location atSea = new Location("At sea");
-	private boolean isConcluded = false;
+    private String cargoID;
+    private JourneyStatus journeyStatus;
 
-	public Journey(Location origin, Location destination, Client client, String cargo) {
-        this.origin = origin;
-        this.destination = destination;
-        this.cargo = cargo;
-        this.client = client;
+
+	public Journey(Location origin, Location destination, Client client, String content) {
+		if (origin.getPortcontainers().isEmpty()) {
+			System.out.println("no containers in port");
+		}
+		else {
+			this.origin = origin;
+	        this.destination = destination;
+	        this.client = client;
+	        this.journeyStatus = JourneyStatus.IN_PROCESS;
+	        this.container = origin.getPortcontainers().remove(); 	//container is removed from the port
+	        this.container.setContent(content);
+	        containerStatusHistory = new Stack<>();
+		}
     }
 
-    public void embark(){
+
+	public void leavingPort(Location port, String cargoID){
+    	this.cargoID = cargoID;
+    	Location atSea = new Location("At sea");
 		container.setLocation(atSea);
+		journeyStatus = JourneyStatus.IN_TRANSIT;
 	}
 
-	public void arrive(){
-		container.setLocation(destination);
-		isConcluded = true;
-		container.getJourneyHistory().add(this);
+	public void arrivalAtPort(Location port){
+		container.setLocation(port);
+		
+		if (port.getPlaceName()==destination.getPlaceName()) {
+			journeyStatus = JourneyStatus.CONCLUDED;
+			container.getJourneyHistory().add(this);
+		}
+	}
+	
+	public void updateContainerStatus(ContainerStatus containerStatus) {
+		containerStatusHistory.add(containerStatus);
 	}
 
+	
     // getters and setters
 
-	public boolean isConcluded() {return isConcluded; }
 
-	public String getCargo() {return cargo; }
 
-    public Container getContainer() {
+	
+    public String getCargoID() {
+		return cargoID;
+	}
+
+	public Stack<ContainerStatus> getContainerStatusHistory() {
+		return containerStatusHistory;
+	}
+
+
+//	public void setContainerStatusHistory(Stack<ContainerStatus> containerStatusHistory) {
+//		this.containerStatusHistory = containerStatusHistory;
+//	}
+
+
+	public JourneyStatus getJourneyStatus() {
+		return journeyStatus;
+	}
+
+//	public void setJourneyStatus(JourneyStatus journeyStatus) {
+//		this.journeyStatus = journeyStatus;
+//	}
+
+	public void setCargoID(String cargoID) {
+		this.cargoID = cargoID;
+	}
+
+	public Container getContainer() {
         return container;
     }
 
@@ -45,9 +93,9 @@ public class Journey extends Entity {
         return client;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
 
     public Location getOrigin() {
         return origin;

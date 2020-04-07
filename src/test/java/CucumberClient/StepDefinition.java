@@ -17,13 +17,6 @@ public class StepDefinition {
     ClientList clientList;
     Client aClient;
     List searchresult;
-    JourneyList journeyList;
-    Location hongkong = new Location("Hong Kong");
-    Location copenhagen = new Location("Copenhagen");
-    Journey journey1;
-    Journey journey2;
-    Container container1;
-    Container container2;
 
 
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
@@ -102,43 +95,5 @@ public class StepDefinition {
     public void theClientListIsSearchedForClientsAddress() {
         searchresult = clientList.searchByString("address");
     }
-
-    @Given("a journey list")
-    public void aJourneyList(){
-        journeyList = new JourneyList();
-    }
-
-    @And("a journey in progress")
-    public void aJourneyInProgress() {
-        Journey journey1 = new Journey(hongkong, copenhagen, aClient, "cheese");
-        journeyList.add(journey1);
-    }
-
-    @And("two containers located at the origin")
-    public void twoContainersLocatedAtTheOrigin() {
-        container1 = new Container(hongkong);
-        container2 = new Container(hongkong);
-    }
-
-    @And("a concluded journey")
-    public void aConcludedJourney() {
-        journey2 = new Journey(hongkong, copenhagen, aClient, "cheese");
-        journeyList.add(journey2);
-        journey2.embark();
-        journey2.arrive();
-    }
-
-
-    @When("searching for concluded journeys")
-    public void searchingForConcludedJourneys() {
-        searchresult = (journeyList.search(journeyList.originContains(hongkong.getPlaceName())));
-        searchresult = journeyList.filterBy(searchresult, journeyList.excludeCurrentJourneys);
-    }
-
-    @Then("return the concluded journey")
-    public void returnTheConcludedJourney() {
-        assertEquals(journey2,searchresult.get(0));
-    }
-
 
 }
