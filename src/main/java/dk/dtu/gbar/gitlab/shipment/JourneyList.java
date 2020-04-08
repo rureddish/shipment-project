@@ -29,7 +29,7 @@ public class JourneyList extends EntityList<Journey> {
     public List<Journey> searchByString(String string){
         return search(originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
     }
- 
+  
     // search predicates
     public Predicate<Journey> excludeConcludedJourneys = (x -> !x.getJourneyStatus().equals(JourneyStatus.CONCLUDED));
 

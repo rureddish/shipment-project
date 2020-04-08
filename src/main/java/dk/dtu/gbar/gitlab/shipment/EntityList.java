@@ -33,7 +33,7 @@ public class EntityList<V extends Entity> {
         return (ArrayList<V>) list.values().stream()
                 .filter(predicates.stream().reduce(x-> false, Predicate::or))
                 .collect(Collectors.toList());
-    }
+    } 
 
     public List<V> filterBy(List<V> list, Predicate<V> predicate){
         return list.stream().filter(predicate).collect(Collectors.toList());

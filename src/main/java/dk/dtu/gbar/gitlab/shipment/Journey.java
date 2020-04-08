@@ -14,7 +14,7 @@ public class Journey extends Entity {
 
 
 	public Journey(Location origin, Location destination, Client client, String content) {
-		if (origin.getPortcontainers().isEmpty()) {
+		if (origin.getPortContainers().isEmpty()) {
 			System.out.println("no containers in port");
 		}
 		else {
@@ -22,9 +22,10 @@ public class Journey extends Entity {
 	        this.destination = destination;
 	        this.client = client;
 	        this.journeyStatus = JourneyStatus.IN_PROCESS;
-	        this.container = origin.getPortcontainers().remove(); 	//container is removed from the port
+	        this.container = origin.getPortContainers().remove(); 	//container is removed from the port
 	        this.container.setContent(content);
 	        containerStatusHistory = new Stack<>();
+	        container.getJourneyHistory().add(this);
 		}
     }
 
@@ -41,7 +42,6 @@ public class Journey extends Entity {
 		
 		if (port.getPlaceName()==destination.getPlaceName()) {
 			journeyStatus = JourneyStatus.CONCLUDED;
-			container.getJourneyHistory().add(this);
 		}
 	}
 	
@@ -73,9 +73,9 @@ public class Journey extends Entity {
 		return journeyStatus;
 	}
 
-//	public void setJourneyStatus(JourneyStatus journeyStatus) {
-//		this.journeyStatus = journeyStatus;
-//	}
+	public void setJourneyStatus(JourneyStatus journeyStatus) {
+		this.journeyStatus = journeyStatus;
+	}
 
 	public void setCargoID(String cargoID) {
 		this.cargoID = cargoID;
@@ -104,4 +104,5 @@ public class Journey extends Entity {
     public Location getDestination() {
         return destination;
     }
+
 }

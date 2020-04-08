@@ -7,10 +7,14 @@ public class Container extends Entity {
     private ArrayList<Journey> journeyHistory = new ArrayList<Journey>();
     private Location location;
     private String content;
+    
+    public Container() {
+    	
+    }
 
 	public Container(Location location) {
         this.location=location;
-        location.getPortcontainers().add(this);
+        location.getPortContainers().add(this);
     }
 	
 // Getters & Setters	
