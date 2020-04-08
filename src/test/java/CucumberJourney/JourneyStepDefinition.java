@@ -19,6 +19,7 @@ public class JourneyStepDefinition {
 	JourneyList journeyList;
 	ContainerList containerList;
 	ContainerStatus containerStatus;
+	String errorMessage;
 	//Feature : Search Journey    
     List<Journey> searchresult;
 	
@@ -45,8 +46,8 @@ public class JourneyStepDefinition {
 		copenhagenLocation = new Location("Copenhagen", containerNumber, containerList);
 	    assertEquals(copenhagenLocation.getPlaceName(),"Copenhagen");
 	    assertTrue(copenhagenLocation.getPortContainers().size()==containerNumber);
-	    assertEquals(copenhagenLocation.getPortContainers().peek().getLocation(), copenhagenLocation);
-	    assertTrue(containerList.getList().containsValue(copenhagenLocation.getPortContainers().peek()));
+//	    assertEquals(copenhagenLocation.getPortContainers().peek().getLocation(), copenhagenLocation);
+//	    assertTrue(containerList.getList().containsValue(copenhagenLocation.getPortContainers().peek()));
 	}
 
 	@Given("the port of Hong Kong which has {int} containers")
@@ -56,19 +57,31 @@ public class JourneyStepDefinition {
 
 	@When("client registers a container of {string} for a journey from Copenhagen to Hong Kong")
 	public void client_registers_a_container_of_for_a_journey_from_Copenhagen_to_Hong_Kong_with_the_company(String content) {
-		journey = new Journey(copenhagenLocation, hongKongLocation, client, content);
-		journeyList.add(journey);	
-		assertEquals(journey.getOrigin(),copenhagenLocation);
-		assertEquals(journey.getDestination(), hongKongLocation);
-		assertEquals(journey.getClient(), client);
-		assertEquals(journey.getContainer().getContent(), content);
-		assertEquals(journey.getContainer().getJourneyHistory().get(0), journey);
+		try {
+			journey = new Journey(copenhagenLocation, hongKongLocation, client, content);
+			journeyList.add(journey);
+			assertEquals(journey.getOrigin(),copenhagenLocation);
+			assertEquals(journey.getDestination(), hongKongLocation);
+			assertEquals(journey.getClient(), client);
+			assertEquals(journey.getContainer().getContent(), content);
+		} 
+		catch (ErrorException e) { 
+			errorMessage = e.getMessage();
+		}
+		
 	}
 
 	@Then("the container is registered for the journey")
 	public void the_container_is_registered_for_the_journey() {
 		assertTrue(journeyList.getList().containsValue(journey));
 		assertFalse(copenhagenLocation.getPortContainers().contains(journey.getContainer()));
+		assertEquals(journey.getContainer().getJourneyHistory().get(0), journey);
+	}
+	
+//////Scenario 2
+	@Then("an error message {string} is displayed")
+	public void an_error_message_is_displayed(String errorMessage) {
+	    assertEquals(this.errorMessage, errorMessage);
 	}
 
 ///////////////////////////////////////////////
@@ -77,9 +90,14 @@ public class JourneyStepDefinition {
 
 	@Given("a journey from Copenhagen to Hong Kong, registered by the client for a container of {string}")
 	public void a_journey_from_Copenhagen_to_Hong_Kong_registered_by_the_client_for_a_container_of(String content) {
-		journey = new Journey(copenhagenLocation, hongKongLocation, client, content);
-		journeyList.add(journey);
+		try {
+			journey = new Journey(copenhagenLocation, hongKongLocation, client, content);
+			journeyList.add(journey);
+		} catch (ErrorException e) { 
+			errorMessage = e.getMessage();
+		}
 	}
+
 	
 	@Given("new container status with temp {int}, humidity {int}, pressure {int}")
 	public void new_container_status_with_temp_humidity_pressure(Integer temp, Integer humidity, Integer pressure) {
@@ -110,15 +128,64 @@ public class JourneyStepDefinition {
 	}
 	
 	@When("searching for concluded journeys")
-    public void searchingForConcludedJourneys() {
+    public void searching_for_concluded_journeys() {
 //		searchresult = (journeyList.search(journeyList.originContains(hongkong.getPlaceName())));
 		searchresult = journeyList.search(journeyList.excludeCurrentJourneys);
 	}
 
     @Then("return the concluded journey")
-    public void returnTheConcludedJourney() {
+    public void return_the_concluded_journey() {
         assertEquals(journey,searchresult.get(0));
     }
+    
+//////Scenario 2
+    @Given("that the journey is not concluded")
+    public void that_the_journey_is_not_concluded() {
+    	journey.setJourneyStatus(JourneyStatus.IN_PROCESS);
+	    assertEquals(journey.getJourneyStatus(),JourneyStatus.IN_PROCESS);
+    }
 
-	
+    @When("searching for current journeys")
+    public void searching_for_current_journeys() {
+    	searchresult = journeyList.search(journeyList.excludeConcludedJourneys);
+    }
+
+    @Then("return the current journey")
+    public void return_the_current_journey() {
+    	assertEquals(journey,searchresult.get(0));
+    }
+    
+//////Scenario3
+    @When("client searchs for journeys coming from {string}")
+    public void searchs_for_journeys_coming_from(String origin) {
+    	searchresult = journeyList.search(journeyList.originContains(origin));
+    }
+
+    @Then("return the journey coming from Copenhagen")
+    public void return_the_journey_coming_from_Copenhagen() {
+    	assertEquals(journey,searchresult.get(0));
+    }
+    
+//////Scenario4
+    @When("client searchs for journeys bound for {string}")
+    public void client_searchs_for_journeys_bound_for(String destination) {
+    	searchresult = journeyList.search(journeyList.destinationContains(destination));
+    }
+
+    @Then("return the journey bounds for Hong Kong")
+    public void return_the_journey_bounds_for_Hong_Kong() {
+    	assertEquals(journey,searchresult.get(0));
+    }
+
+//////Scenario5
+//    @When("client searchs for his journeys")
+//    public void client_searchs_for_his_journeys() {
+//    	searchresult = journeyList.search(journeyList.clientContains(client.getID()));
+//    }
+//
+//    @Then("return his journey")
+//    public void return_his_journey() {
+//        
+//    }
+
 }

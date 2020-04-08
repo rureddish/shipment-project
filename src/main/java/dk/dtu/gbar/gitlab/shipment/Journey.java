@@ -12,10 +12,10 @@ public class Journey extends Entity {
     private String cargoID;
     private JourneyStatus journeyStatus;
 
-
-	public Journey(Location origin, Location destination, Client client, String content) {
+ 
+	public Journey(Location origin, Location destination, Client client, String content) throws ErrorException {
 		if (origin.getPortContainers().isEmpty()) {
-			System.out.println("no containers in port");
+			throw new ErrorException("No container available in the port of origin");
 		}
 		else {
 			this.origin = origin;

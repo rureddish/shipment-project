@@ -15,3 +15,13 @@ Actor: 	Client
     When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
     Then the container is registered for the journey
 
+  @tag2
+  Scenario: No container available in the port of origin 
+  	Given a client with name "Andrei", address "259 Lyngby", ref person "Yann" and email "Andrei@roumania"
+  	And the port of Copenhagen which has 0 containers
+  	And the port of Hong Kong which has 200 containers
+    When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
+    Then an error message "No container available in the port of origin" is displayed
+
+    #Possible scenarios : 	- Wrong port of origin 
+    #												- Wrong port of destination

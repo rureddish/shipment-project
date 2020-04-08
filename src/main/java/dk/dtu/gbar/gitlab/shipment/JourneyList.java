@@ -10,34 +10,19 @@ public class JourneyList extends EntityList<Journey> {
         list = new HashMap<>();
     }
 
-//    --> in Journey Class now 
-    
-//    @Override
-//    // only add if port of origin has containers
-//    public void add(Journey journey){
-//        if (!journey.getOrigin().getPortcontainers().isEmpty()){
-//            idNumber++;
-//            journey.setID(idNumber);
-//            journey.setContainer(journey.getOrigin().getPortcontainers().remove());
-//            list.put(idNumber,journey);
-//        } else{
-//            System.out.println("no containers in port");
-//        }
-//    }
-
     // search all relevant fields by string
-    public List<Journey> searchByString(String string){
-        return search(originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
-    }
-  
+//    public List<Journey> searchByString(String string){
+//        return search(originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
+//    }
+   
     // search predicates
     public Predicate<Journey> excludeConcludedJourneys = (x -> !x.getJourneyStatus().equals(JourneyStatus.CONCLUDED));
 
     public Predicate<Journey> excludeCurrentJourneys = (x -> x.getJourneyStatus().equals(JourneyStatus.CONCLUDED));
     
-    public Predicate<Journey> currentLocationContains(String string){
-        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
-    }
+//    public Predicate<Journey> currentLocationContains(String string){
+//        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
+//    }
 
     public Predicate<Journey> originContains(String string) {
         return (x -> x.getOrigin().getPlaceName().contains(string));
@@ -47,13 +32,13 @@ public class JourneyList extends EntityList<Journey> {
         return (x -> x.getDestination().getPlaceName().contains(string));
     }
 
-    public Predicate<Journey> clientContains(String string) {
-        return (x -> x.getCargoID().contains(string));
-    }
+//    public Predicate<Journey> clientContains(Client client) {
+//        return (x -> x.getClient().contains(client));
+//    }
 
-    public Predicate<Journey> cargoContains(String string) {
-        return (x -> x.getCargoID().contains(string));
-    }
+//    public Predicate<Journey> cargoContains(String string) {
+//        return (x -> x.getCargoID().contains(string));
+//    }
 
 }
 
