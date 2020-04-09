@@ -27,12 +27,19 @@ Description: 	The system should allow the clients to register containers for jou
 Actor: 	Client
 
 Journey(Port origin, Port destination, String cargo, Client client)
-  @tag1
-  Scenario: Successful registration of containers for journey
-  	Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
-  	And the port of Copenhagen
-  	And the port of Hong Kong
-    And a container located at Copenhagen
-    When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
-    Then the container is registered for the journey
+	@tag1
+	Scenario: Successful registration of containers for journey
+		Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
+		And the port of Copenhagen
+		And the port of Hong Kong
+		And a container located at Copenhagen
+		When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
+		Then the container is registered for the journey
 
+	@tag2
+	Scenario: No container available in the port of origin
+		Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
+		And the port of Copenhagen which has 0 containers
+		And the port of Hong Kong which has 200 containers
+		When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
+		Then the container is not registered for the journey

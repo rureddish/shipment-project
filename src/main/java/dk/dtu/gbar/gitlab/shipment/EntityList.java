@@ -30,12 +30,18 @@ public class EntityList<V extends Entity> {
 
     // add entities and assign id
     public void add(V object) {
-        idNumber++;
-        object.setID(idNumber);
-        list.add(object);
+        if(!list.contains(object)){
+            idNumber++;
+            object.setID(idNumber);
+            list.add(object);
+        }
+        else{
+            System.out.println("already registered");
+        }
+
     }
 
-    public void remove(Entity entity) {
+    public void remove(V entity) {
         list.remove(entity);
     }
 
