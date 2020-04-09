@@ -1,87 +1,44 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import java.util.Stack;
-
-
 public class Journey extends Entity {
     private Container container;
     private Client client;
-	private Stack<ContainerStatus> containerStatusHistory;	//LIFO
+	private ContainerStatus status;
 	private Location origin;
 	private Location destination;
-    private String cargoID;
-    private JourneyStatus journeyStatus;
+    private String cargo;
+	private Location atSea = new Location("At sea");
 
- 
-	public Journey(Location origin, Location destination, Client client, String content) throws ErrorException {
-		if (origin.getPortContainers().isEmpty()) {
-			throw new ErrorException("No container available in the port of origin");
-		}
-		else {
-			this.origin = origin;
-	        this.destination = destination;
-	        this.client = client;
-	        this.journeyStatus = JourneyStatus.IN_PROCESS;
-	        this.container = origin.getPortContainers().remove(); 	//container is removed from the port
-	        this.container.setContent(content);
-	        containerStatusHistory = new Stack<>();
-	        container.getJourneyHistory().add(this);
-		}
+	public Journey(Location origin, Location destination, Client client, String cargo) {
+        this.origin = origin;
+        this.destination = destination;
+        this.cargo = cargo;
+        this.client = client;
     }
 
-
-	public void leavingPort(Location port, String cargoID){
-    	this.cargoID = cargoID;
-    	Location atSea = new Location("At sea");
+    public void embark(){
 		container.setLocation(atSea);
-		journeyStatus = JourneyStatus.IN_TRANSIT;
 	}
 
-	public void arrivalAtPort(Location port){
-		container.setLocation(port);
-		
-		if (port.getPlaceName()==destination.getPlaceName()) {
-			journeyStatus = JourneyStatus.CONCLUDED;
-		}
-	}
-	
-	public void updateContainerStatus(ContainerStatus containerStatus) {
-		containerStatusHistory.add(containerStatus);
+	public void arrive(){
+		container.setLocation(destination);
+		container.getJourneyHistory().add(this);
 	}
 
-	
     // getters and setters
 
+	public boolean isConcluded() {
+        if (container.getLocation() == destination) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
+	public String getCargo() {return cargo; }
 
-	
-    public String getCargoID() {
-		return cargoID;
-	}
-
-	public Stack<ContainerStatus> getContainerStatusHistory() {
-		return containerStatusHistory;
-	}
-
-
-//	public void setContainerStatusHistory(Stack<ContainerStatus> containerStatusHistory) {
-//		this.containerStatusHistory = containerStatusHistory;
-//	}
-
-
-	public JourneyStatus getJourneyStatus() {
-		return journeyStatus;
-	}
-
-	public void setJourneyStatus(JourneyStatus journeyStatus) {
-		this.journeyStatus = journeyStatus;
-	}
-
-	public void setCargoID(String cargoID) {
-		this.cargoID = cargoID;
-	}
-
-	public Container getContainer() {
+    public Container getContainer() {
         return container;
     }
 
@@ -93,10 +50,6 @@ public class Journey extends Entity {
         return client;
     }
 
-//    public void setClient(Client client) {
-//        this.client = client;
-//    }
-
     public Location getOrigin() {
         return origin;
     }
@@ -104,5 +57,4 @@ public class Journey extends Entity {
     public Location getDestination() {
         return destination;
     }
-
 }

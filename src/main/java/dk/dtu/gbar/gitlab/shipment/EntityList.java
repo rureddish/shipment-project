@@ -8,38 +8,39 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class EntityList<V extends Entity> {
-    protected HashMap<Integer,V> list;
+    protected ArrayList<V> list;
     protected Integer idNumber = 0;
 
     public EntityList() {
-        list = new HashMap<>();
-    }
-
-    // add entities and assign id
-    public void add(V object) {
-        idNumber++;
-        object.setID(idNumber);
-        list.put(idNumber, object);
-    }
-
-    public void remove(Entity entity) {
-        list.remove(entity.getID());
+        list = new ArrayList<>();
     }
 
     // search list by predicates
     @SafeVarargs
     public final ArrayList<V> search(Predicate<V>... SearchPredicates){
         ArrayList<Predicate<V>> predicates = new ArrayList<>(Arrays.asList((SearchPredicates)));
-        return (ArrayList<V>) list.values().stream()
+        return (ArrayList<V>) list.stream()
                 .filter(predicates.stream().reduce(x-> false, Predicate::or))
                 .collect(Collectors.toList());
-    }  
+    }
 
     public List<V> filterBy(List<V> list, Predicate<V> predicate){
         return list.stream().filter(predicate).collect(Collectors.toList());
     }
 
-    public HashMap<Integer, V> getList() {
+    // add entities and assign id
+    public void add(V object) {
+        idNumber++;
+        object.setID(idNumber);
+        list.add(object);
+    }
+
+    public void remove(Entity entity) {
+        list.remove(entity);
+    }
+
+    public ArrayList<V> getList() {
         return list;
     }
 }
+
