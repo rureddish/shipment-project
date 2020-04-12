@@ -27,7 +27,7 @@ Feature: search journeys
     Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
     And the port of Copenhagen which has 100 containers
     And a registered journey from Copenhagen to Hong Kong with "oranges"
-    When client searchs for journeys coming from "Copenhagen"
+    When client searches for journeys coming from "Copenhagen"
     Then return the journey coming from Copenhagen
 
   @tag4
@@ -35,7 +35,7 @@ Feature: search journeys
     Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
     And the port of Copenhagen which has 100 containers
     And a registered journey from Copenhagen to Hong Kong with "oranges"
-    When client searchs for journeys bound for "Hong Kong"
+    When client searches for journeys bound for "Hong Kong"
     Then return the journey bounds for Hong Kong
 
 #	@tag5
