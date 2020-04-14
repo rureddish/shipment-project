@@ -28,12 +28,7 @@ public class Journey extends Entity {
     // getters and setters
 
 	public boolean isConcluded() {
-        if (container.getLocation() == destination) {
-            return true;
-        }
-        else{
-            return false;
-        }
+        return container.getLocation() == destination;
     }
 
 	public String getCargo() {return cargo; }
