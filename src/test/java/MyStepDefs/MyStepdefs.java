@@ -21,7 +21,7 @@ public class MyStepdefs {
     String errorMessage;
     Journey journey1;
     Journey journey2;
-    JourneyList journeyList = new JourneyList();
+    EntityList<Journey> journeyList = new EntityList<Journey>();
     EntityList<Container> containerList = new EntityList<>();
     EntityList<Client> clientList = new EntityList<>();
     Searcher<? extends Entity> search = new Searcher<>();
@@ -159,7 +159,7 @@ public class MyStepdefs {
     @And("a registered journey from Copenhagen to Hong Kong with {string}")
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
         journey1 = new Journey(copenhagen, hongKong, client, cargo);
-        journeyList = new JourneyList();
+        journeyList = new EntityList<Journey>();
         journeyList.add(journey1);
     }
 
@@ -181,7 +181,6 @@ public class MyStepdefs {
     public void aJourneyInProgress() {
         journey1 = new Journey(hongKong,copenhagen, client, "cheap toys");
         journeyList.add(journey1);
-
     }
 
     @And("a concluded journey")

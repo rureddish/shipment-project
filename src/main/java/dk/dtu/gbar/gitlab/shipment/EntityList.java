@@ -17,15 +17,24 @@ public class EntityList<V extends Entity> {
 
     // add entities and assign id
     public void add(V object) {
-        if(!list.contains(object)){
+        if (list.contains(object)){
+            System.out.println("already registered");
+        }
+        else if (object instanceof Journey && journeyOriginHasNoContainers((Journey) object)){
+            System.out.println("no containers in port");
+        }
+        else {
             idNumber++;
             object.setID(idNumber);
             list.add(object);
+            if (object instanceof Journey){
+                ((Journey) object).setContainer(((Journey) object).getOrigin().getLocationContainers().remove());
+            }
         }
-        else{
-            System.out.println("already registered");
-        }
+    }
 
+    private boolean journeyOriginHasNoContainers(Journey object) {
+        return object.getOrigin().getLocationContainers().isEmpty();
     }
 
     public void remove(V entity) {

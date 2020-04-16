@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import M1.EntityList;
-import M1.Entity;
+
+import dk.dtu.gbar.gitlab.shipment.*;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;

@@ -33,5 +33,3 @@ Actor : Logistic Company
 		And a registered journey from Copenhagen to Hong Kong with "oranges"
 	    When the journey is begun
 	    Then the container is at sea
-
-
