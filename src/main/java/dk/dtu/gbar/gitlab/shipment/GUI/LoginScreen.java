@@ -67,7 +67,9 @@ public class LoginScreen extends JFrame
 	private void initComponents()
 	{
 		setTitle("Login");
+		/*
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/m4/resources/thanosMeme.jpg")));
+		Don't feel like including this image, as it was mostly a meme lol*/
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new CardLayout(0, 0));
