@@ -1,4 +1,4 @@
-package m4.views;
+package dk.dtu.gbar.gitlab.shipment.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
