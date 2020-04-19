@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 
 public class MyStepdefs {
     Client client;
-
     Location copenhagen = new Location("Copenhagen");
     Location hongKong = new Location("Hong Kong");
     Container container1 = new Container(hongKong);
@@ -26,6 +25,7 @@ public class MyStepdefs {
     ClientList clientList = new ClientList();
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
+    ClientUser user1;
 
     ////////////////////
     // register client
@@ -33,6 +33,7 @@ public class MyStepdefs {
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
     public void aClientWithAddressEmailAndRefPerson(String name, String address, String email, String refperson) {
         client = new Client(name, address, email, refperson);
+        user1 = new ClientUser(client);
     }
 
     @And("an empty client list")
@@ -192,23 +193,24 @@ public class MyStepdefs {
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        //searchresults = client.showConcludedJourneys(journeyList);
-        //searchresults = search.search(journeyList.getList(), search.excludeCurrentJourneys);
+        searchresults = user1.getConcludedClientJourneys(journeyList.getList());
     }
 
     @Then("return the concluded journey")
     public void returnTheConcludedJourney() {
         assertTrue(searchresults.contains(journey2));
+        assertFalse(searchresults.contains(journey1));
     }
 
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = search.search(journeyList.getList(),search.excludeConcludedJourneys);
+        searchresults = user1.getCurrentClientJourneys(journeyList.getList());
     }
 
     @Then("return the current journey")
     public void return_the_current_journey() {
-        assertEquals(journey1,searchresults.get(0));
+        assertTrue(searchresults.contains(journey1));
+        assertFalse(searchresults.contains(journey2));
     }
 
     //////Scenario3
