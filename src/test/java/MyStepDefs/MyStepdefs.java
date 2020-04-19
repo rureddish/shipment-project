@@ -21,9 +21,9 @@ public class MyStepdefs {
     String errorMessage;
     Journey journey1;
     Journey journey2;
-    EntityList<Journey> journeyList = new EntityList<Journey>();
+    JourneyList journeyList = new JourneyList();
     EntityList<Container> containerList = new EntityList<>();
-    EntityList<Client> clientList = new EntityList<>();
+    ClientList clientList = new ClientList();
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
 
@@ -37,7 +37,7 @@ public class MyStepdefs {
 
     @And("an empty client list")
     public void anEmptyClientList() {
-        clientList = new EntityList<>();
+        clientList = new ClientList();
     }
 
     @When("the client is registered")
@@ -159,7 +159,6 @@ public class MyStepdefs {
     @And("a registered journey from Copenhagen to Hong Kong with {string}")
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
         journey1 = new Journey(copenhagen, hongKong, client, cargo);
-        journeyList = new EntityList<Journey>();
         journeyList.add(journey1);
     }
 
