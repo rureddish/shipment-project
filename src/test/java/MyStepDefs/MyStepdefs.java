@@ -192,7 +192,8 @@ public class MyStepdefs {
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = search.search(journeyList.getList(), search.excludeCurrentJourneys);
+        //searchresults = client.showConcludedJourneys(journeyList);
+        //searchresults = search.search(journeyList.getList(), search.excludeCurrentJourneys);
     }
 
     @Then("return the concluded journey")

@@ -1,4 +1,4 @@
-Feature: finding clients by simple criteria
+Feature: finding clients by simple criterias
 
   Scenario: Search for a client by name
     Given a Client "client" with address "address" email "email" and ref person "refperson"
