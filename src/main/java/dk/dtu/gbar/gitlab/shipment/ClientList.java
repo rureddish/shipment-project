@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class ClientList extends EntityList<Client> {
-
-    @Override
+ 
+    @Override 
     public void add(Client client) {
         if (!clientEmailAlreadyInUse(client)) {
             super.add(client);

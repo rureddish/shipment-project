@@ -6,13 +6,14 @@ import java.util.ArrayList;
 public class Container extends Entity {
     private ArrayList<Journey> journeyHistory;
     private Location location;
-
-	public Container(Location location) {
+    private Journey currentJourney;
+	private ContainerStatus status;
+	
+	public Container(Location location) { 
         journeyHistory = new ArrayList<Journey>();
         this.location=location;
-        location.getLocationContainers().add(this);
     }
-
+ 
 	public Location getLocation() {
 		return location;
 	}
@@ -24,5 +25,9 @@ public class Container extends Entity {
     public ArrayList<Journey> getJourneyHistory() {
         return journeyHistory;
     }
+
+	public Journey getCurrentJourney() {
+		return currentJourney;
+	}
 }
 

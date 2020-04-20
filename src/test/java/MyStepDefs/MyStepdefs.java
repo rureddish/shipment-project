@@ -1,6 +1,6 @@
 package MyStepDefs;
 
-import dk.dtu.gbar.gitlab.shipment.*;
+import dk.dtu.gbar.gitlab.shipment.*; 
 import io.cucumber.java.af.En;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -13,6 +13,10 @@ import static org.junit.Assert.*;
 
 public class MyStepdefs {
     Client client;
+    LogisticCompany logisticCompany = new LogisticCompany("Logistic Company", "address", "refPerson", "email");
+    LogisticCompanyUser logisticCompanyUser;
+    ClientUser user1;
+    
     Location copenhagen = new Location("Copenhagen");
     Location hongKong = new Location("Hong Kong");
     Container container1 = new Container(hongKong);
@@ -20,20 +24,23 @@ public class MyStepdefs {
     String errorMessage;
     Journey journey1;
     Journey journey2;
+    //---> the lists are now in the LogisticCompany object
     JourneyList journeyList = new JourneyList();
     EntityList<Container> containerList = new EntityList<>();
     ClientList clientList = new ClientList();
     Searcher<? extends Entity> search = new Searcher<>();
+    Searcher<Container> searchContainer = new Searcher<>();
     List<? extends Entity> searchresults;
-    ClientUser user1;
+    Ship ship;
 
     ////////////////////
-    // register client
+    // register client 
     ///////////////////
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
     public void aClientWithAddressEmailAndRefPerson(String name, String address, String email, String refperson) {
         client = new Client(name, address, email, refperson);
         user1 = new ClientUser(client);
+        user1.setJourneyList(logisticCompany.getJourneyList());
     }
 
     @And("an empty client list")
@@ -116,84 +123,113 @@ public class MyStepdefs {
 /////////////////////////////////////////////////
 //	Feature : Register Container for Journey
 /////////////////////////////////////////////////
-
-    @Given("the port of Copenhagen")
-    public void the_port_of_Copenhagen() {
-        copenhagen = new Location("Copenhagen");
+    
+    ////Scenario 1    
+    @Given("the port of Copenhagen which has {int} containers")
+    public void thePortOfCopenhagenWhichHasContainers(int numberOfContainers) {
+        copenhagen = new Location("Copenhagen", numberOfContainers, logisticCompany.getContainerList());
     }
 
-    @Given("the port of Hong Kong")
-    public void the_port_of_Hong_Kong() {
-        hongKong = new Location("Hong Kong");
-    }
-
-    @Given("a container located at Copenhagen")
-    public void a_container_located_at_Copenhagen() {
-        container1 = new Container(copenhagen);
-        containerList.add(container1);
+    @And("the port of Hong Kong which has {int} containers")
+    public void thePortOfHongKongWhichHasContainers(int numberOfContainers) {
+        hongKong = new Location("Hong Kong", numberOfContainers, logisticCompany.getContainerList());
     }
 
     @When("client registers a container of {string} for a journey from Copenhagen to Hong Kong")
     public void client_registers_a_container_of_for_a_journey_from_Copenhagen_to_Hong_Kong_with_the_company(String content) {
-            journey1 = new Journey(copenhagen, hongKong, client, content);
-            journeyList.add(journey1);
-    }
+        try {
+        	journey1 = new Journey(copenhagen, hongKong, client, content);
+            logisticCompany.getJourneyList().add(journey1);
+    	} 
+    	catch (ErrorException e) { 
+    		errorMessage = e.getMessage();
+    	}
 
+    }
+ 
     @Then("the container is registered for the journey")
     public void the_container_is_registered_for_the_journey() {
-        assertEquals(journey1.getContainer(), container1);
+//        assertEquals(journey1.getContainer(), container1);
         assertEquals(journey1.getClient(), client);
-        assertTrue(journeyList.getList().contains(journey1));
-        assertTrue(containerList.getList().contains(container1));
+        assertTrue(logisticCompany.getJourneyList().getList().contains(journey1));
+//        assertTrue(logisticCompany.getContainerList().getList().contains(journey1.getContainer()));
+    }
+    
+    ////Scenario 2
+    @Then("the container is not registered for the journey")
+    public void theContainerIsNotRegisteredForTheJourney() {
+        assertEquals(errorMessage, "No container available in the port of origin");
     }
 
 ///////////////////////////////////////////////
 //	Feature : Journey Information Update
 ///////////////////////////////////////////////
-
-    @And("a registered container in Copenhagen")
-    public void aContainerInCopenhagen() {
-        container1 = new Container(copenhagen);
-        containerList.add(container1);
+    
+    ///Scenario 1
+    @Given("a worker of the logistic company")
+    public void a_worker_of_the_logistic_company() {
+        logisticCompanyUser = new LogisticCompanyUser(logisticCompany);
+    }
+    
+    @Given("a registered journey from Copenhagen to Hong Kong with {string}")
+    public void a_registered_journey_from_Copenhagen_to_Hong_Kong_with(String cargo) {
+    	try {
+        	journey1 = new Journey(copenhagen, hongKong, client, cargo);
+        	logisticCompany.getJourneyList().add(journey1);
+    	} 
+    	catch (ErrorException e) { 
+    		errorMessage = e.getMessage();
+    	}
+    }
+    
+    @Given("a ship with ID {int} in Copenhagen")
+    public void a_ship_with_ID_in_Copenhagen(Integer ID) {
+        ship = new Ship(ID, copenhagen);
     }
 
-    @And("a registered journey from Copenhagen to Hong Kong with {string}")
-    public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
-        journey1 = new Journey(copenhagen, hongKong, client, cargo);
-        journeyList.add(journey1);
+    @When("the worker informs of the embarkation of the ship transporting the container")
+    public void the_worker_informs_of_the_embarkation_of_the_ship_transporting_the_container() {
+    	logisticCompanyUser.informEmbarkation(ship, journey1.getContainer().getID());
     }
 
-    @When("the journey is begun")
-    public void theJourneyIsBegun() {
-        journey1.embark();
+    @Then("the ship and the container are at sea")
+    public void the_ship_and_the_container_are_at_sea() {
+        assertEquals(ship.getLocation().getPlaceName(), "At sea");
+        assertEquals(ship.getContainers().get(0), journey1.getContainer());
     }
-
-    @Then("the container is at sea")
-    public void theContainerIsAtSea() {
-        assertEquals("At sea", container1.getLocation().getPlaceName());
-    }
-
+    
 //////////////////////////////
-///// search for concluded journeys
+///// search for journeys
 //////////////////////////////
-
+    
+    //Scenario 1
     @Given("a journey in progress")
     public void aJourneyInProgress() {
-        journey1 = new Journey(hongKong,copenhagen, client, "cheap toys");
-        journeyList.add(journey1);
+    	try {
+        	journey1 = new Journey(copenhagen, hongKong, client, "cheap toys");
+        	logisticCompany.getJourneyList().add(journey1);
+    	} 
+    	catch (ErrorException e) { 
+    		errorMessage = e.getMessage();
+    	}
     }
 
     @And("a concluded journey")
     public void aConcludedJourney() {
-        journey2 = new Journey(hongKong,copenhagen, client, "cheap toys");
-        journeyList.add(journey2);
-        journey2.embark();
-        journey2.arrive();
+    	try {
+        	journey2 = new Journey(copenhagen, hongKong, client, "oranges");
+        	logisticCompany.getJourneyList().add(journey1);
+        	journey2.setConcluded();
+    	} 
+    	catch (ErrorException e) { 
+    		errorMessage = e.getMessage();
+    	}
+    	
     }
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = user1.getConcludedClientJourneys(journeyList.getList());
+        searchresults = user1.getConcludedClientJourneys();
     }
 
     @Then("return the concluded journey")
@@ -201,10 +237,11 @@ public class MyStepdefs {
         assertTrue(searchresults.contains(journey2));
         assertFalse(searchresults.contains(journey1));
     }
-
+    
+//    Scenario 2
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = user1.getCurrentClientJourneys(journeyList.getList());
+        searchresults = user1.getCurrentClientJourneys();
     }
 
     @Then("return the current journey")
@@ -213,41 +250,25 @@ public class MyStepdefs {
         assertFalse(searchresults.contains(journey2));
     }
 
-    //////Scenario3
-    @When("client searches for journeys coming from {string}")
-    public void searches_for_journeys_coming_from(String origin) {
-        searchresults = search.search(journeyList.getList(), search.originContains(origin));
-    }
-
-    @Then("return the journey coming from Copenhagen")
-    public void return_the_journey_coming_from_Copenhagen() {
-        assertEquals(journey1,searchresults.get(0));
-    }
-
-    //////Scenario4
-    @When("client searches for journeys bound for {string}")
-    public void client_searches_for_journeys_bound_for(String destination) {
-        searchresults = search.search(journeyList.getList(),search.destinationContains(destination));
-    }
-
-    @Then("return the journey bounds for Hong Kong")
-    public void return_the_journey_bounds_for_Hong_Kong() {
-        assertEquals(journey1,searchresults.get(0));
-    }
-
-    @And("the port of Copenhagen which has {int} containers")
-    public void thePortOfCopenhagenWhichHasContainers(int numberOfContainers) {
-        copenhagen = new Location("Copenhagen", numberOfContainers, containerList);
-    }
-
-    @And("the port of Hong Kong which has {int} containers")
-    public void thePortOfHongKongWhichHasContainers(int numberOfContainers) {
-        hongKong = new Location("Hong Kong", numberOfContainers, containerList);
-    }
-
-
-    @Then("the container is not registered for the journey")
-    public void theContainerIsNotRegisteredForTheJourney() {
-        assertFalse(journeyList.getList().contains(journey1));
-    }
+//    //////Scenario3
+//    @When("client searches for journeys coming from {string}")
+//    public void searches_for_journeys_coming_from(String origin) {
+//        searchresults = search.search(journeyList.getList(), search.originContains(origin));
+//    }
+//
+//    @Then("return the journey coming from Copenhagen")
+//    public void return_the_journey_coming_from_Copenhagen() {
+//        assertEquals(journey1,searchresults.get(0));
+//    }
+//
+//    //////Scenario4
+//    @When("client searches for journeys bound for {string}")
+//    public void client_searches_for_journeys_bound_for(String destination) {
+//        searchresults = search.search(journeyList.getList(),search.destinationContains(destination));
+//    }
+//
+//    @Then("return the journey bounds for Hong Kong")
+//    public void return_the_journey_bounds_for_Hong_Kong() {
+//        assertEquals(journey1,searchresults.get(0));
+//    }
 }

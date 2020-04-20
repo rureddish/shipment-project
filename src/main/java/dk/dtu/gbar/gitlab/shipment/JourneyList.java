@@ -6,17 +6,10 @@ public class JourneyList extends EntityList<Journey> {
         super();
     }
 
-    @Override
-    public void add(Journey journey) {
-        if (journeyOriginHasContainers(journey)) {
-            super.add(journey);
-            journey.setContainer(journey.getOrigin().getLocationContainers().remove());
-        } else {
-            System.out.println("no containers in port");
-        }
-    }
+//    @Override	--> Now in the journey constructor
+//    public void add(Journey journey) {
+//        
+//    }
 
-    private boolean journeyOriginHasContainers(Journey object) {
-        return 0 < object.getOrigin().getLocationContainers().size();
-    }
+    
 }

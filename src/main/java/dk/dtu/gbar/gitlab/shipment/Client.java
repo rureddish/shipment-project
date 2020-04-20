@@ -4,7 +4,7 @@ public class Client extends Entity {
     String name;
     String address;
     String refPerson;
-    String email;
+    String email; 
 
     //constructor with mandatory info
     public Client(String name, String address, String refPerson, String email) {
