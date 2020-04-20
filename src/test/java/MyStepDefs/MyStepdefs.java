@@ -17,8 +17,8 @@ public class MyStepdefs {
     LogisticCompanyUser logisticCompanyUser;
     ClientUser user1;
     
-    Location copenhagen = new Location("Copenhagen");
-    Location hongKong = new Location("Hong Kong");
+    Location copenhagen = new Location("Copenhagen", 100, logisticCompany.getContainerList());
+    Location hongKong = new Location("Hong Kong", 200, logisticCompany.getContainerList());
     Container container1 = new Container(hongKong);
     Container container2 = new Container(hongKong);
     String errorMessage;
@@ -218,7 +218,7 @@ public class MyStepdefs {
     public void aConcludedJourney() {
     	try {
         	journey2 = new Journey(copenhagen, hongKong, client, "oranges");
-        	logisticCompany.getJourneyList().add(journey1);
+        	logisticCompany.getJourneyList().add(journey2);
         	journey2.setConcluded();
     	} 
     	catch (ErrorException e) { 
@@ -250,25 +250,25 @@ public class MyStepdefs {
         assertFalse(searchresults.contains(journey2));
     }
 
-//    //////Scenario3
-//    @When("client searches for journeys coming from {string}")
-//    public void searches_for_journeys_coming_from(String origin) {
-//        searchresults = search.search(journeyList.getList(), search.originContains(origin));
-//    }
-//
-//    @Then("return the journey coming from Copenhagen")
-//    public void return_the_journey_coming_from_Copenhagen() {
-//        assertEquals(journey1,searchresults.get(0));
-//    }
-//
-//    //////Scenario4
-//    @When("client searches for journeys bound for {string}")
-//    public void client_searches_for_journeys_bound_for(String destination) {
-//        searchresults = search.search(journeyList.getList(),search.destinationContains(destination));
-//    }
-//
-//    @Then("return the journey bounds for Hong Kong")
-//    public void return_the_journey_bounds_for_Hong_Kong() {
-//        assertEquals(journey1,searchresults.get(0));
-//    }
+    //////Scenario3
+    @When("client searches for journeys coming from {string}")
+    public void searches_for_journeys_coming_from(String origin) {
+        searchresults = search.search(logisticCompany.getJourneyList().getList(), search.originContains(origin));
+    }
+
+    @Then("return the journey coming from Copenhagen")
+    public void return_the_journey_coming_from_Copenhagen() {
+        assertEquals(journey1,searchresults.get(0));
+    }
+
+    //////Scenario4
+    @When("client searches for journeys bound for {string}")
+    public void client_searches_for_journeys_bound_for(String destination) {
+        searchresults = search.search(logisticCompany.getJourneyList().getList(),search.destinationContains(destination));
+    }
+
+    @Then("return the journey bounds for Hong Kong")
+    public void return_the_journey_bounds_for_Hong_Kong() {
+        assertEquals(journey1,searchresults.get(0));
+    }
 }

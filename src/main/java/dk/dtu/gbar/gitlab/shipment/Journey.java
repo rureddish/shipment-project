@@ -15,6 +15,7 @@ public class Journey extends Entity {
 	        this.client = client;
 	        container = origin.getLocationContainers().remove();
 	        this.cargo = cargo;
+	        this.isConcluded = false;
         } else {
         	throw new ErrorException("No container available in the port of origin");
         }
@@ -31,7 +32,7 @@ public class Journey extends Entity {
     // getters and setters
 
 	public boolean isConcluded() {
-		return isConcluded();
+		return isConcluded;
 //      return container.getLocation() == destination;
     }
 

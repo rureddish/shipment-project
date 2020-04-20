@@ -25,7 +25,6 @@ public class ClientUser {
         return search.search(journeyList.getList(), journeyClientEmail(client.getEmail()));
     }
 
-
     public ArrayList<Journey> getCurrentClientJourneys(){
         return search.search(getClientJourneys(), search.excludeConcludedJourneys );
     }
@@ -33,7 +32,6 @@ public class ClientUser {
     public ArrayList<Journey> getConcludedClientJourneys(){
         return search.search(getClientJourneys(), search.excludeCurrentJourneys );
     }
-
 
     public Predicate<Journey> journeyClientEmail (String string) {
         return (x -> x.getClient().getEmail().contains(string));
