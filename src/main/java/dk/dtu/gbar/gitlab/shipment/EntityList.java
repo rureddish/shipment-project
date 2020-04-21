@@ -17,7 +17,7 @@ public class EntityList<V extends Entity> {
             object.setID(idNumber);
             list.add(object);
         }
-        else {
+        else { 
             System.out.println("already registered");
         }
     }

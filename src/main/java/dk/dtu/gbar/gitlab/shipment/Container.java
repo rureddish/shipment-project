@@ -13,8 +13,6 @@ public class Container extends Entity {
         location.getLocationContainers().add(this);
     }
 
-
-
 	public Location getLocation() {
 		return location;
 	}

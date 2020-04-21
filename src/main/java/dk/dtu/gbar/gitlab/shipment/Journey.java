@@ -3,10 +3,12 @@ package dk.dtu.gbar.gitlab.shipment;
 public class Journey extends Entity {
     private Container container;
     private Client client;
+	private ContainerStatus status;
 	private Location origin;
 	private Location destination;
     private boolean isConcluded = false;
     private String cargo;
+	private Location atSea = new Location("At sea");
 
 	public Journey(Location origin, Location destination, Client client, String cargo) {
         this.origin = origin;
@@ -35,9 +37,6 @@ public class Journey extends Entity {
         return container;
     }
 
-    public void setContainer(Container container) {
-        this.container = container;
-    }
 
     public Client getClient() {
         return client;

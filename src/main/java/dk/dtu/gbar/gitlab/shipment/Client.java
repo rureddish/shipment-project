@@ -1,5 +1,4 @@
 package dk.dtu.gbar.gitlab.shipment;
-
 import java.util.ArrayList;
 
 public class Client extends Entity {
