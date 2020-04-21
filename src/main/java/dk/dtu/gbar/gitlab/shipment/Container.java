@@ -2,16 +2,18 @@ package dk.dtu.gbar.gitlab.shipment;
 
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Container extends Entity {
-    private ArrayList<Journey> journeyHistory;
+    private Stack<Journey> journeyHistory = new Stack<>();
     private Location location;
 
 	public Container(Location location) {
-        journeyHistory = new ArrayList<Journey>();
         this.location=location;
         location.getLocationContainers().add(this);
     }
+
+
 
 	public Location getLocation() {
 		return location;
@@ -21,7 +23,7 @@ public class Container extends Entity {
         this.location = location;
     }
 
-    public ArrayList<Journey> getJourneyHistory() {
+    public Stack<Journey> getJourneyHistory() {
         return journeyHistory;
     }
 }

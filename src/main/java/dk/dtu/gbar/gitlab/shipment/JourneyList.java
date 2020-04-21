@@ -11,6 +11,7 @@ public class JourneyList extends EntityList<Journey> {
         if (journeyOriginHasContainers(journey)) {
             super.add(journey);
             journey.setContainer(journey.getOrigin().getLocationContainers().remove());
+            journey.getContainer().getJourneyHistory().add(journey);
         } else {
             System.out.println("no containers in port");
         }

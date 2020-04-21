@@ -1,10 +1,13 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import java.util.ArrayList;
+
 public class Client extends Entity {
     String name;
     String address;
     String refPerson;
     String email;
+    ArrayList<Journey> journeys = new ArrayList<>();
 
     //constructor with mandatory info
     public Client(String name, String address, String refPerson, String email) {
@@ -15,6 +18,11 @@ public class Client extends Entity {
     }
 
     // setters and getters
+
+    public ArrayList<Journey> getJourneys() {
+        return journeys;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }

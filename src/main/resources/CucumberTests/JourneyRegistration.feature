@@ -1,22 +1,3 @@
-#Author: your.email@your.domain.com
-#Keywords Summary :
-#Feature: List of scenarios.
-#Scenario: Business rule through list of steps with arguments.
-#Given: Some precondition step
-#When: Some key actions
-#Then: To observe outcomes or validation
-#And,But: To enumerate more Given,When,Then steps
-#Scenario Outline: List of steps for data-driven as an Examples and <placeholder>
-#Examples: Container for s table
-#Background: List of steps run before each of the scenarios
-#""" (Doc Strings)
-#| (Data Tables)
-#@ (Tags/Labels):To group Scenarios
-#<> (placeholder)
-#""
-## (Comments)
-#Sample Feature Definition Template
-
 @tag
 Feature: Register Container for Journey
 
@@ -30,16 +11,15 @@ Journey(Port origin, Port destination, String cargo, Client client)
 	@tag1
 	Scenario: Successful registration of containers for journey
 		Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
-		And the port of Copenhagen
-		And the port of Hong Kong
-		And a container located at Copenhagen
-		When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
-		Then the container is registered for the journey
+		And the port of Copenhagen which has 1 containers
+		And the port of Hong Kong which has 1 containers
+		When client registers a shipment of "Oranges" for a journey from Copenhagen to Hong Kong
+		Then the journey is registered
 
 	@tag2
 	Scenario: No container available in the port of origin
 		Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
 		And the port of Copenhagen which has 0 containers
-		And the port of Hong Kong which has 200 containers
-		When client registers a container of "Oranges" for a journey from Copenhagen to Hong Kong
+		And the port of Hong Kong which has 2 containers
+		When client registers a shipment of "Oranges" for a journey from Copenhagen to Hong Kong
 		Then the container is not registered for the journey
