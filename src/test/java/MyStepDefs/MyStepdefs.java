@@ -154,11 +154,6 @@ public class MyStepdefs {
 ///////////////////////////////////////////////
 
     ///Scenario 1
-    @Given("a worker of the logistic company")
-    public void a_worker_of_the_logistic_company() {
-        logisticCompanyUser = new LogisticsCompanyUser(logisticCompany);
-    }
-
     @And("a registered journey from Copenhagen to Hong Kong with {string}")
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
         journey1 = new Journey(copenhagen, hongKong, client, cargo);

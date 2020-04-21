@@ -1,7 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import org.hsqldb.persist.Log;
-
 import java.util.*;
 
 public class Location extends Entity {

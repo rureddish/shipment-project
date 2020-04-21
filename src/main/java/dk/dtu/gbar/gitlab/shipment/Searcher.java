@@ -17,22 +17,7 @@ public class Searcher<V extends Entity> {
                 .collect(Collectors.toList());
     } 
 
-  //@Overloading --> withID return ArrayList    
-    public final ArrayList<V> search(ArrayList<V> list, ArrayList<Predicate<V>> predicates){
-        return (ArrayList<V>) list.stream()
-                .filter(predicates.stream().reduce(x-> false, Predicate::or))
-                .collect(Collectors.toList());
-    } 
-    
-    public ArrayList<Predicate<V>> withID(int... IDs) {
-    	ArrayList<Predicate<V>> predicates = new ArrayList<Predicate<V>>();
-    	for (int ID: IDs) {
-    		predicates.add(str -> str.getID()==ID);
-    	}
-    	return predicates;
-    }
-
-    //Container
+      //Container
     public ArrayList<V> containerSearchByString(ArrayList<Container> list, String string){
         return search(list, locationContains(string));
     }
@@ -85,7 +70,7 @@ public class Searcher<V extends Entity> {
 
 //    --> problem
     public Predicate<Journey> clientContains(String string) {
-        return (x -> x.getCargo().equalsIgnoreCase(string));
+        return (x -> x.getClient().getName().equalsIgnoreCase(string));
     }
 
     public Predicate<Journey> cargoContains(String string) {

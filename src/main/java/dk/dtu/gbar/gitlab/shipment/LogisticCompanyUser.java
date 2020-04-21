@@ -8,9 +8,8 @@ public class LogisticCompanyUser extends ClientUser {
 		super(logisticCompany);
 	}
 
-	@SafeVarargs
-	public final void informEmbarkation(Ship ship, int... IDs) {
-		ship.embark(((LogisticCompany)client).getSearchContainer(), ((LogisticCompany) client).getContainerList(), IDs);		
+	public final void informEmbarkation(Ship ship) {
+		ship.embark();
 	}
 
 }
