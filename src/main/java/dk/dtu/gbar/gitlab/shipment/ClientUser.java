@@ -12,7 +12,6 @@ public class ClientUser {
         this.client = client;
     }
 
-    //searches by email because duplicates are prevented
     public ArrayList<Journey> getClientJourneys(){
         return client.getJourneys();
     }

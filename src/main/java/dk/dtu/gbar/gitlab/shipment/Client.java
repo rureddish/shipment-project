@@ -6,14 +6,16 @@ public class Client extends Entity {
     String address;
     String refPerson;
     String email;
+    String password;
     ArrayList<Journey> journeys = new ArrayList<>();
 
     //constructor with mandatory info
-    public Client(String name, String address, String refPerson, String email) {
+    public Client(String name, String address, String refPerson, String email, String password) {
         this.name = name;
         this.address = address;
         this.refPerson = refPerson;
         this.email = email;
+        this.password= password;
     }
 
     // setters and getters

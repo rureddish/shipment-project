@@ -103,12 +103,12 @@ public class LoginScreen extends JFrame
 		});
 		btnSignUp.setBounds(232,225,193,29);
 		contentPane.add(btnSignUp);
-		
+
 		textField = new JTextField();
 		textField.setBounds(165, 63, 96, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(102, 66, 53, 14);
 		contentPane.add(lblUsername);
@@ -116,7 +116,7 @@ public class LoginScreen extends JFrame
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(102, 102, 53, 14);
 		contentPane.add(lblPassword);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(165, 99, 96, 20);
 		contentPane.add(passwordField);

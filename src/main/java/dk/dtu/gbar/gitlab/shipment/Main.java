@@ -6,6 +6,7 @@ import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
+import org.hsqldb.persist.Log;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,20 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-      /*  ClientService clientService = new ClientService();
+        LogisticsCompany logisticsCompany = new LogisticsCompany("The shipping co of 1873", "Havnegade 42", "Ole Wedel", "shipco1873@shipco.com,","admin");
+
+
+
+
+
+
+
+
+
+
+
+
+        /*  ClientService clientService = new ClientService();
         Client alice = new Client("Alice", "Test", "mail@domain.com", "Street 1");
         clientService.save(alice);
         Client client = clientService.getById(alice.getId());
