@@ -27,6 +27,10 @@ public class MyStepdefs {
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
     Ship ship;
+    
+    String passwordTest;
+    String emailTest;
+    LogIn logIn = new LogIn(logisticCompany.getClientList());
 
     ////////////////////
     // register client
@@ -245,5 +249,41 @@ public class MyStepdefs {
         assertEquals(journey1,searchresults.get(0));
     }
 
+////////////////////////////
+///	Feature : Log In
+////////////////////////////
+    
+    //Scenario 1
+    @Given("a Client {string} with address {string}, ref person {string}, email {string} and password {string}")
+    public void a_Client_with_address_ref_person_email_and_password(String name, String address, String refPerson, String email, String password) {
+    	client = new Client(name, address, refPerson, email, password);
+        logisticCompany.getClientList().getList().add(client);
+    }
+    
+    @Given("a password {string}")
+    public void a_password(String password) {
+        passwordTest = password;
+    }
 
+    @Given("an email {string}")
+    public void an_email(String email) {
+        emailTest = email;
+    }
+
+    @When("client logs in")
+    public void client_logs_in() {
+        logIn.logIn(emailTest, passwordTest);
+    }
+
+    @Then("client is logged in")
+    public void client_is_logged_in() {
+        assertEquals(logIn.getLoggedInClient(), client);
+    }
+    
+    //Scenario 2
+    @Then("client is not logged in")
+    public void client_is_not_logged_in() {
+        assertEquals(logIn.getLoggedInClient(), null);
+    }
+    
 }
