@@ -21,7 +21,7 @@ public class MyStepdefs {
     Container container1 = new Container(hongKong);
     Container container2 = new Container(hongKong);
 
-    LogisticsCompany logisticCompany = new LogisticsCompany("Logistic Company", "address", "refPerson", "email");
+    LogisticsCompany logisticCompany = new LogisticsCompany("Logistic Company", "address", "refPerson", "email", "admin");
     LogisticsCompanyUser logisticCompanyUser = new LogisticsCompanyUser(logisticCompany);
 
     Searcher<? extends Entity> search = new Searcher<>();
@@ -33,7 +33,7 @@ public class MyStepdefs {
     ///////////////////
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
     public void aClientWithAddressEmailAndRefPerson(String name, String address, String email, String refperson) {
-        client = new Client(name, address, email, refperson);
+        client = new Client(name, address, email, refperson, "password");
         user1 = new ClientUser(client);
     }
 
