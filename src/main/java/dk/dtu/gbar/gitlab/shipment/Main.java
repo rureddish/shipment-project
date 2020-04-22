@@ -1,5 +1,8 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
+import dk.dtu.gbar.gitlab.shipment.GUI.MainMenuScreen;
+import dk.dtu.gbar.gitlab.shipment.GUI.SignUpScreen;
 import dk.dtu.gbar.gitlab.shipment.persistence.HibernateUtil;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
@@ -12,10 +15,37 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import java.awt.CardLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 public class Main {
+	MainMenuScreen mainMenuScreen;
+	SignUpScreen signUpScreen;
+	
+	private JFrame frame;
+	private JPanel panelMenu;
+	private JButton btnLogin;
+	private JButton btnSignUp;
+	
     public static void main(String[] args) {
         LogisticsCompany logisticsCompany = new LogisticsCompany("The shipping co of 1873", "Havnegade 42", "Ole Wedel", "shipco1873@shipco.com,","admin");
-
+        EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginScreen screen = new LoginScreen();
+					screen.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+    	
 
 
 

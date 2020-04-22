@@ -1,141 +1,86 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-
-import dk.dtu.gbar.gitlab.shipment.*;
-
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
 
 
 
-public class LoginScreen extends JFrame
+public class LoginScreen
 {
-
 	SignUpScreen signUpScreen;
-	EntityList<Entity> entityList;
-	Entity entity;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	MainMenuScreen mainMenuScreen;
+
+	public JFrame frame;
+	private JPanel panelMenu;
+	private JButton btnLogin;
+	private JButton btnSignUp;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					LoginScreen frame = new LoginScreen();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public LoginScreen()
-	{
+public LoginScreen() throws Exception{
 		
-		initComponents();
-		createEvents();
 		
+		initialize();
 	}
 
-	private void initComponents()
-	{
-		setTitle("Login");
-		/*
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/m4/resources/thanosMeme.jpg")));
-		Don't feel like including this image, as it was mostly a meme lol*/
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new CardLayout(0, 0));
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 404, 486);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
-		contentPane = new JPanel();
-		getContentPane().add(contentPane, "name_160236068959176");
-		contentPane.setBorder(BorderFactory.createTitledBorder(
-                "Login"));
-		contentPane.setLayout(null);
-
+		panelMenu = new JPanel();
+		frame.getContentPane().add(panelMenu, "name_160236068959176");
+		panelMenu.setLayout(null);
+		panelMenu.setBorder(BorderFactory.createTitledBorder("Login Menu"));
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				checkLogin();
+		btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				mainMenuScreen.setVisible(true);
+				
 			}
 		});
-		btnLogin.setBounds(10, 225, 193, 29);
-		contentPane.add(btnLogin);
 		
-		JButton btnSignUp = new JButton("Sign Up");
-		btnSignUp.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		btnSignUp = new JButton("SignUp");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				signUpScreen.setVisible(true);
 			}
 		});
-		btnSignUp.setBounds(232,225,193,29);
-		contentPane.add(btnSignUp);
-
-		textField = new JTextField();
-		textField.setBounds(165, 63, 96, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(102, 66, 53, 14);
-		contentPane.add(lblUsername);
 		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(102, 102, 53, 14);
-		contentPane.add(lblPassword);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(165, 99, 96, 20);
-		contentPane.add(passwordField);
+		btnLogin.setBounds(35,395,150,29);
+		panelMenu.add(btnLogin);
 		
-		signUpScreen = new SignUpScreen(this);
+		btnSignUp.setBounds(190,395,150,29);
+		panelMenu.add(btnSignUp);
 		
 	}
-	private void createEvents()
-	{
-
-		
+	
+	public void setVisible(boolean aFlag) {
+		panelMenu.setVisible(aFlag);
 	}
-	public boolean checkLogin()
-	{
-		setVisible(false);
-		return true;
-
+	
+	public JFrame getFrame() {
+		return frame;
 	}
+	
 	public void addPanel(JPanel panel) {
-		getContentPane().add(panel);
+		frame.getContentPane().add(panel);
 	}
 }
