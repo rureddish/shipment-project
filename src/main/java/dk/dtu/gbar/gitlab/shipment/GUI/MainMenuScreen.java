@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class MainMenuScreen {
+public class MainMenuScreen extends JFrame {
 
 	private LoginScreen parentWindow;
 	private JList listJourneys;
@@ -85,9 +85,15 @@ public class MainMenuScreen {
 		listModel.addElement("via");
 		listModel.addElement("journey");
 		listModel.addElement("YEET");
-
-		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
+		
 		listJourneys = new JList<>(listModel);
+		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
+		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listJourneys.setVisibleRowCount(5);
+		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		
+		
 		listJourneys.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				//will theoretically be able to select any journey from the list to view details
@@ -95,16 +101,21 @@ public class MainMenuScreen {
 		});
 		
 		
-		txtKeywordSearch.setBounds(130,75, 130, 26);
-		lblKeywordSearch.setBounds(21,75, 130, 26);
 		
-		btnShowConcluded.setBounds(21,100,150,29);
-		btnShowCurrent.setBounds(170,100,150,29);
+		
+		txtKeywordSearch.setBounds(102,75, 130, 26);
+		lblKeywordSearch.setBounds(21,75, 83, 26);
+		
+		btnShowConcluded.setBounds(21,100,105,29);
+		btnShowCurrent.setBounds(130,100,105,29);
 		btnLogOut.setBounds(21,28,150,29);
-		btnSearch.setBounds(21,140,150,29);
-		listJourneys.setBounds(200,150,150,200);
+		btnSearch.setBounds(21,136,150,29);
+		scrollJourneys.setSize(150, 192);
+		scrollJourneys.setLocation(21, 176);
 		
-		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+
+
 		
 		panelMainMenuFunctions.add(lblKeywordSearch);
 		panelMainMenuFunctions.add(txtKeywordSearch);
@@ -112,7 +123,6 @@ public class MainMenuScreen {
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
-		panelMainMenuFunctions.add(listJourneys);
 		panelMainMenuFunctions.add(scrollJourneys);
 		
 		
@@ -147,3 +157,4 @@ public class MainMenuScreen {
 	
 	
 }
+
