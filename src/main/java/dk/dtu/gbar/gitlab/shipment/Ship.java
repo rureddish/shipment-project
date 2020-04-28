@@ -36,11 +36,11 @@ public class Ship extends Entity{
 		}
 	}
 
-	protected Location getLocation() {
+	public Location getLocation() {
 		return location;
 	}
 
-	protected ArrayList<Container> getContainers() {
+	public ArrayList<Container> getContainers() {
 		return containers;
 	}
 }

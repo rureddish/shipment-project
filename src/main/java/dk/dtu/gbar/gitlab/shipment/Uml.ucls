@@ -1,180 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="false" 
-  realizations="false" associations="true" dependencies="false" nesting-relationships="false" router="FAN">  
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="false" realizations="false" associations="true" dependencies="false" nesting-relationships="false" 
+  router="FAN">  
   <class id="1" language="java" name="dk.dtu.gbar.gitlab.shipment.Searcher" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Searcher.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="371" width="388" x="216" y="1344"/>    
+    <position height="353" width="388" x="214" y="949"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="dk.dtu.gbar.gitlab.shipment.ClientUser" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/ClientUser.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="191" width="295" x="662" y="489"/>    
+    <position height="119" width="225" x="558" y="328"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="dk.dtu.gbar.gitlab.shipment.ErrorException" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/ErrorException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="83" width="145" x="199" y="78"/>    
+    <position height="83" width="145" x="175" y="43"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="dk.dtu.gbar.gitlab.shipment.Main" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Main.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="221" x="410" y="78"/>    
+    <position height="101" width="221" x="362" y="43"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="5" language="java" name="dk.dtu.gbar.gitlab.shipment.ClientList" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/ClientList.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="137" width="241" x="256" y="1131"/>    
+    <position height="119" width="241" x="254" y="772"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="6" language="java" name="dk.dtu.gbar.gitlab.shipment.LogIn" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/LogIn.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="191" width="173" x="174" y="489"/>    
+    <position height="191" width="173" x="172" y="328"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="7" language="java" name="dk.dtu.gbar.gitlab.shipment.JourneyList" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/JourneyList.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="119" width="274" x="1120" y="1131"/>    
+    <position height="83" width="274" x="950" y="772"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="8" language="java" name="dk.dtu.gbar.gitlab.shipment.ContainerStatus" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/ContainerStatus.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="191" width="235" x="387" y="489"/>    
+    <position height="119" width="133" x="385" y="328"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="9" language="java" name="dk.dtu.gbar.gitlab.shipment.EntityList" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/EntityList.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="173" width="143" x="937" y="1131"/>    
+    <position height="137" width="130" x="780" y="772"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="10" language="java" name="dk.dtu.gbar.gitlab.shipment.LogisticsCompany" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/LogisticsCompany.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="227" width="303" x="937" y="720"/>    
+    <position height="137" width="216" x="780" y="559"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="11" language="java" name="dk.dtu.gbar.gitlab.shipment.Container" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Container.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="173" width="221" x="1280" y="720"/>    
+    <position height="101" width="197" x="1036" y="559"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="12" language="java" name="dk.dtu.gbar.gitlab.shipment.Journey" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Journey.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="371" width="240" x="1020" y="78"/>    
+    <position height="245" width="151" x="846" y="43"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="13" language="java" name="dk.dtu.gbar.gitlab.shipment.Ship" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Ship.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="226" x="1300" y="78"/>    
+    <position height="191" width="225" x="1037" y="43"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="14" language="java" name="dk.dtu.gbar.gitlab.shipment.Client" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Client.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="371" width="235" x="662" y="720"/>    
+    <position height="173" width="182" x="558" y="559"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="15" language="java" name="dk.dtu.gbar.gitlab.shipment.Location" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Location.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="191" width="260" x="1081" y="489"/>    
+    <position height="119" width="225" x="907" y="328"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="16" language="java" name="dk.dtu.gbar.gitlab.shipment.Entity" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/Entity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="130" x="937" y="1344"/>    
+    <position height="83" width="130" x="780" y="949"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="17" language="java" name="dk.dtu.gbar.gitlab.shipment.LogisticsCompanyUser" project="shipment-project" 
     file="/shipment-project/src/main/java/dk/dtu/gbar/gitlab/shipment/LogisticsCompanyUser.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="101" width="256" x="697" y="78"/>    
+    <position height="83" width="181" x="624" y="43"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <association id="18">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="19" name="status"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+    <bendpoint x="1183" y="328"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="19" name="containers"/>      
+      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="21">    
-    <end type="SOURCE" refId="2" navigable="false">      
+    <end type="SOURCE" refId="15" navigable="false">      
       <attribute id="22" name="logisticsCompany"/>      
       <multiplicity id="23" minimum="0" maximum="1"/>    
     </end>    
@@ -182,20 +184,19 @@
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="24">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="25" name="logisticsCompany"/>      
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="25" name="shipList"/>      
       <multiplicity id="26" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="27">    
-    <bendpoint x="1050" y="489"/>    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="28" name="journeyHistory"/>      
-      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="28" name="atSea"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="30">    
@@ -207,7 +208,7 @@
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="33">    
-    <bendpoint x="987" y="489"/>    
+    <bendpoint x="813" y="328"/>    
     <end type="SOURCE" refId="12" navigable="false">      
       <attribute id="34" name="client"/>      
       <multiplicity id="35" minimum="0" maximum="1"/>    
@@ -216,194 +217,194 @@
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="36">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="37" name="shipList"/>      
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="37" name="location"/>      
       <multiplicity id="38" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="39">    
-    <bendpoint x="1371" y="489"/>    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="40" name="logisticsCompany"/>      
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="40" name="search"/>      
       <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="43" name="logisticsCompany"/>      
+      <multiplicity id="44" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="42">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="43" name="route"/>      
-      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
   <association id="45">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="46" name="atSea"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="48">    
-    <bendpoint x="1392" y="489"/>    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="49" name="containers"/>      
-      <multiplicity id="50" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="52" name="location"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="54">    
-    <bendpoint x="1008" y="489"/>    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="55" name="journeys"/>      
-      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
+    <bendpoint x="876" y="328"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="46" name="journeyHistory"/>      
+      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="58" name="clientList"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="61" name="client"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="63">    
+  <association id="48">    
     <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="64" name="atSea"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
+      <attribute id="49" name="status"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="66">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="67" name="destination"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="69">    
-    <bendpoint x="204" y="720"/>    
+  <association id="51">    
+    <bendpoint x="181" y="559"/>    
+    <bendpoint x="181" y="772"/>    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="70" name="clientList"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="72">    
-    <bendpoint x="225" y="720"/>    
-    <bendpoint x="225" y="1131"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="73" name="search"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
+      <attribute id="52" name="searcher"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
+  <association id="54">    
+    <bendpoint x="1162" y="328"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="55" name="logisticsCompany"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="58" name="client"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="60">    
+    <bendpoint x="223" y="559"/>    
+    <bendpoint x="223" y="772"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="61" name="search"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="63">    
+    <bendpoint x="202" y="559"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="64" name="clientList"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="67" name="loggedInClient"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="70" name="destination"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="72">    
+    <bendpoint x="855" y="328"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="73" name="container"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
   <association id="75">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="76" name="origin"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="78">    
+    <bendpoint x="834" y="328"/>    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="79" name="journeys"/>      
+      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="82" name="atSea"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="84">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="76" name="list"/>      
-      <multiplicity id="77" minimum="0" maximum="2147483647"/>    
+      <attribute id="85" name="list"/>      
+      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="78">    
+  <association id="87">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="79" name="containerList"/>      
-      <multiplicity id="80" minimum="0" maximum="1"/>    
+      <attribute id="88" name="containerList"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="81">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="82" name="portcontainers"/>      
-      <multiplicity id="83" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="84">    
-    <bendpoint x="1029" y="489"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="85" name="container"/>      
-      <multiplicity id="86" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="88" name="loggedInClient"/>      
-      <multiplicity id="89" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
   <association id="90">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="91" name="location"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="91" name="portcontainers"/>      
+      <multiplicity id="92" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <association id="93">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="94" name="origin"/>      
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="94" name="clientList"/>      
       <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="false"/>  
+  </association>  
+  <association id="96">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="97" name="route"/>      
+      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="96">    
-    <bendpoint x="183" y="720"/>    
-    <bendpoint x="183" y="1131"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="97" name="searcher"/>      
-      <multiplicity id="98" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
   <association id="99">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="100" name="search"/>      
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="100" name="location"/>      
       <multiplicity id="101" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
-    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+    <operations public="false" package="true" protected="true" private="true" static="true"/>  
   </classifier-display>  
   <association-display labels="false" multiplicity="false"/>
 </class-diagram>
