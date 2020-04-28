@@ -26,6 +26,7 @@ public class MainMenuScreen {
 	private JButton btnLogOut;
 	private JRadioButton btnShowConcluded;
 	private JRadioButton btnShowCurrent;
+	private JButton btnSearch;
 	
 	
 	public MainMenuScreen(LoginScreen parentWindow) {
@@ -41,6 +42,14 @@ public class MainMenuScreen {
 		
 		JTextField txtKeywordSearch = new JTextField(30);
 		JLabel lblKeywordSearch = new JLabel("Keyword Search:");
+		
+		btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
+				//pulls up journeys based on keyword and showConcluded and showCurrent
+			}
+		});
 		
 		btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
@@ -72,12 +81,14 @@ public class MainMenuScreen {
 		btnShowConcluded.setBounds(21,100,150,29);
 		btnShowCurrent.setBounds(170,100,150,29);
 		btnLogOut.setBounds(21,28,150,29);
+		btnSearch.setBounds(21,140,150,29);
 		
 		panelMainMenuFunctions.add(lblKeywordSearch);
 		panelMainMenuFunctions.add(txtKeywordSearch);
 		panelMainMenuFunctions.add(btnShowConcluded);
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnLogOut);
+		panelMainMenuFunctions.add(btnSearch);
 
 		
 		
