@@ -17,7 +17,7 @@ public class JourneyList extends EntityList<Journey> {
         }
     }
 
-    private boolean journeyOriginHasContainers(Journey object) {
+    public boolean journeyOriginHasContainers(Journey object) {
         return 0 < object.getOrigin().getLocationContainers().size();
     }
 }
