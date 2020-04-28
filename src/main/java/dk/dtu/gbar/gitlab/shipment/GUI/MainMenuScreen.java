@@ -24,8 +24,6 @@ public class MainMenuScreen {
 	
 	private JPanel panelMainMenuFunctions;
 	private JButton btnLogOut;
-	private JButton btnJourneyTracking;
-	private JButton btnJourneyRegister;
 	private JRadioButton btnShowConcluded;
 	private JRadioButton btnShowCurrent;
 	
@@ -48,6 +46,33 @@ public class MainMenuScreen {
 			}
 		});
 		
+		btnShowConcluded = new JRadioButton("Show Concluded");
+		btnShowConcluded.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//shows concluded journeys based on keywords
+			}
+		});
+		
+		btnShowCurrent = new JRadioButton("Show Current");
+		btnShowCurrent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//shows current journeys based on keywords
+			}
+		});
+		
+		
+		
+		
+		
+		btnShowConcluded.setBounds(21,50,150,29);
+		btnShowCurrent.setBounds(21,75,150,29);
+		btnLogOut.setBounds(21,28,150,29);
+		
+		panelMainMenuFunctions.add(btnShowConcluded);
+		panelMainMenuFunctions.add(btnShowCurrent);
+		panelMainMenuFunctions.add(btnLogOut);
+
+		
 		
 		
 		
@@ -55,8 +80,9 @@ public class MainMenuScreen {
 	
 	private void setEnableButtons(boolean enabled) {
 		btnLogOut.setEnabled(enabled);
-		btnJourneyTracking.setEnabled(enabled);
-		btnJourneyRegister.setEnabled(enabled);
+		btnShowConcluded.setEnabled(enabled);
+		btnShowCurrent.setEnabled(enabled);
+
 	}
 	
 	private void enableButtons() {
