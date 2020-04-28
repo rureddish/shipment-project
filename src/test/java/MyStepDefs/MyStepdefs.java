@@ -285,7 +285,7 @@ public class MyStepdefs {
     public void client_is_not_logged_in() {
         assertEquals(logIn.getLoggedInClient(), null);
     }
-
+    
     //log out
     @And("client logs out")
     public void clientLogsOut() {

@@ -3,8 +3,8 @@ package dk.dtu.gbar.gitlab.shipment;
 import java.util.*;
 
 public class EntityList<V extends Entity> {
-    protected ArrayList<V> list;
-    protected Integer idNumber = 0;
+    public ArrayList<V> list;
+    public Integer idNumber = 0;
 
     public EntityList() {
         list = new ArrayList<>();

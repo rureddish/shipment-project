@@ -14,7 +14,7 @@ public class ClientList extends EntityList<Client> {
     }
 
     Searcher<Client> search = new Searcher<>();
-    private boolean clientEmailAlreadyInUse(Client client) {
+    public boolean clientEmailAlreadyInUse(Client client) {
         return 0 < search.search(list, search.emailContains(client.getEmail())).size();
     }
 
