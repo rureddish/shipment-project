@@ -96,6 +96,9 @@ public LoginScreen() throws Exception{
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
+		mainMenuScreen = new MainMenuScreen(this);
+		signUpScreen = new SignUpScreen(this);
+		
 	}
 	
 	public void setVisible(boolean aFlag) {
