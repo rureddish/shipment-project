@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 public class MainMenuScreen {
 
 	private LoginScreen parentWindow;
-	
+	private JList listJourneys;
 	private JPanel panelMainMenuFunctions;
 	private JButton btnLogOut;
 	private JRadioButton btnShowConcluded;
@@ -73,6 +73,26 @@ public class MainMenuScreen {
 			}
 		});
 		
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		listModel.addElement("This");
+		listModel.addElement("Is");
+		listModel.addElement("a");
+		listModel.addElement("test");
+		listModel.addElement("Will");
+		listModel.addElement("eventually");
+		listModel.addElement("be");
+		listModel.addElement("done");
+		listModel.addElement("via");
+		listModel.addElement("journey");
+		listModel.addElement("YEET");
+
+		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
+		listJourneys = new JList<>(listModel);
+		listJourneys.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				//will theoretically be able to select any journey from the list to view details
+			}
+		});
 		
 		
 		txtKeywordSearch.setBounds(130,75, 130, 26);
@@ -82,6 +102,9 @@ public class MainMenuScreen {
 		btnShowCurrent.setBounds(170,100,150,29);
 		btnLogOut.setBounds(21,28,150,29);
 		btnSearch.setBounds(21,140,150,29);
+		listJourneys.setBounds(200,150,150,200);
+		
+		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		panelMainMenuFunctions.add(lblKeywordSearch);
 		panelMainMenuFunctions.add(txtKeywordSearch);
@@ -89,7 +112,8 @@ public class MainMenuScreen {
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
-
+		panelMainMenuFunctions.add(listJourneys);
+		panelMainMenuFunctions.add(scrollJourneys);
 		
 		
 		
