@@ -16,7 +16,7 @@ public class Journey extends Entity {
         this.client = client;
         this.cargo = cargo;
         this.isConcluded = false;
-        client.journeys.add(this);
+        client.getJourneys().add(this);
     }
 
 
