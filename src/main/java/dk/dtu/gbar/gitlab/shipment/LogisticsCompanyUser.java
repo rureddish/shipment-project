@@ -8,7 +8,7 @@ public class LogisticsCompanyUser extends ClientUser {
 		super(logisticCompany);
 	}
 
-	public final void departShip(Ship ship) {
+	protected final void departShip(Ship ship) {
 		ship.embark();
 	}
 

@@ -8,11 +8,11 @@ public class LogIn {
 	Searcher<Client> searcher = new Searcher();
 	
 	//Constructor
-	public LogIn(ClientList clientList) {
+	private LogIn(ClientList clientList) {
 		this.clientList = clientList;
 	}
 
-	public boolean logIn(String emailTest, String passwordTest) {
+	private boolean logIn(String emailTest, String passwordTest) {
 		ArrayList<Client> client = (searcher.search(clientList.getList(), searcher.emailContains(emailTest)));
 //		ArrayList<Client> client = searcher.clientSearchByString(clientList.getList(),emailTest);
 		if (client.size()==0) {
@@ -31,11 +31,11 @@ public class LogIn {
 		}
 	}
 
-	public void logOut(){
+	private void logOut(){
 		loggedInClient=null;
 	}
 	//Getters and Setters
-	public Client getLoggedInClient() {
+	private Client getLoggedInClient() {
 		return loggedInClient;
 	}
 	

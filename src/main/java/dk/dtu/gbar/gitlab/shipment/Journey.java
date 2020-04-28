@@ -20,13 +20,13 @@ public class Journey extends Entity {
     }
 
 
-	public void endJourney() {
+	protected void endJourney() {
 		isConcluded = true;
 	}
 
     // getters and setters
 
-	public boolean isConcluded() {
+	protected boolean isConcluded() {
 		return isConcluded;
 //      return container.getLocation() == destination;
     }

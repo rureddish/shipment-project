@@ -7,7 +7,7 @@ public class ClientList extends EntityList<Client> {
 
 
     @Override 
-    public void add(Client client) {
+    protected void add(Client client) {
         if (!clientEmailAlreadyInUse(client)) {
             super.add(client);
         }

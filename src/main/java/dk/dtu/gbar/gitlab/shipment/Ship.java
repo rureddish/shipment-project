@@ -17,14 +17,14 @@ public class Ship extends Entity{
 	}
 
 ///Methods
-    public void embark(){
+    protected void embark(){
     	location = atSea;
     	for (Container container : containers) {
     		container.setLocation(atSea);
     	}
 	}
  
-	public void arrive(){
+	protected void arrive(){
 		location = route.remove();
 		for (Container container : containers) {
 			container.setLocation(location);
@@ -36,11 +36,11 @@ public class Ship extends Entity{
 		}
 	}
 
-	public Location getLocation() {
+	protected Location getLocation() {
 		return location;
 	}
 
-	public ArrayList<Container> getContainers() {
+	protected ArrayList<Container> getContainers() {
 		return containers;
 	}
 }

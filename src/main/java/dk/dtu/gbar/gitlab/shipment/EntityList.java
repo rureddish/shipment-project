@@ -11,7 +11,7 @@ public class EntityList<V extends Entity> {
     }
 
     // add entities and assign id
-    public void add(V object) {
+    protected void add(V object) {
         if (!list.contains(object)){
             idNumber++;
             object.setID(idNumber);
@@ -24,7 +24,7 @@ public class EntityList<V extends Entity> {
 
 
 
-    public void remove(V entity) {
+    protected void remove(V entity) {
         list.remove(entity);
     }
 
