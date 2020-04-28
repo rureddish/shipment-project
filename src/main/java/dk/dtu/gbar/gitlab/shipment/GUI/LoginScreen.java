@@ -32,8 +32,6 @@ public class LoginScreen
 		this.login = login;
 	}
 public LoginScreen() throws Exception{
-		
-		
 		initialize();
 	}
 

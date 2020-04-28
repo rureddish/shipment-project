@@ -2,12 +2,12 @@ package dk.dtu.gbar.gitlab.shipment;
 import java.util.ArrayList;
 
 public class Client extends Entity {
-    String name;
-    String address;
-    String refPerson;
-    String email;
-    String password;
-    ArrayList<Journey> journeys = new ArrayList<>();
+    private String name;
+    private String address;
+    private String refPerson;
+    private String email;
+    private String password;
+    private ArrayList<Journey> journeys = new ArrayList<>();
 
     //constructor with mandatory info
     public Client(String name, String address, String refPerson, String email, String password) {
