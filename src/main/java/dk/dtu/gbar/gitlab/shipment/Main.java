@@ -28,18 +28,16 @@ public class Main {
 	MainMenuScreen mainMenuScreen;
 	SignUpScreen signUpScreen;
 	
-	private JFrame frame;
-	private JPanel panelMenu;
-	private JButton btnLogin;
-	private JButton btnSignUp;
+
 	
     public static void main(String[] args) {
         LogisticsCompany logisticsCompany = new LogisticsCompany("The shipping co of 1873", "Havnegade 42", "Ole Wedel", "shipco1873@shipco.com,","admin");
+        //Starts the GUI
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreen screen = new LoginScreen();
-					screen.frame.setVisible(true);
+					LoginScreen loginScreen = new LoginScreen();
+					loginScreen.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
