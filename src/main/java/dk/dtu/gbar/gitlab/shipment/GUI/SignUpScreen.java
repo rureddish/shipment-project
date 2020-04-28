@@ -49,6 +49,9 @@ public class SignUpScreen extends JFrame {
 		if (!visible) {
 			disableButtons();
 		}
+		else {
+			enableButtons();
+		}
 		signUpPanel.setVisible(visible);
 	}
 	
