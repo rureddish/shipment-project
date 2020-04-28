@@ -27,6 +27,7 @@ public class MainMenuScreen {
 	private JRadioButton btnShowConcluded;
 	private JRadioButton btnShowCurrent;
 	
+	
 	public MainMenuScreen(LoginScreen parentWindow) {
 		this.parentWindow = parentWindow;
 		initialize();
@@ -37,6 +38,9 @@ public class MainMenuScreen {
 		parentWindow.addPanel(panelMainMenuFunctions);
 		panelMainMenuFunctions.setLayout(null);
 		panelMainMenuFunctions.setBorder(BorderFactory.createTitledBorder("Main Menu"));
+		
+		JTextField txtKeywordSearch = new JTextField(30);
+		JLabel lblKeywordSearch = new JLabel("Keyword Search:");
 		
 		btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
@@ -62,12 +66,15 @@ public class MainMenuScreen {
 		
 		
 		
+		txtKeywordSearch.setBounds(130,75, 130, 26);
+		lblKeywordSearch.setBounds(21,75, 130, 26);
 		
-		
-		btnShowConcluded.setBounds(21,50,150,29);
-		btnShowCurrent.setBounds(21,75,150,29);
+		btnShowConcluded.setBounds(21,100,150,29);
+		btnShowCurrent.setBounds(170,100,150,29);
 		btnLogOut.setBounds(21,28,150,29);
 		
+		panelMainMenuFunctions.add(lblKeywordSearch);
+		panelMainMenuFunctions.add(txtKeywordSearch);
 		panelMainMenuFunctions.add(btnShowConcluded);
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnLogOut);
