@@ -28,7 +28,7 @@ public class MainMenuScreen extends JFrame {
 	private JRadioButton btnShowCurrent;
 	private JButton btnSearch;
 	
-	
+	///
 	public MainMenuScreen(LoginScreen parentWindow) {
 		this.parentWindow = parentWindow;
 		initialize();
