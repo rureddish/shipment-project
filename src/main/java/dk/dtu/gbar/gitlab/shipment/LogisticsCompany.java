@@ -24,11 +24,13 @@ public class LogisticsCompany{
 		this.password = password;
 	}
 
-	public void register(Client client) {
+	public boolean register(Client client) {
 		if (!clientEmailAlreadyInUse(client)) {
 			client.setID(clientList.size());
 			clientList.add(client);
+			return  true;
 		}
+		return false;
 	}
 
 	public void register(Container container){

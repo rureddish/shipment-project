@@ -24,7 +24,6 @@ public class MyStepdefs {
     LogisticsCompany logisticCompany = new LogisticsCompany("admin");
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
-
     
     String passwordTest;
     String emailTest;
