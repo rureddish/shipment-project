@@ -13,20 +13,18 @@ import static org.junit.Assert.*;
 public class MyStepdefs {
 
     Client client;
-    ClientUser user1;
     Journey journey1;
     Journey journey2;
     Location copenhagen = new Location("Copenhagen");
     Location hongKong = new Location("Hong Kong");
     Container container1 = new Container(hongKong);
     Container container2 = new Container(hongKong);
+    Ship ship;
 
     LogisticsCompany logisticCompany = new LogisticsCompany("Logistic Company", "address", "refPerson", "email", "admin");
-    LogisticsCompanyUser logisticCompanyUser = new LogisticsCompanyUser(logisticCompany);
-
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
-    Ship ship;
+
     
     String passwordTest;
     String emailTest;
@@ -38,7 +36,6 @@ public class MyStepdefs {
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
     public void aClientWithAddressEmailAndRefPerson(String name, String address, String email, String refperson) {
         client = new Client(name, address, email, refperson, "password");
-        user1 = new ClientUser(client);
     }
 
     @And("an empty client list")
@@ -175,9 +172,9 @@ public class MyStepdefs {
     }
 
     @When("the worker informs of the departure of the ship transporting the container")
-    public void the_worker_informs_of_the_embarkation_of_the_ship_transporting_the_container() {
+    public void the_worker_informs_of_the_departure_of_the_ship_transporting_the_container() {
     	logisticCompany.register(ship);
-        logisticCompanyUser.departShip(ship);
+        ship.depart();
     }
 
     @Then("the ship and the container are at sea")
@@ -206,7 +203,7 @@ public class MyStepdefs {
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = user1.getConcludedClientJourneys();
+        searchresults = client.getConcludedJourneys();
     }
 
     @Then("return the concluded journey")
@@ -218,7 +215,7 @@ public class MyStepdefs {
 //    Scenario 2
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = user1.getCurrentClientJourneys();
+        searchresults = client.getCurrentJourneys();
     }
 
     @Then("return the current journey")
