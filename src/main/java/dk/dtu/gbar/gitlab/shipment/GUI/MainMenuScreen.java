@@ -26,7 +26,9 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnLogOut;
 	private JRadioButton btnShowConcluded;
 	private JRadioButton btnShowCurrent;
+	private JRadioButton btnShowAll;
 	private JButton btnSearch;
+	private JButton btnExamine;
 	
 	///
 	public MainMenuScreen(LoginScreen parentWindow) {
@@ -62,16 +64,27 @@ public class MainMenuScreen extends JFrame {
 		btnShowConcluded = new JRadioButton("Show Concluded");
 		btnShowConcluded.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//shows concluded journeys based on keywords
+				//shows concluded journeys based on keywords. Shows all concluded if keyword is blank
 			}
 		});
 		
 		btnShowCurrent = new JRadioButton("Show Current");
 		btnShowCurrent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//shows current journeys based on keywords
+				//shows current journeys based on keywords. Shows all current if keyword is blank
 			}
 		});
+		
+		btnShowAll = new JRadioButton("Show All");
+		btnShowAll.setLocation(18, 133);
+		btnShowAll.setSize(105, 29);
+		btnShowAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Shows all journeys based on keywords. Shows all if keyword is blank
+			}
+		});
+		
+		
 		
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		listModel.addElement("This");
@@ -92,26 +105,32 @@ public class MainMenuScreen extends JFrame {
 		listJourneys.setVisibleRowCount(5);
 		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		
-		
 		listJourneys.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				//will theoretically be able to select any journey from the list to view details
 			}
 		});
 		
-		
+		btnExamine = new JButton("Examine");
+		btnExamine.setBounds(290, 378, 150, 29);
+		panelMainMenuFunctions.add(btnExamine);
+		btnExamine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s = (String) listJourneys.getSelectedValue();
+				System.out.println(s);
+			}
+		});
 		
 		
 		txtKeywordSearch.setBounds(102,75, 130, 26);
 		lblKeywordSearch.setBounds(21,75, 83, 26);
 		
-		btnShowConcluded.setBounds(21,100,105,29);
-		btnShowCurrent.setBounds(130,100,105,29);
-		btnLogOut.setBounds(21,28,150,29);
-		btnSearch.setBounds(21,136,150,29);
-		scrollJourneys.setSize(150, 192);
-		scrollJourneys.setLocation(21, 176);
+		btnShowConcluded.setBounds(18,108,129,29);
+		btnShowCurrent.setBounds(149,108,105,29);
+		btnLogOut.setBounds(290,11,150,29);
+		btnSearch.setBounds(21,166,150,29);
+		scrollJourneys.setSize(259, 214);
+		scrollJourneys.setLocation(181, 153);
 		
 		
 
@@ -121,9 +140,12 @@ public class MainMenuScreen extends JFrame {
 		panelMainMenuFunctions.add(txtKeywordSearch);
 		panelMainMenuFunctions.add(btnShowConcluded);
 		panelMainMenuFunctions.add(btnShowCurrent);
+		panelMainMenuFunctions.add(btnShowAll);
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
 		panelMainMenuFunctions.add(scrollJourneys);
+		
+		
 		
 		
 		
