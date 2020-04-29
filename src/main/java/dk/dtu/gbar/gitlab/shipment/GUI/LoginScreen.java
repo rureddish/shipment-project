@@ -1,5 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
+import dk.dtu.gbar.gitlab.shipment.Client;
+import dk.dtu.gbar.gitlab.shipment.ClientList;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 
 import java.awt.CardLayout;
@@ -33,11 +35,15 @@ public class LoginScreen
 	}
 public LoginScreen() throws Exception{
 		initialize();
+		
 	}
 
 	private void initialize() {
+		Client admin = new Client("Admin", "1234 Street st", "John Doe","example@email.com", "adminPass");
+		ClientList clientList = new ClientList();
+		clientList.add(admin);
 		frame = new JFrame();
-		frame.setBounds(100, 100, 404, 486);
+		frame.setBounds(100, 100, 475, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
@@ -50,21 +56,19 @@ public LoginScreen() throws Exception{
 		JTextField txtLogin = new JTextField(20);
 		JLabel lblLogin = new JLabel("Login:");
 		
-		JPasswordField pass = new JPasswordField(20);
+		JPasswordField password = new JPasswordField(20);
 		JLabel lblPass = new JLabel("Password:");
+		
+		login = new LogIn(clientList);
 		
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*if(login.logIn(txtLogin.getText(), pass.getText())) {
+				if(login.logIn(txtLogin.getText(), password.getText())) {
 					setVisible(false);
 					mainMenuScreen.setVisible(true);
 				}
-				else {
-					System.out.println("Incorrect Login/Password");
-				}*/
-				setVisible(false);
-				mainMenuScreen.setVisible(true);
+				
 				
 				
 				
@@ -84,9 +88,9 @@ public LoginScreen() throws Exception{
 		panelMenu.add(txtLogin);
 		
 		lblPass.setBounds(80,100,130,26);
-		pass.setBounds(150, 100, 130, 26);
+		password.setBounds(150, 100, 130, 26);
 		panelMenu.add(lblPass);
-		panelMenu.add(pass);
+		panelMenu.add(password);
 		
 		btnLogin.setBounds(35,395,150,29);
 		panelMenu.add(btnLogin);
