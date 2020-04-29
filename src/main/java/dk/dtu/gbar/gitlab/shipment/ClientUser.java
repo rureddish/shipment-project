@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 public class ClientUser {
     Client client;
     Searcher<Journey> search = new Searcher();
-    LogisticsCompany logisticsCompany;
 
     public ClientUser(Client client) {
         this.client = client;

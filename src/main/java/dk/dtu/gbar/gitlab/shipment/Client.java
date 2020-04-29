@@ -1,6 +1,10 @@
 package dk.dtu.gbar.gitlab.shipment;
 import java.util.ArrayList;
 
+/**
+ * Entity containing basic client information and password.
+ * Contains list of Journeys registered by the client.
+ */
 public class Client extends Entity {
     private String name;
     private String address;
@@ -9,7 +13,13 @@ public class Client extends Entity {
     private String password;
     private ArrayList<Journey> journeys = new ArrayList<>();
 
-    //constructor with mandatory info
+    /**
+     @param name The name of the client
+     @param address The mailing address of the client
+     @param refPerson The reference person of the client
+     @param email The Email address of the client
+     @param password The password to access the client's data
+     */
     public Client(String name, String address, String refPerson, String email, String password) {
         this.name = name;
         this.address = address;
