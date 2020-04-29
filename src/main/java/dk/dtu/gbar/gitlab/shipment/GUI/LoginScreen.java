@@ -94,7 +94,7 @@ public class LoginScreen
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
-		mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
+	//	mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
 		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}

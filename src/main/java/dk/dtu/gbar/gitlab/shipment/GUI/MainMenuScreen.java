@@ -93,10 +93,11 @@ public class MainMenuScreen extends JFrame {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
 			}
 		});
-		
-		
-		
-		listJourneys = new JList<>((ListModel<Journey>) loggedIn.getJourneys());
+		Journey[] clientJourneys = new Journey[loggedIn.getJourneys().size()];
+		for(int i = 0; i < clientJourneys.length;i++){
+				clientJourneys[i]=loggedIn.getJourneys().get(i);
+		}
+		listJourneys = new JList(clientJourneys);
 		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
 		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listJourneys.setVisibleRowCount(5);
