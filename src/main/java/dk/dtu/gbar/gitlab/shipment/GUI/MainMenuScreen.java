@@ -26,6 +26,7 @@ import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 public class MainMenuScreen extends JFrame {
 
 	private LoginScreen parentWindow;
+	private JourneyRegisterScreen journeyRegisterScreen;
 	private LogisticsCompany logisticsCompany;
 	private Client loggedIn;
 	private JList listJourneys;
@@ -110,10 +111,13 @@ public class MainMenuScreen extends JFrame {
 			}
 		});
 		
-		btnRegisterJourney = new JButton("Register Journey");
+		btnRegisterJourney = new JButton("Register New Journey");
+		btnRegisterJourney.setLocation(21, 35);
+		btnRegisterJourney.setSize(173, 29);
 		btnRegisterJourney.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
+				journeyRegisterScreen.setVisible(true);
 			}
 		});
 		
@@ -130,10 +134,7 @@ public class MainMenuScreen extends JFrame {
 		
 		txtKeywordSearch.setBounds(102,75, 130, 26);
 		lblKeywordSearch.setBounds(21,75, 83, 26);
-		
-		btnShowConcluded.setBounds(18,108,129,29);
-		btnShowCurrent.setBounds(149,108,105,29);
-		btnLogOut.setBounds(290,11,150,29);
+				btnShowConcluded.setBounds(18,108,129,29);				btnShowCurrent.setBounds(149,108,105,29);
 		btnSearch.setBounds(21,166,150,29);
 		scrollJourneys.setSize(259, 214);
 		scrollJourneys.setLocation(181, 153);
@@ -154,7 +155,7 @@ public class MainMenuScreen extends JFrame {
 		panelMainMenuFunctions.add(btnRegisterJourney);
 		
 		
-		
+		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn);
 		
 		
 	}
@@ -183,6 +184,8 @@ public class MainMenuScreen extends JFrame {
 		}
 		panelMainMenuFunctions.setVisible(visible);
 	}
+	
+	
 	
 	
 }
