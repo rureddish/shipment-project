@@ -37,7 +37,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreen loginScreen = new LoginScreen(loginClients);
+					LoginScreen loginScreen = new LoginScreen(loginClients,logisticsCompany);
 					loginScreen.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
