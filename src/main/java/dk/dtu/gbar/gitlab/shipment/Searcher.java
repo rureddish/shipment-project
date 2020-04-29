@@ -17,14 +17,14 @@ public class Searcher<V extends Entity> {
                 .collect(Collectors.toList());
     } 
 
-      //Container
-    public ArrayList<V> containerSearchByString(ArrayList<Container> list, String string){
-        return search(list, locationContains(string));
-    }
+//      //Container
+//    public ArrayList<V> containerSearchByString(ArrayList<Container> list, String string){
+//        return search(list, locationContains(string));
+//    }
 
-    public Predicate<Container> locationContains(String string) {
-        return (str -> str.getLocation().getPlaceName().contains(string));
-    }
+//    public Predicate<Container> locationContains(String string) {
+//        return (str -> str.getLocation().getPlaceName().contains(string));
+//    }
 
     //Client
     public ArrayList<V> clientSearchByString(ArrayList<Client> list, String string) {
@@ -48,17 +48,17 @@ public class Searcher<V extends Entity> {
     }
 
     // Journey
-    public ArrayList<V> journeySearchByString(ArrayList<V> list, String string) {
-        return search(list, originContains(string), destinationContains(string), clientContains(string), cargoContains(string)); 
-    }            
+//    public ArrayList<V> journeySearchByString(ArrayList<V> list, String string) {
+//        return search(list, originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
+//    }
 
     public Predicate<Journey> excludeConcludedJourneys = (x -> !x.isConcluded());
 
     public Predicate<Journey> excludeCurrentJourneys = (Journey::isConcluded);
 
-    public Predicate<Journey> journeyLocationContains(String string) {
-        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
-    }
+//    public Predicate<Journey> journeyLocationContains(String string) {
+//        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
+//    }
 
     public Predicate<Journey> originContains(String string) {
         return (x -> x.getOrigin().getPlaceName().contains(string));
@@ -69,11 +69,11 @@ public class Searcher<V extends Entity> {
     }
 
 //    --> problem
-    public Predicate<Journey> clientContains(String string) {
-        return (x -> x.getClient().getName().equalsIgnoreCase(string));
-    }
-
-    public Predicate<Journey> cargoContains(String string) {
-        return (x -> x.getCargo().equalsIgnoreCase(string));
-    }
+//    public Predicate<Journey> clientContains(String string) {
+//        return (x -> x.getClient().getName().equalsIgnoreCase(string));
+//    }
+//
+//    public Predicate<Journey> cargoContains(String string) {
+//        return (x -> x.getCargo().equalsIgnoreCase(string));
+//    }
 }

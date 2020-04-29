@@ -17,7 +17,7 @@ public class Ship extends Entity{
 	}
 
 ///Methods
-    public void embark(){
+    public void depart(){
     	location = atSea;
     	for (Container container : containers) {
     		container.setLocation(atSea);
