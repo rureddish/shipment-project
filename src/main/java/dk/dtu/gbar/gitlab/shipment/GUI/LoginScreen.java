@@ -31,6 +31,7 @@ public class LoginScreen
 	private JButton btnSignUp;
 	private LogIn login;
 	private LogisticsCompany logisticsCompany;
+	private Client loggedIn;
 
 	public LoginScreen(LogIn login, LogisticsCompany logisticsCompany) throws Exception {
 		this.login = login;
@@ -61,6 +62,7 @@ public class LoginScreen
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(login.clientLogIn(txtLogin.getText(), password.getText())) {
+					loggedIn = login.getLoggedInClient();
 					txtLogin.setText("");
 					password.setText("");
 					setVisible(false);
@@ -92,7 +94,7 @@ public class LoginScreen
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
-		mainMenuScreen = new MainMenuScreen(this);
+		mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
 		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}

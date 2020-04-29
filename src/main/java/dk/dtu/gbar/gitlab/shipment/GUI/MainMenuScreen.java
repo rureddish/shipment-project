@@ -13,14 +13,21 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import dk.dtu.gbar.gitlab.shipment.Client;
+import dk.dtu.gbar.gitlab.shipment.Journey;
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+
 public class MainMenuScreen extends JFrame {
 
 	private LoginScreen parentWindow;
+	private LogisticsCompany logisticsCompany;
+	private Client loggedIn;
 	private JList listJourneys;
 	private JPanel panelMainMenuFunctions;
 	private JButton btnLogOut;
@@ -30,9 +37,12 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnSearch;
 	private JButton btnExamine;
 	
+	
 	///
-	public MainMenuScreen(LoginScreen parentWindow) {
+	public MainMenuScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany, Client loggedIn) {
 		this.parentWindow = parentWindow;
+		this.logisticsCompany = logisticsCompany;
+		this.loggedIn = loggedIn;
 		initialize();
 	}
 
@@ -86,20 +96,7 @@ public class MainMenuScreen extends JFrame {
 		
 		
 		
-		DefaultListModel<String> listModel = new DefaultListModel<>();
-		listModel.addElement("This");
-		listModel.addElement("Is");
-		listModel.addElement("a");
-		listModel.addElement("test");
-		listModel.addElement("Will");
-		listModel.addElement("eventually");
-		listModel.addElement("be");
-		listModel.addElement("done");
-		listModel.addElement("via");
-		listModel.addElement("journey");
-		listModel.addElement("YEET");
-		
-		listJourneys = new JList<>(listModel);
+		listJourneys = new JList<>((ListModel<Journey>) loggedIn.getJourneys());
 		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
 		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listJourneys.setVisibleRowCount(5);

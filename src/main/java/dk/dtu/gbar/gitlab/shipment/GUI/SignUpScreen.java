@@ -80,17 +80,23 @@ public class SignUpScreen extends JFrame {
 					System.out.println("Please fill in all Spaces");
 				}
 				else {
-					logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
-					txtEmail.getText(),password.getText()));
+					if(logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
+					txtEmail.getText(),password.getText()))) {
+						System.out.println("Register Succesfull");
+						txtUsername.setText("");
+						password.setText("");
+						txtEmail.setText("");
+						txtRefPerson.setText("");
+						txtAddress.setText("");
+						setVisible(false);
+						loginScreen.setVisible(true);
+					}
+					else {
+						System.out.println("Email already in use.");
+					}
+					
 
-					System.out.println("Register Succesfull");
-					txtUsername.setText("");
-					password.setText("");
-					txtEmail.setText("");
-					txtRefPerson.setText("");
-					txtAddress.setText("");
-					setVisible(false);
-					loginScreen.setVisible(true);
+					
 				}
 				
 			}
