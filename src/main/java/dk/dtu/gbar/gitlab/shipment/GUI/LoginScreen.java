@@ -59,15 +59,14 @@ public class LoginScreen
 		JLabel lblPass = new JLabel("Password:");
 		
 		btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(login.clientLogIn(txtLogin.getText(), password.getText())) {
-					loggedIn = login.getLoggedInClient();
-					txtLogin.setText("");
-					password.setText("");
-					setVisible(false);
-					mainMenuScreen.setVisible(true);
-				}
+		btnLogin.addActionListener(e -> {
+			if(login.clientLogIn(txtLogin.getText(), password.getText())) {
+				loggedIn = login.getLoggedInClient();
+				txtLogin.setText("");
+				password.setText("");
+				setVisible(false);
+				mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
+				mainMenuScreen.setVisible(true);
 			}
 		});
 		
@@ -94,7 +93,7 @@ public class LoginScreen
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
-		mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
+		MainMenuScreen mainMenuScreen;
 		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}
