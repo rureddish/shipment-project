@@ -12,6 +12,7 @@ import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
 import org.hsqldb.persist.Log;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +31,14 @@ public class Main {
 	SignUpScreen signUpScreen;
 	
 
-	public static void initialLogins(ClientList clientList) {
+	public static void initialLogins(ArrayList<Client> clientList) {
 		clientList.add(new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool"));
 		clientList.add(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
 		
 	}
     public static void main(String[] args) {
         LogisticsCompany logisticsCompany = new LogisticsCompany("The shipping co of 1873", "Havnegade 42", "Ole Wedel", "shipco1873@shipco.com,","admin");
-        ClientList clients = new ClientList();
+        ArrayList<Client> clients = new ArrayList<Client>();
         initialLogins(clients);
         LogIn loginClients = new LogIn(clients);
         EventQueue.invokeLater(new Runnable() {

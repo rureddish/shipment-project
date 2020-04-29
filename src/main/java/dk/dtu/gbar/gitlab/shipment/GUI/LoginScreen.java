@@ -1,7 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
-import dk.dtu.gbar.gitlab.shipment.ClientList;
+
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 
 import java.awt.CardLayout;
