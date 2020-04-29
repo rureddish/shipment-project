@@ -43,17 +43,17 @@ public class MyStepdefs {
 
     @And("an empty client list")
     public void anEmptyClientList() {
-        assertTrue(logisticCompany.getClientList().getList().isEmpty());
+        assertTrue(logisticCompany.getClientList().isEmpty());
     }
 
     @When("the client is registered")
     public void theClientIsRegistered() {
-        logisticCompany.getClientList().add(client);
+        logisticCompany.register(client);
     }
 
     @Then("the client list contains the client")
     public void theClientListContainsClient() {
-        assertTrue(logisticCompany.getClientList().getList().contains(client));
+        assertTrue(logisticCompany.getClientList().contains(client));
     }
 
 ///////////////////////////
@@ -62,7 +62,7 @@ public class MyStepdefs {
 
     @And("client list containing the client")
     public void clientListContainingTheClient() {
-        logisticCompany.getClientList().getList().add(client);
+        logisticCompany.register(client);
     }
 
     @When("the info of the client is updated")
@@ -86,7 +86,7 @@ public class MyStepdefs {
 ///////////////////////////
     @When("searching clients by name {string}")
     public void searchingClientsByName(String name) {
-        searchresults = search.search(logisticCompany.getClientList().getList(), search.clientNameContains(name));
+        searchresults = search.search(logisticCompany.getClientList(), search.clientNameContains(name));
     }
 
     @Then("the client appears in search results")
@@ -96,12 +96,12 @@ public class MyStepdefs {
 
     @When("searching clients by address {string}")
     public void searchingClientsByAddress(String address) {
-        searchresults = search.search(logisticCompany.getClientList().getList(), search.addressContains(address));
+        searchresults = search.search(logisticCompany.getClientList(), search.addressContains(address));
     }
 
     @When("searching clients for string {string}")
     public void searchingClientsForString(String string) {
-        searchresults = search.clientSearchByString(logisticCompany.getClientList().getList(),string);
+        searchresults = search.clientSearchByString(logisticCompany.getClientList(),string);
     }
 
 ///////////////
@@ -109,12 +109,12 @@ public class MyStepdefs {
 ///////////////
     @When("the client is removed")
     public void theClientIsRemoved() {
-        logisticCompany.getClientList().getList().remove(client);
+        logisticCompany.getClientList().remove(client);
     }
 
     @Then("the client list does not contain the client")
     public void theClientListDoesNotContainTheClient() {
-        assertFalse(logisticCompany.getClientList().getList().contains(client));
+        assertFalse(logisticCompany.getClientList().contains(client));
     }
 
 /////////////////////////////////////////////////
@@ -132,18 +132,17 @@ public class MyStepdefs {
         hongKong = new Location("Hong Kong", numberOfContainers, logisticCompany);
     }
 
-
     @When("client registers a shipment of {string} for a journey from Copenhagen to Hong Kong")
     public void client_registers_a_shipment_of_for_a_journey_from_Copenhagen_to_Hong_Kong_with_the_company(String content) {
         journey1 = new Journey(copenhagen, hongKong, client, content);
-        logisticCompany.getJourneyList().add(journey1);
+        logisticCompany.register(journey1);
     }
 
     @Then("the journey is registered")
     public void the_shipment_is_registered_for_the_journey() {
         assertEquals(journey1.getClient(), client);
-        assertTrue(logisticCompany.getJourneyList().getList().contains(journey1));
-        assertTrue(logisticCompany.getContainerList().getList().contains(journey1.getContainer()));
+        assertTrue(logisticCompany.getJourneyList().contains(journey1));
+        assertTrue(logisticCompany.getContainerList().contains(journey1.getContainer()));
     }
 
     ////Scenario 2
@@ -161,12 +160,13 @@ public class MyStepdefs {
     @And("a registered journey from Copenhagen to Hong Kong with {string}")
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
         journey1 = new Journey(copenhagen, hongKong, client, cargo);
-        logisticCompany.getJourneyList().add(journey1);
+        logisticCompany.register(journey1);
     }
 
     @Given("a registered ship in Copenhagen")
     public void a_ship_with_ID_in_Copenhagen() {
         ship = new Ship(copenhagen, logisticCompany);
+        logisticCompany.register(ship);
     }
 
     @And("the container is added to the ship")
@@ -176,7 +176,7 @@ public class MyStepdefs {
 
     @When("the worker informs of the departure of the ship transporting the container")
     public void the_worker_informs_of_the_embarkation_of_the_ship_transporting_the_container() {
-    	logisticCompany.getShipList().add(ship);
+    	logisticCompany.register(ship);
         logisticCompanyUser.departShip(ship);
     }
 
@@ -194,13 +194,13 @@ public class MyStepdefs {
     @Given("a journey in progress")
     public void aJourneyInProgress() {
         journey1 = new Journey(hongKong,copenhagen, client, "oranges");
-        logisticCompany.getJourneyList().add(journey1);
+        logisticCompany.register(journey1);
     }
 
     @And("a concluded journey")
     public void aConcludedJourney() {
         journey2 = new Journey(hongKong,copenhagen, client, "oranges");
-        logisticCompany.getJourneyList().add(journey2);
+        logisticCompany.register(journey2);
         journey2.endJourney();
     }
 
@@ -230,7 +230,7 @@ public class MyStepdefs {
     //////Scenario3
     @When("client searches for journeys coming from {string}")
     public void searches_for_journeys_coming_from(String origin) {
-        searchresults = search.search(logisticCompany.getJourneyList().getList(), search.originContains(origin));
+        searchresults = search.search(logisticCompany.getJourneyList(), search.originContains(origin));
     }
 
     @Then("return the journey coming from Copenhagen")
@@ -241,7 +241,7 @@ public class MyStepdefs {
     //////Scenario4
     @When("client searches for journeys bound for {string}")
     public void client_searches_for_journeys_bound_for(String destination) {
-        searchresults = search.search(logisticCompany.getJourneyList().getList(),search.destinationContains(destination));
+        searchresults = search.search(logisticCompany.getJourneyList(),search.destinationContains(destination));
     }
 
     @Then("return the journeys bound for Hong Kong")
@@ -257,7 +257,7 @@ public class MyStepdefs {
     @Given("a Client {string} with address {string}, ref person {string}, email {string} and password {string}")
     public void a_Client_with_address_ref_person_email_and_password(String name, String address, String refPerson, String email, String password) {
     	client = new Client(name, address, refPerson, email, password);
-        logisticCompany.getClientList().getList().add(client);
+        logisticCompany.register(client);
     }
     
     @Given("a password {string}")
