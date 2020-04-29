@@ -7,7 +7,8 @@ import java.util.List;
  * Database containing all entities in the system.
  * Contains list of clients,
  */
-public class LogisticsCompany extends Client{
+public class LogisticsCompany{
+	private String password;
 	private ArrayList<Client> clientList = new ArrayList();
 	private ArrayList<Container> containerList = new ArrayList<>();
 	private ArrayList<Journey> journeyList = new ArrayList<>();
@@ -17,14 +18,10 @@ public class LogisticsCompany extends Client{
 
 	/**
 	 *
-	 * @param name The name of the logistics company using the software
-	 * @param address The mailing address
-	 * @param refPerson
-	 * @param email
 	 * @param password
 	 */
-	public LogisticsCompany(String name, String address, String refPerson, String email, String password) {
-		super(name, address, refPerson, email, password);
+	public LogisticsCompany(String password) {
+		this.password = password;
 	}
 
 	public void register(Client client) {
@@ -77,6 +74,10 @@ public class LogisticsCompany extends Client{
 	
 	//Getters and Setters
 
+
+	public String getPassword() {
+		return password;
+	}
 
 	public ArrayList<Ship> getShipList() {
 		return shipList;

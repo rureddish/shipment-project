@@ -21,14 +21,14 @@ public class MyStepdefs {
     Container container2 = new Container(hongKong);
     Ship ship;
 
-    LogisticsCompany logisticCompany = new LogisticsCompany("Logistic Company", "address", "refPerson", "email", "admin");
+    LogisticsCompany logisticCompany = new LogisticsCompany("admin");
     Searcher<? extends Entity> search = new Searcher<>();
     List<? extends Entity> searchresults;
 
     
     String passwordTest;
     String emailTest;
-    LogIn logIn = new LogIn(logisticCompany.getClientList());
+    LogIn logIn = new LogIn(logisticCompany);
 
     ////////////////////
     // register client
@@ -269,7 +269,7 @@ public class MyStepdefs {
 
     @When("client logs in")
     public void client_logs_in() {
-        logIn.logIn(emailTest, passwordTest);
+        logIn.clientLogIn(emailTest, passwordTest);
     }
 
     @Then("client is logged in")
