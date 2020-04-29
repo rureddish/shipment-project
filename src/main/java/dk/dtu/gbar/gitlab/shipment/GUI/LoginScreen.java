@@ -50,7 +50,7 @@ public class LoginScreen
 		frame.getContentPane().add(panelMenu, "name_160236068959176");
 		panelMenu.setLayout(null);
 		panelMenu.setBorder(BorderFactory.createTitledBorder("Login Menu"));
-		
+		loggedIn = new Client("","","","","");
 		
 		JTextField txtLogin = new JTextField(20);
 		JLabel lblLogin = new JLabel("Login:");
@@ -66,6 +66,7 @@ public class LoginScreen
 					txtLogin.setText("");
 					password.setText("");
 					setVisible(false);
+					
 					mainMenuScreen.setVisible(true);
 				}
 			}
@@ -94,7 +95,7 @@ public class LoginScreen
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
-	//	mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
+		mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
 		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}
