@@ -36,6 +36,7 @@ public class MainMenuScreen extends JFrame {
 	private JRadioButton btnShowAll;
 	private JButton btnSearch;
 	private JButton btnExamine;
+	private JButton btnRegisterJourney;
 	
 	
 	///
@@ -109,9 +110,16 @@ public class MainMenuScreen extends JFrame {
 			}
 		});
 		
+		btnRegisterJourney = new JButton("Register Journey");
+		btnRegisterJourney.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		
 		btnExamine = new JButton("Examine");
 		btnExamine.setBounds(290, 378, 150, 29);
-		panelMainMenuFunctions.add(btnExamine);
 		btnExamine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = (String) listJourneys.getSelectedValue();
@@ -142,7 +150,8 @@ public class MainMenuScreen extends JFrame {
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
 		panelMainMenuFunctions.add(scrollJourneys);
-		
+		panelMainMenuFunctions.add(btnExamine);
+		panelMainMenuFunctions.add(btnRegisterJourney);
 		
 		
 		

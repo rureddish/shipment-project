@@ -66,7 +66,6 @@ public class LoginScreen
 					txtLogin.setText("");
 					password.setText("");
 					setVisible(false);
-					
 					mainMenuScreen.setVisible(true);
 				}
 			}
