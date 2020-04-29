@@ -39,6 +39,24 @@ public class SignUpScreen extends JFrame {
 		JLabel lblUsername = new JLabel("Username:");
 		JPasswordField password = new JPasswordField(20);
 		JLabel lblPassword = new JLabel("Password:");
+		JTextField txtEmail = new JTextField(20);
+		txtEmail.setLocation(160, 123);
+		txtEmail.setSize(130, 29);
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setLocation(107, 123);
+		lblEmail.setSize(39, 29);
+		JTextField txtRefPerson = new JTextField(20);
+		txtRefPerson.setLocation(160, 83);
+		txtRefPerson.setSize(130, 29);
+		JLabel lblRefPerson = new JLabel("Reference Person:");
+		lblRefPerson.setLocation(45, 83);
+		lblRefPerson.setSize(113, 29);
+		JTextField txtAddress = new JTextField(20);
+		txtAddress.setSize(130, 29);
+		txtAddress.setLocation(160, 203);
+		JLabel lblAddress = new JLabel("Address:");
+		lblAddress.setLocation(91, 203);
+		lblAddress.setSize(67, 29);
 		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -56,18 +74,24 @@ public class SignUpScreen extends JFrame {
 			}
 		});
 		
-		txtUsername.setBounds(160,100,130,29);
-		lblUsername.setBounds(94,100,130,29);
-		password.setBounds(160,150,130,29);
-		lblPassword.setBounds(94,150,130,29);
+		txtUsername.setBounds(160,43,130,29);
+		lblUsername.setBounds(83,43,74,29);
+		password.setBounds(160,163,130,29);
+		lblPassword.setBounds(84,163,74,29);
 		
-		btnRegister.setBounds(120,350,150,29);
-		btnBack.setBounds(21, 28, 74, 29);
+		btnRegister.setBounds(150,260,150,29);
+		btnBack.setBounds(366, 11, 74, 29);
 		
 		signUpPanel.add(lblPassword);
 		signUpPanel.add(lblUsername);
+		signUpPanel.add(lblAddress);
+		signUpPanel.add(lblRefPerson);
+		signUpPanel.add(lblEmail);
 		signUpPanel.add(txtUsername);
 		signUpPanel.add(password);
+		signUpPanel.add(txtAddress);
+		signUpPanel.add(txtRefPerson);
+		signUpPanel.add(txtEmail);
 		signUpPanel.add(btnRegister);
 		signUpPanel.add(btnBack);
 

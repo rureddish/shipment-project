@@ -39,9 +39,6 @@ public LoginScreen() throws Exception{
 	}
 
 	private void initialize() {
-		Client admin = new Client("Admin", "1234 Street st", "John Doe","example@email.com", "adminPass");
-		ClientList clientList = new ClientList();
-		clientList.add(admin);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 475, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,8 +55,6 @@ public LoginScreen() throws Exception{
 		
 		JPasswordField password = new JPasswordField(20);
 		JLabel lblPass = new JLabel("Password:");
-		
-		login = new LogIn(clientList);
 		
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {

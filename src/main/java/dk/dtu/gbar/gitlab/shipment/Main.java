@@ -4,7 +4,8 @@ import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
 import dk.dtu.gbar.gitlab.shipment.GUI.MainMenuScreen;
 import dk.dtu.gbar.gitlab.shipment.GUI.SignUpScreen;
 import dk.dtu.gbar.gitlab.shipment.persistence.HibernateUtil;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
+import dk.dtu.gbar.gitlab.shipment.Client;
+//import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
@@ -29,14 +30,20 @@ public class Main {
 	SignUpScreen signUpScreen;
 	
 
-	
+	public static void initialLogins(ClientList clientList) {
+		clientList.add(new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool"));
+		clientList.add(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
+		
+	}
     public static void main(String[] args) {
         LogisticsCompany logisticsCompany = new LogisticsCompany("The shipping co of 1873", "Havnegade 42", "Ole Wedel", "shipco1873@shipco.com,","admin");
-        //Starts the GUI
+        ClientList clients = new ClientList();
+        initialLogins(clients);
+        LogIn loginClients = new LogIn(clients);
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreen loginScreen = new LoginScreen();
+					LoginScreen loginScreen = new LoginScreen(loginClients);
 					loginScreen.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
