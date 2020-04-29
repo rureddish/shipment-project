@@ -3,6 +3,7 @@ package dk.dtu.gbar.gitlab.shipment.GUI;
 import dk.dtu.gbar.gitlab.shipment.Client;
 
 import dk.dtu.gbar.gitlab.shipment.LogIn;
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -29,9 +30,11 @@ public class LoginScreen
 	private JButton btnLogin;
 	private JButton btnSignUp;
 	private LogIn login;
+	private LogisticsCompany logisticsCompany;
 
-	public LoginScreen(LogIn login) throws Exception {
+	public LoginScreen(LogIn login, LogisticsCompany logisticsCompany) throws Exception {
 		this.login = login;
+		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
 
@@ -58,6 +61,8 @@ public class LoginScreen
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(login.clientLogIn(txtLogin.getText(), password.getText())) {
+					txtLogin.setText("");
+					password.setText("");
 					setVisible(false);
 					mainMenuScreen.setVisible(true);
 				}
@@ -88,7 +93,7 @@ public class LoginScreen
 		panelMenu.add(btnSignUp);
 		
 		mainMenuScreen = new MainMenuScreen(this);
-		signUpScreen = new SignUpScreen(this);
+		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}
 	

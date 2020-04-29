@@ -14,16 +14,21 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dk.dtu.gbar.gitlab.shipment.Client;
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+
 public class SignUpScreen extends JFrame {
 
 	private LoginScreen loginScreen;
 	private JPanel signUpPanel;
 	private JButton btnBack;
 	private JButton btnRegister;
+	private LogisticsCompany logisticsCompany;
 
 	
-	public SignUpScreen(LoginScreen loginScreen) {
+	public SignUpScreen(LoginScreen loginScreen, LogisticsCompany logisticsCompany) {
 		this.loginScreen = loginScreen;
+		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
 
@@ -69,8 +74,25 @@ public class SignUpScreen extends JFrame {
 		btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Checks the values in username and password. If username is not in the database, adds username and password.
-				//Otherwise, says username is already taken
+				if(txtUsername.getText().isBlank() || password.getText().isBlank() || 
+				txtEmail.getText().isBlank() || txtRefPerson.getText().isBlank() || 
+				txtAddress.getText().isBlank()) {
+					System.out.println("Please fill in all Spaces");
+				}
+				else {
+					logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
+					txtEmail.getText(),password.getText()));
+
+					System.out.println("Register Succesfull");
+					txtUsername.setText("");
+					password.setText("");
+					txtEmail.setText("");
+					txtRefPerson.setText("");
+					txtAddress.setText("");
+					setVisible(false);
+					loginScreen.setVisible(true);
+				}
+				
 			}
 		});
 		
