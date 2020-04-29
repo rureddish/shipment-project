@@ -30,13 +30,11 @@ public class LoginScreen
 	private JButton btnSignUp;
 	private LogIn login;
 
-	public LoginScreen(LogIn login) {
+	public LoginScreen(LogIn login) throws Exception {
 		this.login = login;
-	}
-public LoginScreen() throws Exception{
 		initialize();
-		
 	}
+
 
 	private void initialize() {
 		frame = new JFrame();

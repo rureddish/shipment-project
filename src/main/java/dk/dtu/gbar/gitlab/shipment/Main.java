@@ -24,6 +24,7 @@ public class Main {
 	MainMenuScreen mainMenuScreen;
 	SignUpScreen signUpScreen;
 
+
 	public static void initialLogins(LogisticsCompany logisticsCompany) {
 		logisticsCompany.register(new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool"));
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
@@ -31,13 +32,12 @@ public class Main {
 
     public static void main(String[] args) {
 		LogisticsCompany logisticsCompany = new LogisticsCompany("admin");
-		ArrayList<Client> clients = new ArrayList<Client>();
         initialLogins(logisticsCompany);
         LogIn loginClients = new LogIn(logisticsCompany);
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreen loginScreen = new LoginScreen();
+					LoginScreen loginScreen = new LoginScreen(loginClients);
 					loginScreen.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
