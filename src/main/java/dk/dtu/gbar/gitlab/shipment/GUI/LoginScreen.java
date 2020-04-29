@@ -59,14 +59,10 @@ public LoginScreen() throws Exception{
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(login.logIn(txtLogin.getText(), password.getText())) {
+				if(login.clientLogIn(txtLogin.getText(), password.getText())) {
 					setVisible(false);
 					mainMenuScreen.setVisible(true);
 				}
-				
-				
-				
-				
 			}
 		});
 		
