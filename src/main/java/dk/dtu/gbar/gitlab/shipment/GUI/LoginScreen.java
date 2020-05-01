@@ -6,7 +6,6 @@ import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,12 +28,11 @@ public class LoginScreen
 	private JPanel panelMenu;
 	private JButton btnLogin;
 	private JButton btnSignUp;
-	private LogIn login;
 	private LogisticsCompany logisticsCompany;
-	private Client loggedIn;
+	private LogIn login;
 
-	public LoginScreen(LogIn login, LogisticsCompany logisticsCompany) throws Exception {
-		this.login = login;
+	public LoginScreen(LogisticsCompany logisticsCompany) throws Exception {
+		this.login = new LogIn(logisticsCompany);
 		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
@@ -50,8 +48,7 @@ public class LoginScreen
 		frame.getContentPane().add(panelMenu, "name_160236068959176");
 		panelMenu.setLayout(null);
 		panelMenu.setBorder(BorderFactory.createTitledBorder("Login Menu"));
-		loggedIn = new Client("","","","","");
-		
+
 		JTextField txtLogin = new JTextField(20);
 		JLabel lblLogin = new JLabel("Login:");
 		
@@ -60,12 +57,10 @@ public class LoginScreen
 		
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(e -> {
-			if(login.clientLogIn(txtLogin.getText(), password.getText())) {
-				loggedIn = login.getLoggedInClient();
-				txtLogin.setText("");
-				password.setText("");
+			if(login.checkClientLogin(txtLogin.getText(), password.getText())) {
+
 				setVisible(false);
-				mainMenuScreen = new MainMenuScreen(this, logisticsCompany, loggedIn);
+				mainMenuScreen = new MainMenuScreen(this, logisticsCompany, login);
 				mainMenuScreen.setVisible(true);
 			}
 		});

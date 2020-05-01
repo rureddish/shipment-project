@@ -1,7 +1,6 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Database containing all entities in the system.
@@ -14,7 +13,7 @@ public class LogisticsCompany{
 	private ArrayList<Journey> journeyList = new ArrayList<>();
 	private ArrayList<Ship> shipList = new ArrayList<>();
 	private ArrayList<Location> locationList = new ArrayList<>();
-	Searcher search = new Searcher<>();
+	Searcher search = new Searcher(this);
 
 	/**
 	 *
@@ -26,7 +25,6 @@ public class LogisticsCompany{
 
 	public boolean register(Client client) {
 		if (!clientEmailAlreadyInUse(client)) {
-			client.setID(clientList.size());
 			clientList.add(client);
 			return  true;
 		}
@@ -59,7 +57,6 @@ public class LogisticsCompany{
 	}
 
 	public void removeClient(Client client) {
-		client = clientList.get(client.getID());
 		client.setAddress("Redacted");
 		client.setRefPerson("Redacted");
 		client.setName("Redacted");

@@ -21,9 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main {
-	MainMenuScreen mainMenuScreen;
-	SignUpScreen signUpScreen;
-
 
 	public static void initialLogins(LogisticsCompany logisticsCompany) {
 		logisticsCompany.register(new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool"));
@@ -37,7 +34,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreen loginScreen = new LoginScreen(loginClients,logisticsCompany);
+					LoginScreen loginScreen = new LoginScreen(logisticsCompany);
 					loginScreen.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

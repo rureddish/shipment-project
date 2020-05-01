@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
+import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 public class MainMenuScreen extends JFrame {
@@ -28,7 +29,7 @@ public class MainMenuScreen extends JFrame {
 	private LoginScreen parentWindow;
 	private JourneyRegisterScreen journeyRegisterScreen;
 	private LogisticsCompany logisticsCompany;
-	private Client loggedIn;
+	private LogIn loggedIn;
 	private JList listJourneys;
 	private JPanel panelMainMenuFunctions;
 	private JButton btnLogOut;
@@ -41,7 +42,7 @@ public class MainMenuScreen extends JFrame {
 	
 	
 	///
-	public MainMenuScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany, Client loggedIn) {
+	public MainMenuScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany, LogIn loggedIn) {
 		this.parentWindow = parentWindow;
 		this.logisticsCompany = logisticsCompany;
 		this.loggedIn = loggedIn;
@@ -95,9 +96,9 @@ public class MainMenuScreen extends JFrame {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
 			}
 		});
-		Journey[] clientJourneys = new Journey[loggedIn.getJourneys().size()];
+		Journey[] clientJourneys = new Journey[loggedIn.getLoggedInClient().getJourneys().size()];
 		for(int i = 0; i < clientJourneys.length;i++){
-				clientJourneys[i]=loggedIn.getJourneys().get(i);
+				clientJourneys[i]=loggedIn.getLoggedInClient().getJourneys().get(i);
 		}
 		listJourneys = new JList(clientJourneys);
 		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
@@ -134,7 +135,9 @@ public class MainMenuScreen extends JFrame {
 		
 		txtKeywordSearch.setBounds(102,75, 130, 26);
 		lblKeywordSearch.setBounds(21,75, 83, 26);
-				btnShowConcluded.setBounds(18,108,129,29);				btnShowCurrent.setBounds(149,108,105,29);
+		
+		btnShowConcluded.setBounds(18,108,129,29);		
+		btnShowCurrent.setBounds(149,108,105,29);
 		btnSearch.setBounds(21,166,150,29);
 		scrollJourneys.setSize(259, 214);
 		scrollJourneys.setLocation(181, 153);

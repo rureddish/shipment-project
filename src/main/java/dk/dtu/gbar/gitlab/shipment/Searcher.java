@@ -6,29 +6,43 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Searcher<V extends Entity> {
-    // search list by predicates
+public class Searcher {
+    LogisticsCompany logisticsCompany;
 
-    @SafeVarargs
-    public final ArrayList<V> search(ArrayList list, Predicate... SearchPredicates){
-        ArrayList<Predicate<V>> predicates = new ArrayList(Arrays.asList((SearchPredicates)));
-        return (ArrayList<V>) list.stream()
-                .filter(predicates.stream().reduce(x-> false, Predicate::or))
+    public Searcher(LogisticsCompany logisticsCompany) {
+        this.logisticsCompany=logisticsCompany;
+    }
+
+
+    public ArrayList search(ArrayList list, Predicate predicate){
+        return (ArrayList) list.stream()
+                .filter(predicate)
                 .collect(Collectors.toList());
-    } 
+    }
 
-//      //Container
-//    public ArrayList<V> containerSearchByString(ArrayList<Container> list, String string){
-//        return search(list, locationContains(string));
-//    }
+    public ArrayList search(ArrayList list, List<Predicate> predicates){
+        ArrayList searchResult = (ArrayList) list.stream()
+                .filter(predicates.stream().reduce(x -> false, Predicate::or))
+                .collect(Collectors.toList());
+        return searchResult;
+    }
 
-//    public Predicate<Container> locationContains(String string) {
-//        return (str -> str.getLocation().getPlaceName().contains(string));
-//    }
+
 
     //Client
-    public ArrayList<V> clientSearchByString(ArrayList<Client> list, String string) {
-        return search(list, clientNameContains(string), emailContains(string), refPersonContains(string), addressContains(string));
+
+    public ArrayList<Journey> getCurrentJourneys(Client client){
+        return search(client.getJourneys(), excludeConcludedJourneys);
+    }
+
+    public ArrayList<Journey> getConcludedJourneys(Client client){
+        return search(client.getJourneys(), excludeCurrentJourneys );
+    }
+
+
+    public ArrayList clientSearchByString(ArrayList<Client> list, String string) {
+        List allClientStringFieldPredicates = Arrays.asList(clientNameContains(string), emailContains(string), refPersonContains(string), addressContains(string));
+        return search(list, allClientStringFieldPredicates);
     }
 
     public Predicate<Client> clientNameContains(String string) {
@@ -47,18 +61,10 @@ public class Searcher<V extends Entity> {
         return (str -> str.getAddress().contains(string));
     }
 
-    // Journey
-//    public ArrayList<V> journeySearchByString(ArrayList<V> list, String string) {
-//        return search(list, originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
-//    }
-
     public Predicate<Journey> excludeConcludedJourneys = (x -> !x.isConcluded());
 
     public Predicate<Journey> excludeCurrentJourneys = (Journey::isConcluded);
 
-//    public Predicate<Journey> journeyLocationContains(String string) {
-//        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
-//    }
 
     public Predicate<Journey> originContains(String string) {
         return (x -> x.getOrigin().getPlaceName().contains(string));
@@ -67,6 +73,27 @@ public class Searcher<V extends Entity> {
     public Predicate<Journey> destinationContains(String string) {
         return (x -> x.getDestination().getPlaceName().contains(string));
     }
+
+
+    // Journey
+//    public ArrayList<V> journeySearchByString(ArrayList<V> list, String string) {
+//        return search(list, originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
+//    }
+
+
+    //    public Predicate<Journey> journeyLocationContains(String string) {
+//        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));
+//    }
+
+//      //Container
+//    public ArrayList<V> containerSearchByString(ArrayList<Container> list, String string){
+//        return search(list, locationContains(string));
+//    }
+
+//    public Predicate<Container> locationContains(String string) {
+//        return (str -> str.getLocation().getPlaceName().contains(string));
+//    }
+
 
 //    --> problem
 //    public Predicate<Journey> clientContains(String string) {

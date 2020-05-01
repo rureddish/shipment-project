@@ -12,18 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
+import dk.dtu.gbar.gitlab.shipment.LogIn;
 
 public class JourneyRegisterScreen extends JFrame {
 
 	private JPanel panelJourneyRegistration;
 	private LoginScreen parentWindow;
 	private MainMenuScreen mainMenuScreen;
-	private Client loggedIn;
+	private LogIn loggedIn;
 	private JButton btnRegister;
 	private JButton btnBack;
 	
 	
-	public JourneyRegisterScreen(LoginScreen parentWindow,MainMenuScreen mainMenuScreen, Client loggedIn) {
+	public JourneyRegisterScreen(LoginScreen parentWindow,MainMenuScreen mainMenuScreen, LogIn loggedIn) {
 		this.parentWindow = parentWindow;
 		this.loggedIn = loggedIn;
 		this.mainMenuScreen = mainMenuScreen;
@@ -35,8 +36,7 @@ public class JourneyRegisterScreen extends JFrame {
 		parentWindow.addPanel(panelJourneyRegistration);
 		panelJourneyRegistration.setLayout(null);
 		panelJourneyRegistration.setBorder(BorderFactory.createTitledBorder("Journey Registration"));
-		
-		
+
 		btnRegister = new JButton("Register");
 		btnRegister.setBounds(10, 260, 150, 29);
 		
@@ -49,13 +49,9 @@ public class JourneyRegisterScreen extends JFrame {
 				mainMenuScreen.setVisible(true);
 			}
 		});
-		
-		
+
 		panelJourneyRegistration.add(btnBack);
 		panelJourneyRegistration.add(btnRegister);
-		
-		
-		
 	}
 	
 	private void setEnableButtons(boolean enabled) {

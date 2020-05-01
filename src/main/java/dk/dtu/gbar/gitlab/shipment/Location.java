@@ -5,18 +5,8 @@ import java.util.*;
 public class Location extends Entity {
 
     private String placeName;
-    private Queue<Container> portcontainers = new LinkedList<Container>();
-    private LogisticsCompany logisticsCompany;
+    private Queue<Container> portcontainers = new LinkedList<>();
 
-
-    public Location(String placeName, int containers, LogisticsCompany logisticsCompany){
-        this.placeName = placeName;
-        this.logisticsCompany = logisticsCompany;
-        for(int i = 0; i < containers; i++){
-            Container container = new Container(this);
-            this.logisticsCompany.getContainerList().add(container);
-        }
-    }
 
     public Location(String placeName){
         this.placeName = placeName;

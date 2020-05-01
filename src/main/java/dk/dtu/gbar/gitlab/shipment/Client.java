@@ -5,14 +5,13 @@ import java.util.ArrayList;
  * Entity containing basic client information and password.
  * Contains list of Journeys registered by the client.
  */
-public class Client extends Entity {
+public class Client {
     private String name;
     private String address;
     private String refPerson;
     private String email;
     private String password;
     private ArrayList<Journey> journeys = new ArrayList<>();
-    private Searcher<Journey> search = new Searcher();
 
     /**
      @param name The name of the client
@@ -32,14 +31,6 @@ public class Client extends Entity {
     // setters and getters
     public ArrayList<Journey> getJourneys() {
         return journeys;
-    }
-
-    public ArrayList<Journey> getCurrentJourneys(){
-        return search.search(journeys, search.excludeConcludedJourneys );
-    }
-
-    public ArrayList<Journey> getConcludedJourneys(){
-        return search.search(journeys, search.excludeCurrentJourneys );
     }
 
     public void setAddress(String address) {

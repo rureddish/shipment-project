@@ -22,9 +22,9 @@ public class MyStepdefs {
     Ship ship;
 
     LogisticsCompany logisticCompany = new LogisticsCompany("admin");
-    Searcher<? extends Entity> search = new Searcher<>();
+    Searcher search = new Searcher(logisticCompany);
     List<? extends Entity> searchresults;
-    
+
     String passwordTest;
     String emailTest;
     LogIn logIn = new LogIn(logisticCompany);
@@ -77,7 +77,7 @@ public class MyStepdefs {
         assertEquals("new refperson", client.getRefPerson());
     }
 
-///////////////////////////
+    ///////////////////////////
 // searching client
 ///////////////////////////
     @When("searching clients by name {string}")
@@ -97,10 +97,10 @@ public class MyStepdefs {
 
     @When("searching clients for string {string}")
     public void searchingClientsForString(String string) {
-        searchresults = search.clientSearchByString(logisticCompany.getClientList(),string);
+        searchresults = search.clientSearchByString(logisticCompany.getClientList(), string);
     }
 
-///////////////
+    ///////////////
 // remove client
 ///////////////
     @When("the client is removed")
@@ -120,12 +120,20 @@ public class MyStepdefs {
     ////Scenario 1
     @Given("the port of Copenhagen which has {int} containers")
     public void thePortOfCopenhagenWhichHasContainers(int numberOfContainers) {
-        copenhagen = new Location("Copenhagen", numberOfContainers, logisticCompany);
+        copenhagen = new Location("Copenhagen");
+        for (int i = 0; i < numberOfContainers; i++) {
+            Container container = new Container(copenhagen);
+            logisticCompany.register(container);
+        }
     }
 
     @And("the port of Hong Kong which has {int} containers")
     public void thePortOfHongKongWhichHasContainers(int numberOfContainers) {
-        hongKong = new Location("Hong Kong", numberOfContainers, logisticCompany);
+        hongKong = new Location("Hong Kong");
+        for (int i = 0; i < numberOfContainers; i++) {
+            Container container = new Container(hongKong);
+            logisticCompany.register(container);
+        }
     }
 
     @When("client registers a shipment of {string} for a journey from Copenhagen to Hong Kong")
@@ -172,7 +180,7 @@ public class MyStepdefs {
 
     @When("the worker informs of the departure of the ship transporting the container")
     public void the_worker_informs_of_the_departure_of_the_ship_transporting_the_container() {
-    	logisticCompany.register(ship);
+        logisticCompany.register(ship);
         ship.depart();
     }
 
@@ -189,20 +197,20 @@ public class MyStepdefs {
     //Scenario 1
     @Given("a journey in progress")
     public void aJourneyInProgress() {
-        journey1 = new Journey(hongKong,copenhagen, client, "oranges");
+        journey1 = new Journey(hongKong, copenhagen, client, "oranges");
         logisticCompany.register(journey1);
     }
 
     @And("a concluded journey")
     public void aConcludedJourney() {
-        journey2 = new Journey(hongKong,copenhagen, client, "oranges");
+        journey2 = new Journey(hongKong, copenhagen, client, "oranges");
         logisticCompany.register(journey2);
         journey2.endJourney();
     }
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = client.getConcludedJourneys();
+        searchresults = search.getConcludedJourneys(client);
     }
 
     @Then("return the concluded journey")
@@ -211,10 +219,10 @@ public class MyStepdefs {
         assertFalse(searchresults.contains(journey1));
     }
 
-//    Scenario 2
+    //    Scenario 2
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = client.getCurrentJourneys();
+        searchresults = search.getCurrentJourneys(client);
     }
 
     @Then("return the current journey")
@@ -231,31 +239,31 @@ public class MyStepdefs {
 
     @Then("return the journey coming from Copenhagen")
     public void return_the_journey_coming_from_Copenhagen() {
-        assertEquals(journey1,searchresults.get(0));
+        assertEquals(journey1, searchresults.get(0));
     }
 
     //////Scenario4
     @When("client searches for journeys bound for {string}")
     public void client_searches_for_journeys_bound_for(String destination) {
-        searchresults = search.search(logisticCompany.getJourneyList(),search.destinationContains(destination));
+        searchresults = search.search(logisticCompany.getJourneyList(), search.destinationContains(destination));
     }
 
     @Then("return the journeys bound for Hong Kong")
     public void return_the_journey_bounds_for_Hong_Kong() {
-        assertEquals(journey1,searchresults.get(0));
+        assertEquals(journey1, searchresults.get(0));
     }
 
 ////////////////////////////
 ///	Feature : Log In
 ////////////////////////////
-    
+
     //Scenario 1
     @Given("a Client {string} with address {string}, ref person {string}, email {string} and password {string}")
     public void a_Client_with_address_ref_person_email_and_password(String name, String address, String refPerson, String email, String password) {
-    	client = new Client(name, address, refPerson, email, password);
+        client = new Client(name, address, refPerson, email, password);
         logisticCompany.register(client);
     }
-    
+
     @Given("a password {string}")
     public void a_password(String password) {
         passwordTest = password;
@@ -268,20 +276,20 @@ public class MyStepdefs {
 
     @When("client logs in")
     public void client_logs_in() {
-        logIn.clientLogIn(emailTest, passwordTest);
+        logIn.checkClientLogin(emailTest, passwordTest);
     }
 
     @Then("client is logged in")
     public void client_is_logged_in() {
         assertEquals(logIn.getLoggedInClient(), client);
     }
-    
+
     //Scenario 2
     @Then("client is not logged in")
     public void client_is_not_logged_in() {
         assertEquals(logIn.getLoggedInClient(), null);
     }
-    
+
     //log out
     @And("client logs out")
     public void clientLogsOut() {

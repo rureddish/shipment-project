@@ -13,7 +13,7 @@ public class Ship extends Entity{
 	public Ship (Location location, LogisticsCompany logisticsCompany) {
 		this.location = location;
 		this.logisticsCompany = logisticsCompany;
-		logisticsCompany.getShipList().add(this);
+		logisticsCompany.register(this);
 	}
 
 ///Methods

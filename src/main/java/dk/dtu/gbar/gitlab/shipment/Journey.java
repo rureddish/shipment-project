@@ -6,9 +6,8 @@ public class Journey extends Entity {
 	private ContainerStatus status;
 	private Location origin;
 	private Location destination;
-    private boolean isConcluded = false;
+    private boolean isConcluded;
     private String cargo;
-	private Location atSea = new Location("At sea");
 
 	public Journey(Location origin, Location destination, Client client, String cargo) {
         this.origin = origin;
@@ -19,18 +18,15 @@ public class Journey extends Entity {
         client.getJourneys().add(this);
     }
 
-
 	public void endJourney() {
 		isConcluded = true;
 	}
 
-    // getters and setters
-
 	public boolean isConcluded() {
-		return isConcluded;
-//      return container.getLocation() == destination;
+        return isConcluded;
     }
 
+    // getters and setters
 	public String getCargo() {return cargo; }
 
     public Container getContainer() {

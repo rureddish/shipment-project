@@ -5,21 +5,26 @@ import java.util.ArrayList;
 public class LogIn {
     LogisticsCompany logisticsCompany;
     Client loggedInClient;
-    Boolean adminLoggedIn=false;
-    Searcher<Client> searcher = new Searcher();
+    Boolean adminLoggedIn = false;
+    Searcher searcher = new Searcher(logisticsCompany);
 
     //Constructor
     public LogIn(LogisticsCompany logisticsCompany) {
         this.logisticsCompany = logisticsCompany;
     }
 
-    public boolean clientLogIn(String emailTest, String passwordTest) {
-        ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(emailTest)));
+    /**
+     * Checks if input email belongs to a client and if the password matches for that client. Returns true if both are true.
+     * @param email The email entered into the login screen.
+     * @param password The password entered in login screen.
+     */
+    public boolean checkClientLogin(String email, String password) {
+        ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
         if (client.size() == 0) {
             System.out.println("Wrong email");
             return false;
         } else {
-            if (client.get(0).getPassword().equals(passwordTest)) {
+            if (client.get(0).getPassword().equals(password)) {
                 loggedInClient = client.get(0);
                 return true;
             } else {
