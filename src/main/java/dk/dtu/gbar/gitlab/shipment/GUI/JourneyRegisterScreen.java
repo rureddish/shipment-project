@@ -5,7 +5,10 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
@@ -65,8 +68,38 @@ public class JourneyRegisterScreen extends JFrame {
 			}
 		});
 
+
+
+		txtOrigin = new JTextField();
+		txtOrigin.setBounds(180, 105, 96, 20);
+		txtOrigin.setColumns(10);
+
+		JLabel lblOrigin = new JLabel("Origin:");
+		lblOrigin.setBounds(140, 108, 40, 14);
+
+
+		txtDestination = new JTextField();
+		txtDestination.setBounds(180, 136, 96, 20);
+		txtDestination.setColumns(10);
+
+		JLabel lblDestination = new JLabel("Destination:");
+		lblDestination.setBounds(110, 139, 70, 14);
+		panelJourneyRegistration.add(lblDestination);
+
+		txtCargo = new JTextField();
+		txtCargo.setBounds(180, 167, 96, 20);
+		txtCargo.setColumns(10);
+		JLabel lblCargo = new JLabel("Cargo:");
+		lblCargo.setBounds(140, 170, 40, 14);
+
+
 		panelJourneyRegistration.add(btnBack);
 		panelJourneyRegistration.add(btnRegister);
+		panelJourneyRegistration.add(lblCargo);
+		panelJourneyRegistration.add(txtCargo);
+		panelJourneyRegistration.add(txtDestination);
+		panelJourneyRegistration.add(lblOrigin);
+		panelJourneyRegistration.add(txtOrigin);
 	}
 	
 	private void setEnableButtons(boolean enabled) {
