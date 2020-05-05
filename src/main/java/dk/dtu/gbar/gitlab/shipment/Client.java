@@ -37,6 +37,10 @@ public class Client {
     public ArrayList<Journey> getJourneys() {
         return journeys;
     }
+    
+    public void registerNewJourney(Journey journey) {
+    	journeys.add(journey);
+    }
 
     public void setAddress(String address) {
         this.address = address;
