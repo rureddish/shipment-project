@@ -3,8 +3,10 @@ package dk.dtu.gbar.gitlab.shipment;
 import java.util.ArrayList;
 
 /**
- * Database containing all entities in the system.
- * Contains list of clients,
+ * Database of all objects in the system.
+ * Contains list of clients, containers, journeys, locations and ships.
+ * Registers objects to these lists, so they are in the system and their
+ * index in the list acts as ID.
  */
 public class LogisticsCompany{
 	private String password;
@@ -17,7 +19,7 @@ public class LogisticsCompany{
 
 	/**
 	 *
-	 * @param password
+	 * @param password Password for logging in as the logistics company.
 	 */
 	public LogisticsCompany(String password) {
 		this.password = password;
@@ -32,12 +34,10 @@ public class LogisticsCompany{
 	}
 
 	public void register(Container container){
-		container.setID(containerList.size());
 		containerList.add(container);
 	}
 
 	public void register(Location location){
-		location.setID(locationList.size());
 		locationList.add(location);
 	}
 
@@ -52,7 +52,6 @@ public class LogisticsCompany{
 	}
 
 	public void register(Ship ship){
-		ship.setID(shipList.size());
 		shipList.add(ship);
 	}
 

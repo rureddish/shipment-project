@@ -5,10 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
@@ -45,6 +42,7 @@ public class JourneyRegisterScreen extends JFrame {
 		btnBack.setSize(150, 29);
 		btnBack.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+
 				setVisible(false);
 				mainMenuScreen.setVisible(true);
 			}
@@ -52,6 +50,7 @@ public class JourneyRegisterScreen extends JFrame {
 
 		panelJourneyRegistration.add(btnBack);
 		panelJourneyRegistration.add(btnRegister);
+
 	}
 	
 	private void setEnableButtons(boolean enabled) {

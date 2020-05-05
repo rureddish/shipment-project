@@ -29,6 +29,11 @@ public class Client {
     }
 
     // setters and getters
+
+    /**
+     * Get journeys belonging to the client
+     * @return
+     */
     public ArrayList<Journey> getJourneys() {
         return journeys;
     }

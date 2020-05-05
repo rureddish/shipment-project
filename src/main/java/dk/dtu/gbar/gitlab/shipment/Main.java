@@ -30,15 +30,12 @@ public class Main {
     public static void main(String[] args) {
 		LogisticsCompany logisticsCompany = new LogisticsCompany("admin");
         initialLogins(logisticsCompany);
-        LogIn loginClients = new LogIn(logisticsCompany);
-        EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginScreen loginScreen = new LoginScreen(logisticsCompany);
-					loginScreen.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+        EventQueue.invokeLater(() -> {
+			try {
+				LoginScreen loginScreen = new LoginScreen(logisticsCompany);
+				loginScreen.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
     	

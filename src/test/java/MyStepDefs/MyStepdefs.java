@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -23,7 +24,7 @@ public class MyStepdefs {
 
     LogisticsCompany logisticCompany = new LogisticsCompany("admin");
     Searcher search = new Searcher(logisticCompany);
-    List<? extends Entity> searchresults;
+    ArrayList<Journey> searchresults;
 
     String passwordTest;
     String emailTest;
@@ -169,7 +170,7 @@ public class MyStepdefs {
 
     @Given("a registered ship in Copenhagen")
     public void a_ship_with_ID_in_Copenhagen() {
-        ship = new Ship(copenhagen, logisticCompany);
+        ship = new Ship(copenhagen);
         logisticCompany.register(ship);
     }
 

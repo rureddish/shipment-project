@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Finds objects by criteria(predicates).
+ * Can be called with list of predicated to find entities matching every predicate (inclusively).
+ * To find entities matching multiple criteria (exclusively) call search with each predicate.
+ */
 public class Searcher {
     LogisticsCompany logisticsCompany;
 
@@ -26,8 +31,6 @@ public class Searcher {
                 .collect(Collectors.toList());
         return searchResult;
     }
-
-
 
     //Client
 

@@ -2,6 +2,9 @@ package dk.dtu.gbar.gitlab.shipment;
 
 import java.util.ArrayList;
 
+/**
+ * Checks email and password for login and tracks which client is logged in.
+ */
 public class LogIn {
     LogisticsCompany logisticsCompany;
     Client loggedInClient;

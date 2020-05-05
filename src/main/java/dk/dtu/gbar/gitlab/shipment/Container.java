@@ -4,10 +4,17 @@ package dk.dtu.gbar.gitlab.shipment;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Container extends Entity {
+/**
+ * Contains cargo and is moved to process the journey.
+ *
+ */
+public class Container {
     private Stack<Journey> journeyHistory = new Stack<>();
     private Location location;
 
+    /**
+     * @param location The location at which the container is registered.
+     */
 	public Container(Location location) {
         this.location=location;
         location.getLocationContainers().add(this);

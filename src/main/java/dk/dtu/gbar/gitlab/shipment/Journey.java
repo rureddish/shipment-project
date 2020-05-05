@@ -1,6 +1,10 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-public class Journey extends Entity {
+/**
+ * A shipment belonging to a client.
+ *
+ */
+public class Journey {
     private Container container;
     private Client client;
 	private ContainerStatus status;
@@ -9,6 +13,12 @@ public class Journey extends Entity {
     private boolean isConcluded;
     private String cargo;
 
+    /**
+     * @param origin The port of departure.
+     * @param destination Destination of the journey.
+     * @param client The client that registered the journey.
+     * @param cargo The content of the container
+     */
 	public Journey(Location origin, Location destination, Client client, String cargo) {
         this.origin = origin;
         this.destination = destination;
@@ -18,6 +28,9 @@ public class Journey extends Entity {
         client.getJourneys().add(this);
     }
 
+    /**
+     *
+     */
 	public void endJourney() {
 		isConcluded = true;
 	}

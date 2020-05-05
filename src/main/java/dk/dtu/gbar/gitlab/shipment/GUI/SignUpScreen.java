@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -81,7 +82,7 @@ public class SignUpScreen extends JFrame {
 				}
 				else {
 					if(logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
-					txtEmail.getText(),password.getText()))) {
+					txtEmail.getText(), Arrays.toString(password.getPassword())))) {
 						System.out.println("Register Succesfull");
 						txtUsername.setText("");
 						password.setText("");

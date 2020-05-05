@@ -2,18 +2,23 @@ package dk.dtu.gbar.gitlab.shipment;
 
 import java.util.*;
 
-public class Ship extends Entity{
+/**
+ * Holds containers and is used to process journeys.
+ */
+public class Ship{
 	private ArrayList<Container> containers = new ArrayList<>();
 	private Location location;
 	Location atSea = new Location("At sea");
-	LogisticsCompany logisticsCompany;
 	private Queue<Location> route = new LinkedList<>();
 
 ///Constructor
-	public Ship (Location location, LogisticsCompany logisticsCompany) {
+
+	/**
+	 *
+	 * @param location
+	 */
+	public Ship (Location location) {
 		this.location = location;
-		this.logisticsCompany = logisticsCompany;
-		logisticsCompany.register(this);
 	}
 
 ///Methods
