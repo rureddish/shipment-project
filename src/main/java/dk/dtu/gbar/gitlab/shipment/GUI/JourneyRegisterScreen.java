@@ -67,11 +67,14 @@ public class JourneyRegisterScreen extends JFrame {
 		btnRegister.setBounds(10, 260, 150, 29);
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtCargo.getText().isBlank()) {
+				if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
 					System.out.println("Please Fill Out All Spaces");
 				}
 				else {
-					
+					logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
+							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()),loggedIn.getLoggedInClient()
+							,txtCargo.getText()));
+					mainMenuScreen.addJourney(logisticsCompany.getJourneyList().get(logisticsCompany.getJourneyList().size()-1));
 				}
 			}
 		});
@@ -124,6 +127,7 @@ public class JourneyRegisterScreen extends JFrame {
 	
 	private void setEnableButtons(boolean enabled) {
 		btnRegister.setEnabled(enabled);
+		btnBack.setEnabled(enabled);
 
 
 	}

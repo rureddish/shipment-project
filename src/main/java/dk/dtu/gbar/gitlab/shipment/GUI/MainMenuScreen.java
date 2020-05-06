@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
@@ -40,6 +41,7 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnExamine;
 	private JButton btnRegisterJourney;
 	private JTable tblJourneys;
+	private DefaultTableModel clientJourneys;
 	
 	
 	///
@@ -99,19 +101,32 @@ public class MainMenuScreen extends JFrame {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
 			}
 		});
-		
+		/*
 		String[] columnNames = {"Origin","Destination","Cargo"};
 		int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		String[][] clientJourneys = new String[rows][3];
+		displayJourneys(rows, clientJourneys);
+		*/
+		clientJourneys = new DefaultTableModel();
+		clientJourneys.addColumn("Origin");
+		clientJourneys.addColumn("Destination");
+		clientJourneys.addColumn("Cargo");
+		int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		for(int i = 0; i < rows; i++) {
+			clientJourneys.addRow(new Object[] {loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin().getPlaceName(),
+					(loggedIn.getLoggedInClient().getJourneys().get(i).getDestination()).getPlaceName(),
+					loggedIn.getLoggedInClient().getJourneys().get(i).getCargo()});
+		}
+		/*for(int i = 0; i < rows; i++) {
 			clientJourneys[i][0] = (loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin()).getPlaceName();
 			clientJourneys[i][1] = (loggedIn.getLoggedInClient().getJourneys().get(i).getDestination()).getPlaceName();
 			clientJourneys[i][2] = loggedIn.getLoggedInClient().getJourneys().get(i).getCargo();
-		}
+		}*/
+		
 		
 		JScrollPane scrollJourneys = new JScrollPane();
 		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		tblJourneys = new JTable(clientJourneys, columnNames);
+		tblJourneys = new JTable(clientJourneys);
 		scrollJourneys.setViewportView(tblJourneys);
 		
 		
@@ -135,19 +150,14 @@ public class MainMenuScreen extends JFrame {
 			}
 		});
 		
-		
 		txtKeywordSearch.setBounds(102,75, 130, 26);
 		lblKeywordSearch.setBounds(21,75, 83, 26);
-		
 		btnShowConcluded.setBounds(18,108,129,29);		
 		btnShowCurrent.setBounds(149,108,105,29);
-		btnSearch.setBounds(290,113,150,29);
+		btnSearch.setBounds(290,74,150,29);
 		scrollJourneys.setSize(338, 214);
 		scrollJourneys.setLocation(102, 153);
 		
-		
-
-
 		
 		panelMainMenuFunctions.add(lblKeywordSearch);
 		panelMainMenuFunctions.add(txtKeywordSearch);
@@ -157,7 +167,7 @@ public class MainMenuScreen extends JFrame {
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
 		panelMainMenuFunctions.add(scrollJourneys);
-		
+
 		
 		
 		panelMainMenuFunctions.add(btnExamine);
@@ -168,6 +178,12 @@ public class MainMenuScreen extends JFrame {
 		
 		
 	}
+	public void addJourney(Journey journey) {
+		clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),journey.getDestination().getPlaceName(),
+				journey.getCargo()});
+	}
+
+
 	
 	private void setEnableButtons(boolean enabled) {
 		btnLogOut.setEnabled(enabled);
@@ -176,6 +192,7 @@ public class MainMenuScreen extends JFrame {
 		btnShowConcluded.setEnabled(enabled);
 		btnShowAll.setEnabled(enabled);
 		btnRegisterJourney.setEnabled(enabled);
+
 
 	}
 	
