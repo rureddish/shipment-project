@@ -75,6 +75,8 @@ public class JourneyRegisterScreen extends JFrame {
 							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()),loggedIn.getLoggedInClient()
 							,txtCargo.getText()));
 					mainMenuScreen.addJourney(logisticsCompany.getJourneyList().get(logisticsCompany.getJourneyList().size()-1));
+					
+					
 				}
 			}
 		});

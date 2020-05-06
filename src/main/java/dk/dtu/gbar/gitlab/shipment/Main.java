@@ -24,15 +24,29 @@ public class Main {
 
 	public static void initialLogins(LogisticsCompany logisticsCompany) {
 		Location hongkong = new Location("Hong Kong");
-		logisticsCompany.register(hongkong);
+		Location berlin = new Location("Berlin");
 		Location copenhagen = new Location("Copenhagen");
+		Location newyork = new Location("New York");
+		Location tokyo = new Location("Tokyo");
+		Location london = new Location("London");
+		logisticsCompany.register(tokyo);
+		logisticsCompany.register(newyork);
+		logisticsCompany.register(berlin);
+		logisticsCompany.register(hongkong);
 		logisticsCompany.register(copenhagen);
 		logisticsCompany.register(new Container(hongkong));
-		logisticsCompany.register(new Container(copenhagen));
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(tokyo));
+		logisticsCompany.register(new Container(tokyo));
+		logisticsCompany.register(new Container(berlin));
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(newyork));
+		logisticsCompany.register(new Container(london));
 		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool");
 		logisticsCompany.register(amazon);
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
 		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
+		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
 
 	}
 

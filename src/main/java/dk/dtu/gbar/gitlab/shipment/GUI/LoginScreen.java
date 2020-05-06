@@ -62,6 +62,8 @@ public class LoginScreen
 				setVisible(false);
 				mainMenuScreen = new MainMenuScreen(this, logisticsCompany, login);
 				mainMenuScreen.setVisible(true);
+				txtLogin.setText("");
+				password.setText("");
 			}
 		});
 		
