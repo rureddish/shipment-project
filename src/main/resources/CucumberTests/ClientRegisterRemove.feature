@@ -9,4 +9,4 @@ Feature: register client
     Given a Client "client" with address "address" email "email" and ref person "refperson"
     And client list containing the client
     When the client is removed
-    Then the client list does not contain the client
+    Then the client info is redacted

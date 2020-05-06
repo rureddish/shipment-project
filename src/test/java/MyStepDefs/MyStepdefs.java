@@ -106,12 +106,15 @@ public class MyStepdefs {
 ///////////////
     @When("the client is removed")
     public void theClientIsRemoved() {
-        logisticCompany.getClientList().remove(client);
+        logisticCompany.removeClient(client);
     }
 
-    @Then("the client list does not contain the client")
+    @Then("the client info is redacted")
     public void theClientListDoesNotContainTheClient() {
-        assertFalse(logisticCompany.getClientList().contains(client));
+        assertEquals(client.getEmail(), "Redacted");
+        assertEquals(client.getName(), "Redacted");
+        assertEquals(client.getAddress(), "Redacted");
+        assertEquals(client.getRefPerson(), "Redacted");
     }
 
 /////////////////////////////////////////////////
