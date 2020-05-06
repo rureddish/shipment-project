@@ -23,8 +23,14 @@ import javax.swing.JPanel;
 public class Main {
 
 	public static void initialLogins(LogisticsCompany logisticsCompany) {
-		logisticsCompany.register(new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool"));
+		Location hongkong = new Location("Hong Kong");
+		logisticsCompany.register(hongkong);
+		Location copenhagen = new Location("Copenhagen");
+		logisticsCompany.register(copenhagen);
+		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool");
+		logisticsCompany.register(amazon);
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
+		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
 	}
 
     public static void main(String[] args) {
