@@ -1,5 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import org.hsqldb.persist.Log;
+
 import java.util.*;
 
 /**
@@ -10,6 +12,7 @@ public class Ship{
 	private Location location;
 	Location atSea = new Location("At sea");
 	private Queue<Location> route = new LinkedList<>();
+	private LogisticsCompany logisticsCompany;
 
 ///Constructor
 
@@ -17,21 +20,24 @@ public class Ship{
 	 *
 	 * @param location
 	 */
-	public Ship (Location location) {
+	public Ship (Location location, LogisticsCompany logisticsCompany) {
 		this.location = location;
+		this.logisticsCompany = logisticsCompany;
 	}
 
 ///Methods
     public void depart(){
-    	location = atSea;
+    	location = logisticsCompany.atSea;
     	for (Container container : containers) {
-    		container.setLocation(atSea);
+    		container.setLocation(location);
+    		location.getLocationContainers().add(container);
     	}
 	}
  
 	public void arrive(){
 		location = route.remove();
 		for (Container container : containers) {
+			logisticsCompany.atSea.getLocationContainers().remove();
 			container.setLocation(location);
 			if (container.getJourneyHistory().lastElement().getDestination()==location) {
 				container.getJourneyHistory().lastElement().endJourney();

@@ -185,7 +185,7 @@ public class MyStepdefs {
 
     @Given("a registered ship in Copenhagen")
     public void a_ship_with_ID_in_Copenhagen() {
-        ship = new Ship(copenhagen);
+        ship = new Ship(copenhagen, logisticCompany);
         logisticCompany.register(ship);
     }
 

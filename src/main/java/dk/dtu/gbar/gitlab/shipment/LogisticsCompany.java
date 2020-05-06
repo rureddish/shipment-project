@@ -15,6 +15,7 @@ public class LogisticsCompany{
 	private ArrayList<Journey> journeyList = new ArrayList<>();
 	private ArrayList<Ship> shipList = new ArrayList<>();
 	private ArrayList<Location> locationList = new ArrayList<>();
+	Location atSea = new Location("At sea");
 	Searcher search = new Searcher(this);
 
 	/**
