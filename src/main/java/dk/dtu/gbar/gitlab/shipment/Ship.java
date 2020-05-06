@@ -36,15 +36,26 @@ public class Ship{
  
 	public void arrive(){
 		location = route.remove();
-		for (Container container : containers) {
-			logisticsCompany.atSea.getLocationContainers().remove();
-			container.setLocation(location);
-			if (container.getJourneyHistory().lastElement().getDestination()==location) {
-				container.getJourneyHistory().lastElement().endJourney();
-				containers.remove(container);
-				location.getLocationContainers().add(container);
+//		for (Container container : containers) {
+//			logisticsCompany.atSea.getLocationContainers().remove();
+//			container.setLocation(location);
+//			if (container.getJourneyHistory().lastElement().getDestination()==location) {
+//				container.getJourneyHistory().lastElement().endJourney();
+//				containers.remove(container);
+//				location.getLocationContainers().add(container);
+//			}
+//		}
+
+		for (int i=0; i<containers.size(); i++) {
+				Container container = logisticsCompany.atSea.getLocationContainers().remove(); 
+				container.setLocation(location);
+				if (container.getJourneyHistory().lastElement().getDestination().getPlaceName().equals(location.getPlaceName())) {
+					container.getJourneyHistory().lastElement().endJourney();
+					containers.remove(container);
+					location.getLocationContainers().add(container);
+				}
 			}
-		}
+
 	}
 
 	public Location getLocation() {
@@ -53,5 +64,9 @@ public class Ship{
 
 	public ArrayList<Container> getContainers() {
 		return containers;
+	}
+	
+	public Queue<Location> getRoute(){
+		return route;
 	}
 }

@@ -18,6 +18,7 @@ public class MyStepdefs {
     Journey journey2;
     Location copenhagen = new Location("Copenhagen");
     Location hongKong = new Location("Hong Kong");
+    Location oslo  = new Location("Oslo");
     Container container1 = new Container(hongKong);
     Container container2 = new Container(hongKong);
     Ship ship;
@@ -205,6 +206,50 @@ public class MyStepdefs {
         assertEquals(ship.getLocation().getPlaceName(), "At sea");
         assertEquals(ship.getContainers().get(0), journey1.getContainer());
     }
+    
+ // Ship arrival
+    @Given("the port of Oslo which has {int} containers")
+    public void the_port_of_Oslo_which_has_containers(Integer numberOfContainers) {
+    	oslo = new Location("Oslo");
+        for (int i = 0; i < numberOfContainers; i++) {
+            Container container = new Container(oslo);
+            logisticCompany.register(container);
+        }
+    }
+
+    @Given("a registered journey from Copenhagen to Oslo with {string}")
+    public void a_registered_journey_from_Copenhagen_to_Oslo_with(String cargo) {
+    	journey2 = new Journey(copenhagen, oslo, client, cargo);
+        logisticCompany.register(journey2);
+    }
+    
+    @Given("a registered ship at sea transporting the containers and heading to Oslo")
+    public void a_registered_ship_at_sea_transporting_the_containers_and_heading_to_Oslo() {
+    	ship = new Ship(copenhagen, logisticCompany);
+    	ship.getRoute().add(oslo);
+        logisticCompany.register(ship);
+        ship.getContainers().add(journey1.getContainer());
+        ship.getContainers().add(journey2.getContainer());
+        ship.depart();
+    }
+
+    @When("a worker informs of the arrival of the ship")
+    public void a_worker_informs_of_the_arrival_of_the_ship() {
+        ship.arrive();
+    }
+
+    @Then("the ship and the containers are in Oslo")
+    public void the_ship_and_the_containers_are_in_Oslo() {
+        assertEquals(ship.getLocation(), oslo);
+        assertEquals(ship.getContainers().get(0).getLocation(),oslo);
+    }
+
+    @Then("the journey to Oslo is ended and the container is dropped off at the port")
+    public void the_journey_to_Oslo_is_ended_and_the_container_is_dropped_off_at_the_port() {
+        assertTrue(journey2.isConcluded());
+        assertFalse(ship.getContainers().contains(journey2.getContainer()));
+    }
+
 
 //////////////////////////////
 ///// search for journeys
