@@ -4,6 +4,12 @@ Feature: register client
     And an empty client list
     When the client is registered
     Then the client list contains the client
+    
+  Scenario: Email already used
+    Given a Client "client" with address "address" email "email" and ref person "refperson"
+    And client list containing a client with same email
+    When the client is registered
+    Then the client list doesnt contain the client
 
   Scenario: Remove client
     Given a Client "client" with address "address" email "email" and ref person "refperson"

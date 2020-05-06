@@ -52,6 +52,18 @@ public class MyStepdefs {
     public void theClientListContainsClient() {
         assertTrue(logisticCompany.getClientList().contains(client));
     }
+    
+    // Email already used
+    @Given("client list containing a client with same email")
+    public void client_list_containing_a_client_with_same_email() {
+    	Client client2 = new Client("name", "address", client.getEmail(), "refperson", "password");
+    	logisticCompany.register(client2);
+    }    
+
+    @Then("the client list doesnt contain the client")
+    public void the_client_list_doesnt_contain_the_client() {
+    	assertFalse(logisticCompany.getClientList().contains(client));
+    }
 
 ///////////////////////////
 //client info update
