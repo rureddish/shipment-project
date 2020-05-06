@@ -15,6 +15,8 @@ import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.Location;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
@@ -29,12 +31,14 @@ public class JourneyRegisterScreen extends JFrame {
 	private JTextField txtOrigin;
 	private JTextField txtDestination;
 	private JTextField txtCargo;
+	private LogisticsCompany logisticsCompany;
 
 	
-	public JourneyRegisterScreen(LoginScreen parentWindow,MainMenuScreen mainMenuScreen, LogIn loggedIn) {
+	public JourneyRegisterScreen(LoginScreen parentWindow,MainMenuScreen mainMenuScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
 		this.parentWindow = parentWindow;
 		this.loggedIn = loggedIn;
 		this.mainMenuScreen = mainMenuScreen;
+		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
 
@@ -52,7 +56,7 @@ public class JourneyRegisterScreen extends JFrame {
 					System.out.println("Please Fill Out All Spaces");
 				}
 				else {
-					loggedIn.getLoggedInClient().registerNewJourney(new Journey(new Location(txtOrigin.getText()),
+					logisticsCompany.register(new Journey(new Location(txtOrigin.getText()),
 							new Location(txtDestination.getText()),loggedIn.getLoggedInClient(),txtCargo.getText()));
 				}
 			}

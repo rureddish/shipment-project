@@ -23,6 +23,7 @@ import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+import javax.swing.JTable;
 
 public class MainMenuScreen extends JFrame {
 
@@ -30,7 +31,6 @@ public class MainMenuScreen extends JFrame {
 	private JourneyRegisterScreen journeyRegisterScreen;
 	private LogisticsCompany logisticsCompany;
 	private LogIn loggedIn;
-	private JList listJourneys;
 	private JPanel panelMainMenuFunctions;
 	private JButton btnLogOut;
 	private JRadioButton btnShowConcluded;
@@ -39,6 +39,7 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnSearch;
 	private JButton btnExamine;
 	private JButton btnRegisterJourney;
+	private JTable tblJourneys;
 	
 	
 	///
@@ -67,6 +68,8 @@ public class MainMenuScreen extends JFrame {
 		});
 		
 		btnLogOut = new JButton("Log Out");
+		btnLogOut.setLocation(290, 11);
+		btnLogOut.setSize(150, 29);
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -96,21 +99,21 @@ public class MainMenuScreen extends JFrame {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
 			}
 		});
-		Journey[] clientJourneys = new Journey[loggedIn.getLoggedInClient().getJourneys().size()];
-		for(int i = 0; i < clientJourneys.length;i++){
-				clientJourneys[i]=loggedIn.getLoggedInClient().getJourneys().get(i);
-		}
-		listJourneys = new JList(clientJourneys);
-		JScrollPane scrollJourneys = new JScrollPane(listJourneys);
-		listJourneys.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listJourneys.setVisibleRowCount(5);
-		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		listJourneys.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				//will theoretically be able to select any journey from the list to view details
-			}
-		});
+		String[] columnNames = {"Origin","Destination","Cargo"};
+		int rows = logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).size();
+		String[][] clientJourneys = new String[rows][2];
+		for(int i = 0; i < rows; i++) {
+			clientJourneys[i][0] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getOrigin()).toString();
+			clientJourneys[i][1] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getDestination()).toString();
+			clientJourneys[i][2] = logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getCargo();
+		}
+		
+		JScrollPane scrollJourneys = new JScrollPane();
+		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		tblJourneys = new JTable(clientJourneys, columnNames);
+		scrollJourneys.setViewportView(tblJourneys);
+		
 		
 		btnRegisterJourney = new JButton("Register New Journey");
 		btnRegisterJourney.setLocation(21, 35);
@@ -127,8 +130,8 @@ public class MainMenuScreen extends JFrame {
 		btnExamine.setBounds(290, 378, 150, 29);
 		btnExamine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s = (String) listJourneys.getSelectedValue();
-				System.out.println(s);
+				
+				
 			}
 		});
 		
@@ -154,11 +157,14 @@ public class MainMenuScreen extends JFrame {
 		panelMainMenuFunctions.add(btnLogOut);
 		panelMainMenuFunctions.add(btnSearch);
 		panelMainMenuFunctions.add(scrollJourneys);
+		
+		
+		
 		panelMainMenuFunctions.add(btnExamine);
 		panelMainMenuFunctions.add(btnRegisterJourney);
 		
 		
-		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn);
+		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn, logisticsCompany);
 		
 		
 	}
@@ -167,6 +173,9 @@ public class MainMenuScreen extends JFrame {
 		btnLogOut.setEnabled(enabled);
 		btnShowConcluded.setEnabled(enabled);
 		btnShowCurrent.setEnabled(enabled);
+		btnShowConcluded.setEnabled(enabled);
+		btnShowAll.setEnabled(enabled);
+		btnRegisterJourney.setEnabled(enabled);
 
 	}
 	
@@ -187,9 +196,5 @@ public class MainMenuScreen extends JFrame {
 		}
 		panelMainMenuFunctions.setVisible(visible);
 	}
-	
-	
-	
-	
 }
 

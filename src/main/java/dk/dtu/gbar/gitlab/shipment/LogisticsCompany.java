@@ -92,4 +92,14 @@ public class LogisticsCompany{
 	public ArrayList<Journey> getJourneyList(){
 		return journeyList;
 	}
+	public ArrayList<Journey> getClientJourneys(Client client) {
+		ArrayList<Journey> clientJourneys = new ArrayList<Journey>();
+		for(int i = 0; i < journeyList.size(); i++) {
+			if(journeyList.get(i).getClient().equals(client)) {
+				clientJourneys.add(journeyList.get(i));
+			}
+		}
+		
+		return clientJourneys;
+	}
 }
