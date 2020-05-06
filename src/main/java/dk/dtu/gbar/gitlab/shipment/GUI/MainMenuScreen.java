@@ -93,7 +93,7 @@ public class MainMenuScreen extends JFrame {
 		
 		btnShowAll = new JRadioButton("Show All");
 		btnShowAll.setLocation(18, 133);
-		btnShowAll.setSize(105, 29);
+		btnShowAll.setSize(77, 29);
 		btnShowAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
@@ -101,13 +101,13 @@ public class MainMenuScreen extends JFrame {
 		});
 		
 		String[] columnNames = {"Origin","Destination","Cargo"};
-		int rows = logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).size();
-		String[][] clientJourneys = new String[rows][2];
-		for(int i = 0; i < rows; i++) {
-			clientJourneys[i][0] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getOrigin()).toString();
-			clientJourneys[i][1] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getDestination()).toString();
+		int rows = logisticsCompany.getJourneyList().size();
+		String[][] clientJourneys = new String[rows][3];
+		/*for(int i = 0; i < rows; i++) {
+			clientJourneys[i][0] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getOrigin()).getPlaceName();
+			clientJourneys[i][1] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getDestination()).getPlaceName();
 			clientJourneys[i][2] = logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getCargo();
-		}
+		}*/
 		
 		JScrollPane scrollJourneys = new JScrollPane();
 		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -141,9 +141,9 @@ public class MainMenuScreen extends JFrame {
 		
 		btnShowConcluded.setBounds(18,108,129,29);		
 		btnShowCurrent.setBounds(149,108,105,29);
-		btnSearch.setBounds(21,166,150,29);
-		scrollJourneys.setSize(259, 214);
-		scrollJourneys.setLocation(181, 153);
+		btnSearch.setBounds(290,113,150,29);
+		scrollJourneys.setSize(338, 214);
+		scrollJourneys.setLocation(102, 153);
 		
 		
 

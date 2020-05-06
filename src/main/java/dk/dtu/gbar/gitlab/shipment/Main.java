@@ -27,10 +27,13 @@ public class Main {
 		logisticsCompany.register(hongkong);
 		Location copenhagen = new Location("Copenhagen");
 		logisticsCompany.register(copenhagen);
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(copenhagen));
 		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool");
 		logisticsCompany.register(amazon);
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
 		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
+
 	}
 
     public static void main(String[] args) {
