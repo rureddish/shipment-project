@@ -101,13 +101,13 @@ public class MainMenuScreen extends JFrame {
 		});
 		
 		String[] columnNames = {"Origin","Destination","Cargo"};
-		int rows = logisticsCompany.getJourneyList().size();
+		int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		String[][] clientJourneys = new String[rows][3];
-		/*for(int i = 0; i < rows; i++) {
-			clientJourneys[i][0] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getOrigin()).getPlaceName();
-			clientJourneys[i][1] = (logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getDestination()).getPlaceName();
-			clientJourneys[i][2] = logisticsCompany.getClientJourneys(loggedIn.getLoggedInClient()).get(i).getCargo();
-		}*/
+		for(int i = 0; i < rows; i++) {
+			clientJourneys[i][0] = (loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin()).getPlaceName();
+			clientJourneys[i][1] = (loggedIn.getLoggedInClient().getJourneys().get(i).getDestination()).getPlaceName();
+			clientJourneys[i][2] = loggedIn.getLoggedInClient().getJourneys().get(i).getCargo();
+		}
 		
 		JScrollPane scrollJourneys = new JScrollPane();
 		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
