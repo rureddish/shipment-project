@@ -42,13 +42,15 @@ public class LogisticsCompany{
 		locationList.add(location);
 	}
 
-	public void register(Journey journey) {
+	public boolean register(Journey journey) {
 		if (journeyOriginHasContainers(journey)) {
 			journeyList.add(journey);
 			journey.setContainer(journey.getOrigin().getLocationContainers().remove());
 			journey.getContainer().getJourneyHistory().add(journey);
+			journey.getClient().getJourneys().add(journey);
+			return true;
 		} else {
-			System.out.println("no containers in port");
+			return  false;
 		}
 	}
 

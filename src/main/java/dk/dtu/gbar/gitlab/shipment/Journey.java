@@ -25,7 +25,6 @@ public class Journey {
         this.client = client;
         this.cargo = cargo;
         this.isConcluded = false;
-        client.getJourneys().add(this);
     }
 
     /**

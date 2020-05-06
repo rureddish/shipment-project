@@ -71,12 +71,11 @@ public class JourneyRegisterScreen extends JFrame {
 					System.out.println("Please Fill Out All Spaces");
 				}
 				else {
-					logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
-							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()),loggedIn.getLoggedInClient()
-							,txtCargo.getText()));
-					mainMenuScreen.addJourney(logisticsCompany.getJourneyList().get(logisticsCompany.getJourneyList().size()-1));
-					
-					
+					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
+							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()), loggedIn.getLoggedInClient()
+							, txtCargo.getText()))){
+						mainMenuScreen.addJourney(logisticsCompany.getJourneyList().get(logisticsCompany.getJourneyList().size()-1));
+					}
 				}
 			}
 		});

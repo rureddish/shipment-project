@@ -101,12 +101,6 @@ public class MainMenuScreen extends JFrame {
 				//Shows all journeys based on keywords. Shows all if keyword is blank
 			}
 		});
-		/*
-		String[] columnNames = {"Origin","Destination","Cargo"};
-		int rows = loggedIn.getLoggedInClient().getJourneys().size();
-		String[][] clientJourneys = new String[rows][3];
-		displayJourneys(rows, clientJourneys);
-		*/
 		clientJourneys = new DefaultTableModel();
 		clientJourneys.addColumn("Origin");
 		clientJourneys.addColumn("Destination");
@@ -114,14 +108,9 @@ public class MainMenuScreen extends JFrame {
 		int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		for(int i = 0; i < rows; i++) {
 			clientJourneys.addRow(new Object[] {loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin().getPlaceName(),
-					(loggedIn.getLoggedInClient().getJourneys().get(i).getDestination()).getPlaceName(),
+					loggedIn.getLoggedInClient().getJourneys().get(i).getDestination().getPlaceName(),
 					loggedIn.getLoggedInClient().getJourneys().get(i).getCargo()});
 		}
-		/*for(int i = 0; i < rows; i++) {
-			clientJourneys[i][0] = (loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin()).getPlaceName();
-			clientJourneys[i][1] = (loggedIn.getLoggedInClient().getJourneys().get(i).getDestination()).getPlaceName();
-			clientJourneys[i][2] = loggedIn.getLoggedInClient().getJourneys().get(i).getCargo();
-		}*/
 		
 		
 		JScrollPane scrollJourneys = new JScrollPane();
