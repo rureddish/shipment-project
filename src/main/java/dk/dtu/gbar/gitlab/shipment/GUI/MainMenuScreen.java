@@ -106,12 +106,10 @@ public class MainMenuScreen extends JFrame {
 		clientJourneys.addColumn("Destination");
 		clientJourneys.addColumn("Cargo");
 		int rows = loggedIn.getLoggedInClient().getJourneys().size();
-		for(int i = 0; i < rows; i++) {
-			clientJourneys.addRow(new Object[] {loggedIn.getLoggedInClient().getJourneys().get(i).getOrigin().getPlaceName(),
-					loggedIn.getLoggedInClient().getJourneys().get(i).getDestination().getPlaceName(),
-					loggedIn.getLoggedInClient().getJourneys().get(i).getCargo()});
+		for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
+			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
 		}
-		
+
 		
 		JScrollPane scrollJourneys = new JScrollPane();
 		scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
