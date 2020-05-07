@@ -8,6 +8,8 @@ import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,7 +21,7 @@ import javax.swing.JTextField;
 
 
 
-public class LoginScreen
+public class LoginScreen 
 {
 	SignUpScreen signUpScreen;
 	MainMenuScreen mainMenuScreen;
@@ -66,6 +68,9 @@ public class LoginScreen
 				password.setText("");
 			}
 		});
+		
+		//KeyListener trick so that you can LogIn by pressing enter
+		frame.getRootPane().setDefaultButton(btnLogin);
 		
 		btnSignUp = new JButton("SignUp");
 		btnSignUp.addActionListener(new ActionListener() {
