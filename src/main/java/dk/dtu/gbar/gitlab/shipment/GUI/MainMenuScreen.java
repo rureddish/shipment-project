@@ -110,10 +110,11 @@ public class MainMenuScreen extends JFrame {
 		btnShowAll = new JRadioButton("Show All");
 		btnShowAll.setLocation(18, 133);
 		btnShowAll.setSize(77, 29);
+		btnShowAll.setSelected(true);
 		btnShowAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnShowConcluded.setSelected(false);
-				btnShowAll.setSelected(false);
+				btnShowCurrent.setSelected(false);
 				clientJourneys.setRowCount(0);
 				for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
 					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
