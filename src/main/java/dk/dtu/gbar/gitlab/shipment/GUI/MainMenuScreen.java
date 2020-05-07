@@ -125,7 +125,6 @@ public class MainMenuScreen extends JFrame {
 		clientJourneys.addColumn("Origin");
 		clientJourneys.addColumn("Destination");
 		clientJourneys.addColumn("Cargo");
-		//int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
 			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
 		}
