@@ -42,11 +42,12 @@ public class Main {
 		logisticsCompany.register(new Container(hongkong));
 		logisticsCompany.register(new Container(newyork));
 		logisticsCompany.register(new Container(london));
-		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","amazon@amazon.com","amazonIzCool");
+		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","a","a");
 		logisticsCompany.register(amazon);
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
 		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
 		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
+		amazon.getJourneys().get(0).endJourney();  
 
 	}
 

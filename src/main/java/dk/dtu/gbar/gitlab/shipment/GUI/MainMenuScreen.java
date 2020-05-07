@@ -24,6 +24,8 @@ import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+import dk.dtu.gbar.gitlab.shipment.Searcher;
+
 import javax.swing.JTable;
 
 public class MainMenuScreen extends JFrame {
@@ -42,6 +44,7 @@ public class MainMenuScreen extends JFrame {
 	private JButton btnRegisterJourney;
 	private JTable tblJourneys;
 	private DefaultTableModel clientJourneys;
+	private Searcher search;
 	
 	
 	///
@@ -49,6 +52,7 @@ public class MainMenuScreen extends JFrame {
 		this.parentWindow = parentWindow;
 		this.logisticsCompany = logisticsCompany;
 		this.loggedIn = loggedIn;
+		search = new Searcher(logisticsCompany);
 		initialize();
 	}
 
@@ -82,14 +86,24 @@ public class MainMenuScreen extends JFrame {
 		btnShowConcluded = new JRadioButton("Show Concluded");
 		btnShowConcluded.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//shows concluded journeys based on keywords. Shows all concluded if keyword is blank
+				btnShowCurrent.setSelected(false);
+				btnShowAll.setSelected(false);
+				clientJourneys.setRowCount(0);
+				for(Journey journey: search.getConcludedJourneys(loggedIn.getLoggedInClient())) {
+					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+				}
 			}
 		});
 		
 		btnShowCurrent = new JRadioButton("Show Current");
 		btnShowCurrent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//shows current journeys based on keywords. Shows all current if keyword is blank
+				btnShowConcluded.setSelected(false);
+				btnShowAll.setSelected(false);
+				clientJourneys.setRowCount(0);
+				for(Journey journey: search.getCurrentJourneys(loggedIn.getLoggedInClient())) {
+					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+				}
 			}
 		});
 		
@@ -98,14 +112,20 @@ public class MainMenuScreen extends JFrame {
 		btnShowAll.setSize(77, 29);
 		btnShowAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Shows all journeys based on keywords. Shows all if keyword is blank
+				btnShowConcluded.setSelected(false);
+				btnShowAll.setSelected(false);
+				clientJourneys.setRowCount(0);
+				for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
+					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+				}
+				
 			}
 		});
 		clientJourneys = new DefaultTableModel();
 		clientJourneys.addColumn("Origin");
 		clientJourneys.addColumn("Destination");
 		clientJourneys.addColumn("Cargo");
-		int rows = loggedIn.getLoggedInClient().getJourneys().size();
+		//int rows = loggedIn.getLoggedInClient().getJourneys().size();
 		for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
 			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
 		}
