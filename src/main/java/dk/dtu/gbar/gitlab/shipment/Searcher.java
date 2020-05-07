@@ -64,6 +64,7 @@ public class Searcher {
         return (str -> str.getAddress().contains(string));
     }
 
+    // Journey
     public Predicate<Journey> excludeConcludedJourneys = (x -> !x.isConcluded());
 
     public Predicate<Journey> excludeCurrentJourneys = (Journey::isConcluded);
@@ -76,12 +77,15 @@ public class Searcher {
     public Predicate<Journey> destinationContains(String string) {
         return (x -> x.getDestination().getPlaceName().contains(string));
     }
-
-
-    // Journey
-//    public ArrayList<V> journeySearchByString(ArrayList<V> list, String string) {
-//        return search(list, originContains(string), destinationContains(string), clientContains(string), cargoContains(string));
-//    }
+    
+    public Predicate<Journey> cargoContains(String string) {
+        return (x -> x.getCargo().equalsIgnoreCase(string));
+    }
+    
+    public ArrayList journeySearchByString(ArrayList<Journey> list, String string) {
+    	List allStringFieldPredicates = Arrays.asList(originContains(string), destinationContains(string), cargoContains(string));
+    	return search(list, allStringFieldPredicates);
+    }
 
 
     //    public Predicate<Journey> journeyLocationContains(String string) {
@@ -103,7 +107,5 @@ public class Searcher {
 //        return (x -> x.getClient().getName().equalsIgnoreCase(string));
 //    }
 //
-//    public Predicate<Journey> cargoContains(String string) {
-//        return (x -> x.getCargo().equalsIgnoreCase(string));
-//    }
+
 }

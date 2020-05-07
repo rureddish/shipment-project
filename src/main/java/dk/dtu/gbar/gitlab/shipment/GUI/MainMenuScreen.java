@@ -2,6 +2,7 @@ package dk.dtu.gbar.gitlab.shipment.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -45,6 +46,8 @@ public class MainMenuScreen extends JFrame {
 	private JTable tblJourneys;
 	private DefaultTableModel clientJourneys;
 	private Searcher search;
+	private String keyword;
+	private ArrayList<Journey> journeys;
 	
 	
 	///
@@ -53,6 +56,8 @@ public class MainMenuScreen extends JFrame {
 		this.logisticsCompany = logisticsCompany;
 		this.loggedIn = loggedIn;
 		search = new Searcher(logisticsCompany);
+		journeys = loggedIn.getLoggedInClient().getJourneys();
+		keyword = "";
 		initialize();
 	}
 
@@ -68,6 +73,10 @@ public class MainMenuScreen extends JFrame {
 		btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				keyword = txtKeywordSearch.getText();
+				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+				clientJourneys.setRowCount(0);
+				display(searchResults);
 				//Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
 				//pulls up journeys based on keyword and showConcluded and showCurrent
 			}
@@ -89,9 +98,9 @@ public class MainMenuScreen extends JFrame {
 				btnShowCurrent.setSelected(false);
 				btnShowAll.setSelected(false);
 				clientJourneys.setRowCount(0);
-				for(Journey journey: search.getConcludedJourneys(loggedIn.getLoggedInClient())) {
-					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
-				}
+				journeys = search.getConcludedJourneys(loggedIn.getLoggedInClient());
+				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+				display(searchResults);
 			}
 		});
 		
@@ -101,9 +110,9 @@ public class MainMenuScreen extends JFrame {
 				btnShowConcluded.setSelected(false);
 				btnShowAll.setSelected(false);
 				clientJourneys.setRowCount(0);
-				for(Journey journey: search.getCurrentJourneys(loggedIn.getLoggedInClient())) {
-					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
-				}
+				journeys = search.getCurrentJourneys(loggedIn.getLoggedInClient());
+				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+				display(searchResults);
 			}
 		});
 		
@@ -116,12 +125,12 @@ public class MainMenuScreen extends JFrame {
 				btnShowConcluded.setSelected(false);
 				btnShowCurrent.setSelected(false);
 				clientJourneys.setRowCount(0);
-				for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
-					clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
-				}
-				
+				journeys = loggedIn.getLoggedInClient().getJourneys();
+				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+				display(searchResults);				
 			}
 		});
+		
 		clientJourneys = new DefaultTableModel();
 		clientJourneys.addColumn("Origin");
 		clientJourneys.addColumn("Destination");
@@ -220,5 +229,12 @@ public class MainMenuScreen extends JFrame {
 		}
 		panelMainMenuFunctions.setVisible(visible);
 	}
+	
+	private void display(ArrayList<Journey> searchResults) {
+		for(Journey journey: searchResults) {
+			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+		}
+	}
+	
 }
 
