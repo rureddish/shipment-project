@@ -79,7 +79,7 @@ public class Searcher {
     }
     
     public Predicate<Journey> cargoContains(String string) {
-        return (x -> x.getCargo().equalsIgnoreCase(string));
+        return (x -> x.getCargo().contains(string));
     }
     
     public ArrayList journeySearchByString(ArrayList<Journey> list, String string) {
