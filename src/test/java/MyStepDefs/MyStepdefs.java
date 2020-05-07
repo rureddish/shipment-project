@@ -138,6 +138,7 @@ public class MyStepdefs {
     @Given("the port of Copenhagen which has {int} containers")
     public void thePortOfCopenhagenWhichHasContainers(int numberOfContainers) {
         copenhagen = new Location("Copenhagen");
+        logisticCompany.register(copenhagen);
         for (int i = 0; i < numberOfContainers; i++) {
             Container container = new Container(copenhagen);
             logisticCompany.register(container);
@@ -147,6 +148,7 @@ public class MyStepdefs {
     @And("the port of Hong Kong which has {int} containers")
     public void thePortOfHongKongWhichHasContainers(int numberOfContainers) {
         hongKong = new Location("Hong Kong");
+        logisticCompany.register(hongKong);
         for (int i = 0; i < numberOfContainers; i++) {
             Container container = new Container(hongKong);
             logisticCompany.register(container);
@@ -211,6 +213,7 @@ public class MyStepdefs {
     @Given("the port of Oslo which has {int} containers")
     public void the_port_of_Oslo_which_has_containers(Integer numberOfContainers) {
     	oslo = new Location("Oslo");
+    	logisticCompany.register(oslo);
         for (int i = 0; i < numberOfContainers; i++) {
             Container container = new Container(oslo);
             logisticCompany.register(container);
