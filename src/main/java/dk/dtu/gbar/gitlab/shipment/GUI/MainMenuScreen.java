@@ -2,6 +2,8 @@ package dk.dtu.gbar.gitlab.shipment.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -29,7 +31,7 @@ import dk.dtu.gbar.gitlab.shipment.Searcher;
 
 import javax.swing.JTable;
 
-public class MainMenuScreen extends JFrame {
+public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 
 	private LoginScreen parentWindow;
 	private JourneyRegisterScreen journeyRegisterScreen;
@@ -58,6 +60,9 @@ public class MainMenuScreen extends JFrame {
 		search = new Searcher(logisticsCompany);
 		journeys = loggedIn.getLoggedInClient().getJourneys();
 		keyword = "";
+		
+		logisticsCompany.addObserver(this);
+		
 		initialize();
 	}
 
@@ -234,6 +239,12 @@ public class MainMenuScreen extends JFrame {
 		for(Journey journey: searchResults) {
 			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		initialize();
+		
 	}
 	
 }
