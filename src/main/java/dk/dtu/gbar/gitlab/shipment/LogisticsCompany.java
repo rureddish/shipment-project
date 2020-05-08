@@ -1,5 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,8 @@ public class LogisticsCompany{
 	private ArrayList<Location> locationList = new ArrayList<>();
 	Location atSea = new Location("At sea");
 	Searcher search = new Searcher(this);
+
+	PropertyChangeSupport support = new PropertyChangeSupport(this);
 
 	/**
 	 *
@@ -48,6 +52,9 @@ public class LogisticsCompany{
 			journey.setContainer(journey.getOrigin().getLocationContainers().remove());
 			journey.getContainer().getJourneyHistory().add(journey);
 			journey.getClient().getJourneys().add(journey);
+
+			support.firePropertyChange("Journey Added",null,null);
+
 			return true;
 		} else {
 			return  false;
@@ -72,7 +79,7 @@ public class LogisticsCompany{
 	public boolean journeyOriginHasContainers(Journey object) {
 		return 0 < object.getOrigin().getLocationContainers().size();
 	}
-	
+
 	//Getters and Setters
 
 
@@ -91,11 +98,15 @@ public class LogisticsCompany{
 	public ArrayList<Container> getContainerList(){
 		return containerList;
 	}
-	
+
 	public ArrayList<Journey> getJourneyList(){
 		return journeyList;
 	}
 	public ArrayList<Location> getLocationList(){
 		return locationList;
+	}
+
+	public void addObserver(PropertyChangeListener listener) {
+		support.addPropertyChangeListener(listener);
 	}
 }
