@@ -7,23 +7,15 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
@@ -34,7 +26,7 @@ import javax.swing.JTable;
 public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 
 	private LoginScreen parentWindow;
-	private JourneyRegisterScreen journeyRegisterScreen;
+	private LogisticsCompanyScreen journeyRegisterScreen;
 	private LogisticsCompany logisticsCompany;
 	private LogIn loggedIn;
 	private JPanel panelMainMenuFunctions;
@@ -74,12 +66,24 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		
 		JTextField txtKeywordSearch = new JTextField(30);
 		JLabel lblKeywordSearch = new JLabel("Keyword Search:");
-		
+
+		JTextField txtCargoKeywordSearch = new JTextField(30);
+		JLabel lblCargoKeywordSearch = new JLabel("Cargo");
+
+		JTextField txtOriginKeywordSearch = new JTextField(30);
+		JLabel lblOriginKeywordSearch = new JLabel("Origin");
+
+		JTextField txtDestinationKeywordSearch = new JTextField(30);
+		JLabel lblDestinationKeywordSearch = new JLabel("Destination");
+
 		btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				keyword = txtKeywordSearch.getText();
 				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+				if(txtCargoKeywordSearch.getText().length()>0){
+					searchResults = search.search(searchResults,search.cargoContains(txtCargoKeywordSearch.getText()));
+				}
 				clientJourneys.setRowCount(0);
 				display(searchResults);
 				//Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
@@ -94,6 +98,7 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				parentWindow.setVisible(true);
+				loggedIn=null;
 			}
 		});
 		
@@ -122,7 +127,7 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		});
 		
 		btnShowAll = new JRadioButton("Show All");
-		btnShowAll.setLocation(18, 133);
+		btnShowAll.setLocation(18, 183);
 		btnShowAll.setSize(77, 29);
 		btnShowAll.setSelected(true);
 		btnShowAll.addActionListener(new ActionListener() {
@@ -163,25 +168,41 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		
 		
 		btnExamine = new JButton("Examine");
-		btnExamine.setBounds(290, 378, 150, 29);
+		btnExamine.setBounds(290, 428, 150, 29);
 		btnExamine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
 			}
 		});
-		
+
+		btnSearch.setBounds(290,74,150,29);
 		txtKeywordSearch.setBounds(102,75, 130, 26);
 		lblKeywordSearch.setBounds(21,75, 83, 26);
-		btnShowConcluded.setBounds(18,108,129,29);		
-		btnShowCurrent.setBounds(149,108,105,29);
-		btnSearch.setBounds(290,74,150,29);
+
+		txtCargoKeywordSearch.setBounds(102,105, 130, 26);
+		lblCargoKeywordSearch.setBounds(21,105, 83, 26);
+		txtOriginKeywordSearch.setBounds(102,135, 130, 26);
+		lblOriginKeywordSearch.setBounds(21,135, 83, 26);
+		txtDestinationKeywordSearch.setBounds(322,135, 130, 26);
+		lblDestinationKeywordSearch.setBounds(241,135, 83, 26);
+
+		btnShowConcluded.setBounds(18,158,129,29);
+		btnShowCurrent.setBounds(149,158,105,29);
+
+
 		scrollJourneys.setSize(338, 214);
-		scrollJourneys.setLocation(102, 153);
-		
-		
+		scrollJourneys.setLocation(102, 203);
+
 		panelMainMenuFunctions.add(lblKeywordSearch);
 		panelMainMenuFunctions.add(txtKeywordSearch);
+		panelMainMenuFunctions.add(txtDestinationKeywordSearch);
+		panelMainMenuFunctions.add(lblDestinationKeywordSearch);
+		panelMainMenuFunctions.add(txtOriginKeywordSearch);
+		panelMainMenuFunctions.add(lblOriginKeywordSearch);
+		panelMainMenuFunctions.add(txtCargoKeywordSearch);
+		panelMainMenuFunctions.add(lblCargoKeywordSearch);
+
 		panelMainMenuFunctions.add(btnShowConcluded);
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnShowAll);
@@ -195,7 +216,7 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		panelMainMenuFunctions.add(btnRegisterJourney);
 		
 		
-		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn, logisticsCompany);
+		journeyRegisterScreen = new LogisticsCompanyScreen(parentWindow,this, loggedIn, logisticsCompany);
 		
 		
 	}
