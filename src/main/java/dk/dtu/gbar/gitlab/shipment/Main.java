@@ -1,6 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 
 import java.awt.EventQueue;
 
@@ -29,11 +30,12 @@ public class Main {
 		logisticsCompany.register(new Container(berlin));
 		logisticsCompany.register(new Container(newyork));
 		logisticsCompany.register(new Container(london));
-		Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
+		//ClientOld maersk = new ClientOld("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
+		Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", Bcrypt.hashPassword("m"));
 		logisticsCompany.register(maersk);
-		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","a","a");
+		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","a",Bcrypt.hashPassword("a"));
 		logisticsCompany.register(amazon);
-		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
+		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com",Bcrypt.hashPassword("NewEggPass"));
 		Client maersk2 = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m2", "m");
 		logisticsCompany.register(maersk2);
 		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));

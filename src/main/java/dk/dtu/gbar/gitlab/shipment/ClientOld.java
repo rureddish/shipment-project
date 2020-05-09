@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Entity containing basic client information and password.
  * Contains list of Journeys registered by the client.
  */
-public class Client {
+public class ClientOld {
     private String name;
     private String address;
     private String refPerson;
@@ -20,7 +20,7 @@ public class Client {
      @param email The Email address of the client
      @param password The password to access the client's data
      */
-    public Client(String name, String address, String refPerson, String email, String password) {
+    public ClientOld(String name, String address, String refPerson, String email, String password) {
         this.name = name;
         this.address = address;
         this.refPerson = refPerson;

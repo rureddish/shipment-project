@@ -16,7 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 public class SignUpScreen extends JFrame {
@@ -82,8 +81,8 @@ public class SignUpScreen extends JFrame {
 					JOptionPane.showMessageDialog(null, "Please fill in all Spaces","Message",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					if(logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
-					txtEmail.getText(), String.valueOf(password.getPassword())))) {
+					if(logisticsCompany.register(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
+					txtEmail.getText(), String.valueOf(password.getPassword()))) {
 						JOptionPane.showMessageDialog(null, "Register Succesfull");
 						txtUsername.setText("");
 						password.setText("");

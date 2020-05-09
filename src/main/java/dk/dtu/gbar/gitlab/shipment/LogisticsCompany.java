@@ -1,5 +1,10 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.ClientStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -19,6 +24,7 @@ public class LogisticsCompany{
 	private ArrayList<Location> locationList = new ArrayList<>();
 	Location atSea = new Location("At sea");
 	Searcher search = new Searcher(this);
+	private ClientService cs = new ClientService();
 
 	PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -30,15 +36,29 @@ public class LogisticsCompany{
 		this.password = password;
 	}
 
+
 	/**
-	 * Registers client if email not in use, returns false otherwise
-	 * @param client
-	 * @return
+	 * 	Registers client if email not in use, returns false otherwise
+	 * @param userName user name of the client
+	 * @param address address
+	 * @param refPerson reference person
+	 * @param email email that should not be in use
+	 * @param password password in plaintext
+	 * @return whether the register was successful
 	 */
-	public boolean register(Client client) {
-		if (!clientEmailAlreadyInUse(client)) {
-			clientList.add(client);
+	public boolean register(String userName,String address, String refPerson,String email, String password ) {
+		if (!clientEmailAlreadyInUse(email)) {
+			Client client = new Client(userName,address,refPerson,email,Bcrypt.hashPassword(password));
+			cs.save(client);
+			//clientList.add(client);
 			return  true;
+		}
+		return false;
+	}
+	public boolean register (Client client){
+		if(!clientEmailAlreadyInUse(client.getEmail())){
+			cs.save(client);
+			return true;
 		}
 		return false;
 	}
@@ -52,7 +72,7 @@ public class LogisticsCompany{
 		locationList.add(location);
 	}
 
-	/** if there are containers at origin journey is registerstered.
+	/** if there are containers at origin journey is registered.
 	 * returns false if not successful
 	 * @param journey Journey being registered
 	 * @return
@@ -77,14 +97,16 @@ public class LogisticsCompany{
 	}
 
 	public void removeClient(Client client) {
-		client.setAddress("Redacted");
+		/*client.setAddress("Redacted");
 		client.setRefPerson("Redacted");
 		client.setName("Redacted");
-		client.setEmail("Redacted");
+		client.setEmail("Redacted");*/
+		client.setClientStatus(ClientStatus.DELETED);
 	}
 
-	public boolean clientEmailAlreadyInUse(Client client) {
-		return 0 < search.search(clientList, search.emailContains(client.getEmail())).size();
+	public boolean clientEmailAlreadyInUse(String email) {
+		return 0 < cs.search(new SearchCriteria("EMAIL",email)).size();
+		//return 0 < search.search(clientList, search.emailContains(client.getEmail())).size();
 	}
 
 	public boolean journeyOriginHasContainers(Journey object) {

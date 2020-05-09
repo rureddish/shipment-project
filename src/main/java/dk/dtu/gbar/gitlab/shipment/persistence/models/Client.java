@@ -15,6 +15,7 @@ public class Client {
     private String referencePerson;
     private String email;
     private String address;
+    private String password;
     private ClientStatus clientStatus;
     private Collection<Container> clientsContainers;
     private Collection<Journey> clientsJourneys;
@@ -76,6 +77,16 @@ public class Client {
         return clientStatus;
     }
 
+    @Basic
+    @Column(name = "password", nullable = true, length = 60)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setClientStatus(ClientStatus clientStatus) {
         this.clientStatus = clientStatus;
     }
@@ -121,15 +132,16 @@ public class Client {
     public Client() {
     }
 
-    public Client(String clientName, String referencePerson, String email, String address, ClientStatus clientStatus) {
+    public Client(String clientName, String address, String referencePerson, String email, String password, ClientStatus clientStatus) {
         this.clientName = clientName;
+        this.address = address;
         this.referencePerson = referencePerson;
         this.email = email;
-        this.address = address;
+        this.password = password;
         this.clientStatus = clientStatus;
     }
 
-    public Client(String clientName, String referencePerson, String email, String address) {
-        this(clientName, referencePerson, email, address, ClientStatus.ACTIVE);
+    public Client(String clientName, String address, String referencePerson, String email, String password) {
+        this(clientName, address, referencePerson, email, password, ClientStatus.ACTIVE);
     }
 }

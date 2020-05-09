@@ -57,20 +57,15 @@ public class LoginScreen {
         btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
 //            if (login.checkClientLogin(txtLogin.getText(), String.valueOf(password.getPassword()))) {
-        	if (!login.checkClientEmail(txtLogin.getText())) {
-        		JOptionPane.showMessageDialog(null, "Wrong Email","Message",JOptionPane.WARNING_MESSAGE);
+        	if (!login.loginClient(txtLogin.getText(),String.valueOf(password.getPassword()))) {
+        		JOptionPane.showMessageDialog(null, "Wrong Email/Password","Message",JOptionPane.WARNING_MESSAGE);
         	}
         	else {
-        		if (!login.checkClientPassword(txtLogin.getText(), String.valueOf(password.getPassword()))) {
-        			JOptionPane.showMessageDialog(null, "Wrong Password","Message",JOptionPane.WARNING_MESSAGE);
-        		}
-        		else {
-        			setVisible(false); 
-	                this.clientScreen = new ClientScreen(this, logisticsCompany, login);
-	                this.clientScreen.setVisible(true);
-	                txtLogin.setText("");
-	                password.setText("");  
-        		}
+                setVisible(false);
+                this.clientScreen = new ClientScreen(this, logisticsCompany, login);
+                this.clientScreen.setVisible(true);
+                txtLogin.setText("");
+                password.setText("");
             }
         });
 
