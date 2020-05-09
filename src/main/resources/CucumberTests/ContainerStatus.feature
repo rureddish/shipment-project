@@ -1,31 +1,15 @@
-#Feature: Tracking Container
-#
-#	Scenario: successfully registering a container with all info
-#		Given a Container with all info filled in
-#		And a database not containing the Container
-#		When the Container is registered
-#		Then the Container appears in the database
-#
-#	Scenario: registering a container with info missing
-#		Given a Container with info missing
-#		And a database not containing a container
-#		When the Container is registered
-#		Then error incompleteContainer message is displayed
-#
-#	Scenario: registering a container already in database
-#		Given a Container with all info filled in
-#		And a database that contains the container
-#		When the Container is registered
-#		Then error containerExists message is displayed
-#
-#	Scenario: successfully registering a container for a journey
-#		Given a registered Container
-#		And a successfully registered Journey
-#		When the Journey registers the Container
-#		Then the Container is in the Journey
-#
-#	Scenario: successfully updating container information
-#		Given a Container in a Journey
-#		And a reader for the Container's info
-#		When a time period has passed
-#		Then the Container's lists register new data
+Feature: Update Container Status
+Actor: Worker of the Logistic Company
+
+  @tag1
+  Scenario: All Info Update
+    Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
+    And the port of Copenhagen which has 100 containers
+    And a registered journey from Copenhagen to Hong Kong with "oranges"
+    And the container has a temperature of 15, pressure of 1010 and humidity of 54
+    When a worker updates the container information
+    Then the container information are updated
+    And the date is automatically stored
+
+
+    

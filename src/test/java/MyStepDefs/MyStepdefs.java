@@ -30,6 +30,12 @@ public class MyStepdefs {
     String passwordTest;
     String emailTest;
     LogIn logIn = new LogIn(logisticCompany);
+    
+    Double temp;
+    Double pressure;
+    Double humidity;
+    
+    ContainerStatus containerStatus;
 
     ////////////////////
     // register client
@@ -381,4 +387,38 @@ public class MyStepdefs {
     public void clientLogsOut() {
         logIn.logOut();
     }
+    
+    ////////////////////////////////////////
+    //  Feature Container Status Update
+    ////////////////////////////////////////
+    
+    @Given("the container has a temperature of {int}, pressure of {int} and humidity of {int}")
+    public void the_container_has_a_temperature_of_pressure_of_and_humidity_of(double temp, double pressure, double humidity) {
+    	this.temp = temp;
+    	this.pressure = pressure;
+    	this.humidity = humidity;
+    }
+
+    @When("a worker updates the container information")
+    public void a_worker_updates_the_container_information() {
+    	containerStatus = journey1.getContainer().getStatusHistory();
+    	containerStatus.updateTemp(temp);
+    	containerStatus.updatePressure(pressure);
+    	containerStatus.updateHumidity(humidity);
+    	containerStatus.updateDate();
+    }
+
+    @Then("the container information are updated")
+    public void the_container_information_are_updated() {
+    	assertEquals(containerStatus.getTempHistory().get(0),temp);
+    	assertEquals(containerStatus.getPressureHistory().get(0),pressure);
+    	assertEquals(containerStatus.getHumidityHistory().get(0),humidity);
+    }
+
+    @Then("the date is automatically stored")
+    public void the_date_is_automatically_stored() {
+    	assertFalse(containerStatus.getDateHistory().isEmpty());
+    }
+
 }
+

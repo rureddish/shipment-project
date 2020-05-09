@@ -12,6 +12,7 @@ public class Container {
     private Stack<Journey> journeyHistory = new Stack<>();
     private Location location;
     private Integer ID;
+    private ContainerStatus statusHistory;
 
     /**
      * @param location The location at which the container is registered.
@@ -19,6 +20,7 @@ public class Container {
 	public Container(Location location) {
         this.location=location;
         location.getLocationContainers().add(this);
+        statusHistory = new ContainerStatus();
     }
 
 	public Location getLocation() {
@@ -39,6 +41,10 @@ public class Container {
 
     public void setID(Integer ID) {
         this.ID = ID;
+    }
+    
+    public ContainerStatus getStatusHistory(){
+    	return statusHistory;
     }
 }
 

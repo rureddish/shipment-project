@@ -1,41 +1,66 @@
 package dk.dtu.gbar.gitlab.shipment;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 public class ContainerStatus {
-    private double temp;
-    private double humidity;
-    private double pressure; 
-//    private Date date;
+    private ArrayList<Double> tempHistory;
+    private ArrayList<Double> humidityHistory;
+    private ArrayList<Double> pressureHistory; 
+    private ArrayList<String> dateHistory;
+    private DateTimeFormatter dateFormat;
     
-	public ContainerStatus(double temp, double humidity, double pressure) {
-		this.temp = temp;
-		this.humidity = humidity;
-		this.pressure = pressure;
-//		this.date = date;
+	public ContainerStatus() {
+		tempHistory = new ArrayList<Double>();
+		humidityHistory = new ArrayList<Double>();
+		pressureHistory = new ArrayList<Double>();
+		dateHistory = new ArrayList<String>();
+		dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	}
+	
+	
+	public void updateTemp(double temp) {
+		tempHistory.add(temp);
+	}
+	
+	public void updateHumidity(double humidity) {
+		humidityHistory.add(humidity);
+	}
+	
+	public void updatePressure(double pressure) {
+		pressureHistory.add(pressure);
+	}
+	
+	public void updateDate() {
+	    dateHistory.add(LocalDateTime.now().format(dateFormat));
 	}
 
-	public double getTemp() {
-		return temp;
+
+	
+	////Getters & Setters
+	public ArrayList<Double> getTempHistory() {
+		return tempHistory;
 	}
-//
-//	public void setTemp(double temp) {
-//		this.temp = temp;
-//	}
-//
-	public double getHumidity() {
-		return humidity;
+
+
+	public ArrayList<Double> getHumidityHistory() {
+		return humidityHistory;
 	}
-//
-//	public void setHumidity(double humidity) {
-//		this.humidity = humidity;
-//	}
-//
-	public double getPressure() {
-		return pressure;
+
+
+	public ArrayList<Double> getPressureHistory() {
+		return pressureHistory;
 	}
-//
-//	public void setPressure(double pressure) {
-//		this.pressure = pressure;
-//	}
+
+
+	public ArrayList<String> getDateHistory() {
+		return dateHistory;
+	}
+	
+
+
+	
 
 
 
