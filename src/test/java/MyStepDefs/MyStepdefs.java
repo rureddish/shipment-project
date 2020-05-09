@@ -328,6 +328,17 @@ public class MyStepdefs {
     	assertEquals(journey1, searchresults.get(0));
     }
     
+    /////Keyword search
+    @When("client searches for journeys with keyword {string}")
+    public void client_searches_for_journeys_with_keyword(String keyword) {
+    	searchresults = search.journeySearchByString(logisticCompany.getJourneyList(), keyword);
+    }
+
+    @Then("return the journeys related to {string}")
+    public void return_the_journeys_related_to(String string) {
+    	assertEquals(journey1, searchresults.get(0));
+    }
+    
 ////////////////////////////
 ///	Feature : Log In
 ////////////////////////////

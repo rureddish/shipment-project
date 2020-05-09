@@ -24,3 +24,11 @@ Actor: Client
     And a registered journey from Copenhagen to Hong Kong with "oranges"
     When client searches for journeys with cargo of "oranges"
     Then return the journeys with cargo of "oranges"
+    
+	@tag4
+  Scenario: search for journeys by keyword
+    Given a Client "Andrei" with address "259 Lyngby" email "Andrei@roumania" and ref person "Yann"
+    And the port of Copenhagen which has 100 containers
+    And a registered journey from Copenhagen to Hong Kong with "oranges"
+    When client searches for journeys with keyword "Copenhagen"
+    Then return the journeys related to "Copenhagen"
