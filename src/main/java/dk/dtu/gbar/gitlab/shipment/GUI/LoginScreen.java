@@ -68,7 +68,7 @@ public class LoginScreen {
         btnAdminLogin = new JButton("Admin Login");
         btnAdminLogin.addActionListener(e -> {
             setVisible(false);
-            frame.setBounds(100,100,500,550);
+            frame.setBounds(100,100,865,550);
             this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
             this.logisticsCompanyScreen.setVisible(true);
             txtLogin.setText("");

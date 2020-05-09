@@ -112,7 +112,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         });
 
         btnLogOut = new JButton("Log Out");
-        btnLogOut.setLocation(290, 11);
+        btnLogOut.setLocation(690, 11);
         btnLogOut.setSize(150, 29);
         btnLogOut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -190,7 +190,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollClients.setViewportView(tblClients);
 
 
-        btnSearch.setBounds(290,74,150,29);
+        btnSearch.setBounds(690,74,150,29);
         txtKeywordSearch.setBounds(102,75, 130, 26);
         lblKeywordSearch.setBounds(21,75, 83, 26);
 
