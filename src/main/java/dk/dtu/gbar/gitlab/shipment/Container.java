@@ -11,6 +11,7 @@ import java.util.Stack;
 public class Container {
     private Stack<Journey> journeyHistory = new Stack<>();
     private Location location;
+    private Integer ID;
 
     /**
      * @param location The location at which the container is registered.
@@ -30,6 +31,14 @@ public class Container {
 
     public Stack<Journey> getJourneyHistory() {
         return journeyHistory;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 }
 

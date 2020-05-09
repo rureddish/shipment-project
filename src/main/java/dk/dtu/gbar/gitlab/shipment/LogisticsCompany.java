@@ -30,6 +30,11 @@ public class LogisticsCompany{
 		this.password = password;
 	}
 
+	/**
+	 * Registers client if email not in use, returns false otherwise
+	 * @param client
+	 * @return
+	 */
 	public boolean register(Client client) {
 		if (!clientEmailAlreadyInUse(client)) {
 			clientList.add(client);
@@ -39,6 +44,7 @@ public class LogisticsCompany{
 	}
 
 	public void register(Container container){
+		container.setID(containerList.size());
 		containerList.add(container);
 	}
 
@@ -46,15 +52,20 @@ public class LogisticsCompany{
 		locationList.add(location);
 	}
 
+	/** if there are containers at origin journey is registerstered.
+	 * returns false if not successful
+	 * @param journey Journey being registered
+	 * @return
+	 */
 	public boolean register(Journey journey) {
 		if (journeyOriginHasContainers(journey)) {
+			journey.setID(journeyList.size());
 			journeyList.add(journey);
 			journey.setContainer(journey.getOrigin().getLocationContainers().remove());
 			journey.getContainer().getJourneyHistory().add(journey);
 			journey.getClient().getJourneys().add(journey);
 
 			support.firePropertyChange("Journey Added",null,null);
-
 			return true;
 		} else {
 			return  false;

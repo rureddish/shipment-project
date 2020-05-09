@@ -12,6 +12,7 @@ public class Journey {
 	private Location destination;
     private boolean isConcluded;
     private String cargo;
+    private Integer ID;
 
     /**
      * @param origin The port of departure.
@@ -59,5 +60,13 @@ public class Journey {
 
     public Location getDestination() {
         return destination;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 }
