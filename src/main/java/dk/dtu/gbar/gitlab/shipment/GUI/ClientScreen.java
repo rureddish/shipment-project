@@ -236,7 +236,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		
 		
 		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn, logisticsCompany);
-
+		ExamineScreen examineScreen;
 		
 	}
 	public void addJourney(Journey journey) {
