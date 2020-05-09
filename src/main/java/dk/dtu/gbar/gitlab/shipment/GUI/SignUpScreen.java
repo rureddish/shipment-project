@@ -37,7 +37,7 @@ public class SignUpScreen extends JFrame {
 	public void initialize()
 	{
 		signUpPanel = new JPanel();
-		loginScreen.addPanel(signUpPanel);
+		loginScreen.addPanel(signUpPanel); 
 		signUpPanel.setLayout(null);
 		signUpPanel.setBorder(BorderFactory.createTitledBorder("Sign Up"));
 		
@@ -82,7 +82,7 @@ public class SignUpScreen extends JFrame {
 				}
 				else {
 					if(logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
-					txtEmail.getText(), Arrays.toString(password.getPassword())))) {
+					txtEmail.getText(), String.valueOf(password.getPassword())))) {
 						System.out.println("Register Succesfull");
 						txtUsername.setText("");
 						password.setText("");
