@@ -1,6 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -18,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
-import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import dk.dtu.gbar.gitlab.shipment.Searcher;
 
@@ -39,7 +38,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private JButton btnExamine;
     private JButton btnRegisterJourney;
     private JTable tblJourneys;
-    private DefaultTableModel clientJourneys;
+    private JTable tblClients;
+    private DefaultTableModel journeyTable;
+    private DefaultTableModel clientTable;
     private Searcher search;
     private String keyword;
     private ArrayList<Journey> journeys;
@@ -60,6 +61,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
     private void initialize() {
         panelMainMenuFunctions = new JPanel();
+        JFrame frame;
+        frame = new JFrame();
+        frame.setBounds(100, 100, 1000,500);
         parentWindow.addPanel(panelMainMenuFunctions);
         panelMainMenuFunctions.setLayout(null);
         panelMainMenuFunctions.setBorder(BorderFactory.createTitledBorder("Main Menu"));
@@ -90,7 +94,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 if (txtFieldNotEmpty(txtDestinationKeywordSearch)){
                     searchResults = filterSearchBy(searchResults, search.destinationContains(txtDestinationKeywordSearch.getText()));
                 }
-                clientJourneys.setRowCount(0);
+                journeyTable.setRowCount(0);
                 display(searchResults);
                 //Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
                 //pulls up journeys based on keyword and showConcluded and showCurrent
@@ -123,7 +127,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
             public void actionPerformed(ActionEvent e) {
                 btnShowCurrent.setSelected(false);
                 btnShowAll.setSelected(false);
-                clientJourneys.setRowCount(0);
+                journeyTable.setRowCount(0);
                 journeys = search.getConcludedJourneys(logisticsCompany.getJourneyList());
                 ArrayList searchResults = search.journeySearchByString(journeys, keyword);
                 display(searchResults);
@@ -135,7 +139,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
             public void actionPerformed(ActionEvent e) {
                 btnShowConcluded.setSelected(false);
                 btnShowAll.setSelected(false);
-                clientJourneys.setRowCount(0);
+                journeyTable.setRowCount(0);
                 journeys = search.getCurrentJourneys(logisticsCompany.getJourneyList());
                 ArrayList searchResults = search.journeySearchByString(journeys, keyword);
                 display(searchResults);
@@ -150,30 +154,40 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
             public void actionPerformed(ActionEvent e) {
                 btnShowConcluded.setSelected(false);
                 btnShowCurrent.setSelected(false);
-                clientJourneys.setRowCount(0);
+                journeyTable.setRowCount(0);
                 journeys = logisticsCompany.getJourneyList();
                 ArrayList searchResults = search.journeySearchByString(journeys, keyword);
                 display(searchResults);
             }
         });
 
-        clientJourneys = new DefaultTableModel();
-        clientJourneys.addColumn("Origin");
-        clientJourneys.addColumn("Destination");
-        clientJourneys.addColumn("Cargo");
-        clientJourneys.addColumn("Journey ID");
+        journeyTable = new DefaultTableModel();
+        journeyTable.addColumn("Origin");
+        journeyTable.addColumn("Destination");
+        journeyTable.addColumn("Cargo");
+        journeyTable.addColumn("Journey ID");
         for(Journey journey: logisticsCompany.getJourneyList()) {
-            clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getID()});
+            journeyTable.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getID()});
+        }
+
+        clientTable = new DefaultTableModel();
+        clientTable.addColumn("Name");
+        clientTable.addColumn("Email");
+        clientTable.addColumn("No. of Journeys");
+        for(Client client: logisticsCompany.getClientList()) {
+            clientTable.addRow(new Object[] {client.getName(), client.getEmail(), (Integer)(client.getJourneys().size())});
         }
 
 
         JScrollPane scrollJourneys = new JScrollPane();
         scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        tblJourneys = new JTable(clientJourneys);
+        tblJourneys = new JTable(journeyTable);
         scrollJourneys.setViewportView(tblJourneys);
 
-
-
+        JScrollPane scrollClients = new JScrollPane();
+        scrollClients.setVerticalScrollBarPolicy((JScrollPane.VERTICAL_SCROLLBAR_ALWAYS));
+        tblClients = new JTable(clientTable);
+        scrollClients.setViewportView(tblClients);
 
 
         btnSearch.setBounds(290,74,150,29);
@@ -193,6 +207,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollJourneys.setSize(338, 214);
         scrollJourneys.setLocation(102, 203);
 
+        scrollClients.setSize(338,214);
+        scrollClients.setLocation(502,203);
+
         panelMainMenuFunctions.add(lblKeywordSearch);
         panelMainMenuFunctions.add(txtKeywordSearch);
         panelMainMenuFunctions.add(txtDestinationKeywordSearch);
@@ -207,14 +224,14 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(btnLogOut);
         panelMainMenuFunctions.add(btnSearch);
         panelMainMenuFunctions.add(scrollJourneys);
-
+        panelMainMenuFunctions.add(scrollClients);
 
 
 
     }
 
     public void addJourney(Journey journey) {
-        clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),journey.getDestination().getPlaceName(),
+        journeyTable.addRow(new Object[] {journey.getOrigin().getPlaceName(),journey.getDestination().getPlaceName(),
                 journey.getCargo()});
     }
 
@@ -250,7 +267,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
     private void display(ArrayList<Journey> searchResults) {
         for(Journey journey: searchResults) {
-            clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getContainer().getID()});
+            journeyTable.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getContainer().getID()});
         }
     }
 
