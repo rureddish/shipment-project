@@ -49,19 +49,19 @@ public class Searcher {
     }
 
     public Predicate<Client> clientNameContains(String string) {
-        return (str -> str.getName().contains(string));
+        return (str -> str.getName().toLowerCase().contains(string.toLowerCase()));
     }
 
     public Predicate<Client> emailContains(String string) {
-        return (str -> str.getEmail().contains(string));
+        return (str -> str.getEmail().toLowerCase().contains(string.toLowerCase()));
     }
 
     public Predicate<Client> refPersonContains(String string) {
-        return (str -> str.getRefPerson().contains(string));
+        return (str -> str.getRefPerson().toLowerCase().contains(string.toLowerCase()));
     }
 
     public Predicate<Client> addressContains(String string) {
-        return (str -> str.getAddress().contains(string));
+        return (str -> str.getAddress().toLowerCase().contains(string.toLowerCase()));
     }
 
     // Journey
@@ -71,22 +71,21 @@ public class Searcher {
 
 
     public Predicate<Journey> originContains(String string) {
-        return (x -> x.getOrigin().getPlaceName().contains(string));
+        return (x -> x.getOrigin().getPlaceName().toLowerCase().contains(string.toLowerCase()));
     }
 
     public Predicate<Journey> destinationContains(String string) {
-        return (x -> x.getDestination().getPlaceName().contains(string));
+        return (x -> x.getDestination().getPlaceName().toLowerCase().contains(string.toLowerCase()));
     }
     
     public Predicate<Journey> cargoContains(String string) {
-        return (x -> x.getCargo().contains(string));
+        return (x -> x.getCargo().toLowerCase().contains(string.toLowerCase()));
     }
     
     public ArrayList journeySearchByString(ArrayList<Journey> list, String string) {
-    	List allStringFieldPredicates = Arrays.asList(originContains(string), destinationContains(string), cargoContains(string));
-    	return search(list, allStringFieldPredicates);
+    	List allJourneyFieldPredicates = Arrays.asList(originContains(string), destinationContains(string), cargoContains(string));
+    	return search(list, allJourneyFieldPredicates);
     }
-
 
     //    public Predicate<Journey> journeyLocationContains(String string) {
 //        return (x -> x.getContainer().getLocation().getPlaceName().contains(string));

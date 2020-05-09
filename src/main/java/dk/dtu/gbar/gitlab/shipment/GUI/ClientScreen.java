@@ -66,7 +66,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		panelMainMenuFunctions.setBorder(BorderFactory.createTitledBorder("Main Menu"));
 		
 		JTextField txtKeywordSearch = new JTextField(30);
-		JLabel lblKeywordSearch = new JLabel("Keyword Search:");
+		JLabel lblKeywordSearch = new JLabel("Keyword");
 
 		JTextField txtCargoKeywordSearch = new JTextField(30);
 		JLabel lblCargoKeywordSearch = new JLabel("Cargo");
