@@ -32,7 +32,6 @@ public class JourneyRegisterScreen extends JFrame {
 	private JList lstDestination;
 	private JTextField txtCargo;
 	private LogisticsCompany logisticsCompany;
-	private JFrame message;
 
 	
 	public JourneyRegisterScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
@@ -40,7 +39,6 @@ public class JourneyRegisterScreen extends JFrame {
 		this.loggedIn = loggedIn;
 		this.clientScreen = clientScreen;
 		this.logisticsCompany = logisticsCompany;
-		message = new JFrame();
 		initialize();
 	}
  
@@ -66,22 +64,22 @@ public class JourneyRegisterScreen extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
-					JOptionPane.showMessageDialog(message, "Please Fill Out All Spaces");
+					JOptionPane.showMessageDialog(null, "Please Fill Out All Spaces","Message",JOptionPane.WARNING_MESSAGE);
 					clear();
 				}
 				else if (lstOrigin.getSelectedIndex()==lstDestination.getSelectedIndex()) {
-					JOptionPane.showMessageDialog(message, "Destination cannot be the same as origin");
+					JOptionPane.showMessageDialog(null, "Destination cannot be the same as origin","Message",JOptionPane.WARNING_MESSAGE);
 					clear();
 				}
 				else {
 					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
 							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()), loggedIn.getLoggedInClient()
 							, txtCargo.getText()))){
-						JOptionPane.showMessageDialog(message, "Successfull Registration");
+						JOptionPane.showMessageDialog(null, "Successfull Registration");
 						clear();
 					}
 					else {
-						JOptionPane.showMessageDialog(message, "No Container Available In Port Of Origin");
+						JOptionPane.showMessageDialog(null, "No Container Available In Port Of Origin");
 						clear();
 					}
 				}
