@@ -6,12 +6,13 @@ import java.util.ArrayList;
  * Checks email and password for login and tracks which client is logged in.
  */
 public class LogIn {
-    LogisticsCompany logisticsCompany;
-    Client loggedInClient;
-    Boolean adminLoggedIn = false;
-    Searcher searcher = new Searcher(logisticsCompany);
+    private LogisticsCompany logisticsCompany;
+    private Client loggedInClient;
+    private Boolean adminLoggedIn = false;
+    private Searcher searcher = new Searcher(logisticsCompany);
 
-    //Constructor
+
+	//Constructor
     public LogIn(LogisticsCompany logisticsCompany) {
         this.logisticsCompany = logisticsCompany;
     }
@@ -55,15 +56,17 @@ public class LogIn {
         return false;
     }
 
-    public boolean adminLogIn(String passwordTest) {
-        if (logisticsCompany.getPassword().equals(passwordTest)) {
-            adminLoggedIn = true;
-            return true;
-        } else {
-            System.out.println("Wrong password");
-            return false;
+    public boolean adminLogIn(String username, String passwordTest) {
+        if (username.equals("admin")) {
+	    	if (logisticsCompany.getPassword().equals(passwordTest)) {
+	            adminLoggedIn = true;
+	            return true;
+	        }
+	    	else {
+	    		return false;
+	    	}
         }
-
+        return false;
     }
 
     public void logOut() {
@@ -75,5 +78,8 @@ public class LogIn {
         return loggedInClient;
     }
 
+    public Boolean isAdminLoggedIn() {
+		return adminLoggedIn;
+	}
 
 }

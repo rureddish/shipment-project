@@ -384,6 +384,28 @@ public class MyStepdefs {
     public void client_is_not_logged_in() {
         assertEquals(logIn.getLoggedInClient(), null);
     }
+    
+    //Successful admin log in 
+    @Given("an admin with password {string}")
+    public void an_admin_with_password(String password) {
+        passwordTest = password;
+    }
+
+    @When("admin logs in")
+    public void admin_logs_in() {
+    	logIn.adminLogIn("admin",passwordTest);
+    }
+
+    @Then("admin is logged in")
+    public void admin_is_logged_in() {
+        assertTrue(logIn.isAdminLoggedIn());
+    }
+    
+    //Wrong admin password
+    @Then("admin is not logged in")
+    public void admin_is_not_logged_in() {
+    	assertFalse(logIn.isAdminLoggedIn());
+    }
 
     //log out
     @And("client logs out")

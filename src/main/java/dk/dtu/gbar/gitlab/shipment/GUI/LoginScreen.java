@@ -47,7 +47,7 @@ public class LoginScreen {
         frame.getContentPane().add(panelMenu, "name_160236068959176");
         panelMenu.setLayout(null);
         panelMenu.setBorder(BorderFactory.createTitledBorder("Login Menu"));
-
+ 
         JTextField txtLogin = new JTextField(20);
         JLabel lblLogin = new JLabel("Login:");
 
@@ -76,13 +76,16 @@ public class LoginScreen {
 
         btnAdminLogin = new JButton("Admin Login");
         btnAdminLogin.addActionListener(e -> {
-        	if(txtLogin.getText().equals("admin") && String.valueOf(password.getPassword()).equals("admin")){
+       	if(login.adminLogIn(txtLogin.getText(), String.valueOf(password.getPassword()))){
             	setVisible(false);
             	frame.setBounds(100,100,865,550);
             	this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
             	this.logisticsCompanyScreen.setVisible(true);
             	txtLogin.setText("");
             	password.setText("");
+        	}
+        	else {
+        		JOptionPane.showMessageDialog(null, "Wrong Password","Message",JOptionPane.WARNING_MESSAGE);
         	}
         });
 
