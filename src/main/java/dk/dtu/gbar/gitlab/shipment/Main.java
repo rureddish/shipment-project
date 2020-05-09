@@ -1,24 +1,8 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
-import dk.dtu.gbar.gitlab.shipment.GUI.MainMenuScreen;
-import dk.dtu.gbar.gitlab.shipment.GUI.SignUpScreen;
 
-import org.hsqldb.persist.Log;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import java.awt.CardLayout;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Main {
 

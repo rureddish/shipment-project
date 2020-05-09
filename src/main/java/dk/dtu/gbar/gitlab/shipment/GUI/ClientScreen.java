@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,7 +24,7 @@ import dk.dtu.gbar.gitlab.shipment.Searcher;
 
 import javax.swing.JTable;
 
-public class MainMenuScreen extends JFrame implements PropertyChangeListener {
+public class ClientScreen extends JFrame implements PropertyChangeListener {
 
 	private LoginScreen parentWindow;
 	private LogisticsCompanyScreen journeyRegisterScreen;
@@ -45,7 +46,7 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 	
 	
 	///
-	public MainMenuScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany, LogIn loggedIn) {
+	public ClientScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany, LogIn loggedIn) {
 		this.parentWindow = parentWindow;
 		this.logisticsCompany = logisticsCompany;
 		this.loggedIn = loggedIn;
@@ -81,14 +82,30 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				keyword = txtKeywordSearch.getText();
 				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
-				if(txtCargoKeywordSearch.getText().length()>0){
-					searchResults = search.search(searchResults,search.cargoContains(txtCargoKeywordSearch.getText()));
+				if(txtFieldNotEmpty(txtCargoKeywordSearch)){
+					searchResults = filterSearchBy(searchResults, search.cargoContains(txtCargoKeywordSearch.getText()));
+				}
+				if (txtFieldNotEmpty(txtOriginKeywordSearch)){
+					searchResults = filterSearchBy(searchResults, search.originContains(txtOriginKeywordSearch.getText()));
+				}
+				if (txtFieldNotEmpty(txtDestinationKeywordSearch)){
+					searchResults = filterSearchBy(searchResults, search.destinationContains(txtDestinationKeywordSearch.getText()));
 				}
 				clientJourneys.setRowCount(0);
 				display(searchResults);
 				//Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
 				//pulls up journeys based on keyword and showConcluded and showCurrent
 			}
+
+			private ArrayList filterSearchBy(ArrayList searchResults, Predicate predicate) {
+				return search.search(searchResults, predicate);
+			}
+
+			private boolean txtFieldNotEmpty(JTextField txtCargoKeywordSearch) {
+				return txtCargoKeywordSearch.getText().length() > 0;
+			}
+
+
 		});
 		
 		btnLogOut = new JButton("Log Out");
@@ -190,7 +207,6 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		btnShowConcluded.setBounds(18,158,129,29);
 		btnShowCurrent.setBounds(149,158,105,29);
 
-
 		scrollJourneys.setSize(338, 214);
 		scrollJourneys.setLocation(102, 203);
 
@@ -202,7 +218,6 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		panelMainMenuFunctions.add(lblOriginKeywordSearch);
 		panelMainMenuFunctions.add(txtCargoKeywordSearch);
 		panelMainMenuFunctions.add(lblCargoKeywordSearch);
-
 		panelMainMenuFunctions.add(btnShowConcluded);
 		panelMainMenuFunctions.add(btnShowCurrent);
 		panelMainMenuFunctions.add(btnShowAll);
@@ -210,8 +225,6 @@ public class MainMenuScreen extends JFrame implements PropertyChangeListener {
 		panelMainMenuFunctions.add(btnSearch);
 		panelMainMenuFunctions.add(scrollJourneys);
 
-		
-		
 		panelMainMenuFunctions.add(btnExamine);
 		panelMainMenuFunctions.add(btnRegisterJourney);
 		

@@ -1,15 +1,11 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
-import dk.dtu.gbar.gitlab.shipment.Client;
-
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,7 +20,7 @@ import javax.swing.JTextField;
 public class LoginScreen 
 {
 	SignUpScreen signUpScreen;
-	MainMenuScreen mainMenuScreen;
+	ClientScreen clientScreen;
 
 	public JFrame frame;
 	private JPanel panelMenu;
@@ -62,8 +58,8 @@ public class LoginScreen
 			if(login.checkClientLogin(txtLogin.getText(), password.getText())) {
 
 				setVisible(false);
-				mainMenuScreen = new MainMenuScreen(this, logisticsCompany, login);
-				mainMenuScreen.setVisible(true);
+				this.clientScreen = new ClientScreen(this, logisticsCompany, login);
+				this.clientScreen.setVisible(true);
 				txtLogin.setText("");
 				password.setText("");
 			}
@@ -95,7 +91,7 @@ public class LoginScreen
 		btnSignUp.setBounds(190,395,150,29);
 		panelMenu.add(btnSignUp);
 		
-		MainMenuScreen mainMenuScreen;
+		ClientScreen clientScreen;
 		signUpScreen = new SignUpScreen(this,logisticsCompany);
 		
 	}

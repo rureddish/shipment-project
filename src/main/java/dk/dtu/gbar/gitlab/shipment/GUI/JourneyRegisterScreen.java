@@ -1,7 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,11 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
-import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
-import dk.dtu.gbar.gitlab.shipment.Location;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
@@ -28,7 +23,7 @@ public class JourneyRegisterScreen extends JFrame {
 
 	private JPanel panelJourneyRegistration;
 	private LoginScreen parentWindow;
-	private MainMenuScreen mainMenuScreen;
+	private ClientScreen clientScreen;
 	private LogIn loggedIn;
 	private JButton btnRegister;
 	private JButton btnBack;
@@ -38,10 +33,10 @@ public class JourneyRegisterScreen extends JFrame {
 	private LogisticsCompany logisticsCompany;
 
 	
-	public JourneyRegisterScreen(LoginScreen parentWindow,MainMenuScreen mainMenuScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
+	public JourneyRegisterScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
 		this.parentWindow = parentWindow;
 		this.loggedIn = loggedIn;
-		this.mainMenuScreen = mainMenuScreen;
+		this.clientScreen = clientScreen;
 		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
@@ -85,7 +80,7 @@ public class JourneyRegisterScreen extends JFrame {
 		btnBack.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				mainMenuScreen.setVisible(true);
+				clientScreen.setVisible(true);
 			}
 		});
 
