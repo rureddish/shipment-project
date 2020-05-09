@@ -66,7 +66,7 @@ public class JourneyRegisterScreen extends JFrame {
 					System.out.println("Please Fill Out All Spaces");
 				}
 				else if (lstOrigin.getSelectedIndex()==lstDestination.getSelectedIndex()) {
-					System.out.println("Wrong itinerary");
+					System.out.println("Destination cannot be the same as origin");
 				}
 				else {
 					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
