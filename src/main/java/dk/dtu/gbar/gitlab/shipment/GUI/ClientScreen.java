@@ -1,5 +1,6 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -26,8 +27,10 @@ import javax.swing.JTable;
 
 public class ClientScreen extends JFrame implements PropertyChangeListener {
 
+	
 	private LoginScreen parentWindow;
 	private LogisticsCompanyScreen journeyRegisterScreen;
+	ExamineScreen examineScreen;
 	private LogisticsCompany logisticsCompany;
 	private LogIn loggedIn;
 	private JPanel panelMainMenuFunctions;
@@ -162,8 +165,9 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		clientJourneys.addColumn("Origin");
 		clientJourneys.addColumn("Destination");
 		clientJourneys.addColumn("Cargo");
+		clientJourneys.addColumn("Container ID");
 		for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
-			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getContainer().getID()});
 		}
 
 		
@@ -186,11 +190,13 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		
 		btnExamine = new JButton("Examine");
 		btnExamine.setBounds(290, 428, 150, 29);
-		btnExamine.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
+		btnExamine.addActionListener(e -> {
+			if(tblJourneys.getSelectedRow() != -1) {
+				int containerID = (int) clientJourneys.getValueAt(tblJourneys.getSelectedRow(), 3);
+				setVisible(false);
+				this.examineScreen = new ExamineScreen(parentWindow, this, loggedIn, logisticsCompany, containerID);
+				examineScreen.setVisible(true);
+			}	
 		});
 
 		btnSearch.setBounds(290,74,150,29);
@@ -230,7 +236,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		
 		
 		journeyRegisterScreen = new LogisticsCompanyScreen(parentWindow,this, loggedIn, logisticsCompany);
-		
+
 		
 	}
 	public void addJourney(Journey journey) {
@@ -271,7 +277,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 	
 	private void display(ArrayList<Journey> searchResults) {
 		for(Journey journey: searchResults) {
-			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo()});
+			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getContainer().getID()});
 		}
 	}
 
