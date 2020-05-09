@@ -64,14 +64,22 @@ public class JourneyRegisterScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
 					System.out.println("Please Fill Out All Spaces");
+					clear();
 				}
 				else if (lstOrigin.getSelectedIndex()==lstDestination.getSelectedIndex()) {
-					System.out.println("Wrong itinerary");
+					System.out.println("Wrong Itinerary");
+					clear();
 				}
 				else {
 					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
 							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()), loggedIn.getLoggedInClient()
 							, txtCargo.getText()))){
+						System.out.println("Successfull Registration");
+						clear();
+					}
+					else {
+						System.out.println("No Container Available In Port Of Origin");
+						clear();
 					}
 				}
 			}
@@ -147,5 +155,10 @@ public class JourneyRegisterScreen extends JFrame {
 		}
 		panelJourneyRegistration.setVisible(visible);
 	}
-
+	
+	public void clear() {
+		lstOrigin.clearSelection();
+		lstDestination.clearSelection();
+		txtCargo.setText("");
+	}
 }
