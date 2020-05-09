@@ -29,7 +29,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 
 	
 	private LoginScreen parentWindow;
-	private LogisticsCompanyScreen journeyRegisterScreen;
+	private JourneyRegisterScreen journeyRegisterScreen;
 	ExamineScreen examineScreen;
 	private LogisticsCompany logisticsCompany;
 	private LogIn loggedIn;
@@ -128,7 +128,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 				btnShowCurrent.setSelected(false);
 				btnShowAll.setSelected(false);
 				clientJourneys.setRowCount(0);
-				journeys = search.getConcludedJourneys(loggedIn.getLoggedInClient());
+				journeys = search.getConcludedJourneys(journeys);
 				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
 				display(searchResults);
 			}
@@ -140,7 +140,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 				btnShowConcluded.setSelected(false);
 				btnShowAll.setSelected(false);
 				clientJourneys.setRowCount(0);
-				journeys = search.getCurrentJourneys(loggedIn.getLoggedInClient());
+				journeys = search.getCurrentJourneys(journeys);
 				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
 				display(searchResults);
 			}
@@ -235,7 +235,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		panelMainMenuFunctions.add(btnRegisterJourney);
 		
 		
-		journeyRegisterScreen = new LogisticsCompanyScreen(parentWindow,this, loggedIn, logisticsCompany);
+		journeyRegisterScreen = new JourneyRegisterScreen(parentWindow,this, loggedIn, logisticsCompany);
 
 		
 	}

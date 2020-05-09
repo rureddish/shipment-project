@@ -274,7 +274,7 @@ public class MyStepdefs {
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = search.getConcludedJourneys(client);
+        searchresults = search.getConcludedJourneys(client.getJourneys());
     }
 
     @Then("return the concluded journey")
@@ -286,7 +286,7 @@ public class MyStepdefs {
     //    Scenario 2
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = search.getCurrentJourneys(client);
+        searchresults = search.getCurrentJourneys(client.getJourneys());
     }
 
     @Then("return the current journey")

@@ -34,12 +34,12 @@ public class Searcher {
 
     //Client
 
-    public ArrayList<Journey> getCurrentJourneys(Client client){
-        return search(client.getJourneys(), excludeConcludedJourneys);
+    public ArrayList<Journey> getCurrentJourneys(ArrayList<Journey> journeys){
+        return search(journeys, excludeConcludedJourneys);
     }
 
-    public ArrayList<Journey> getConcludedJourneys(Client client){
-        return search(client.getJourneys(), excludeCurrentJourneys );
+    public ArrayList<Journey> getConcludedJourneys(ArrayList<Journey> journeys){
+        return search(journeys, excludeCurrentJourneys );
     }
 
 

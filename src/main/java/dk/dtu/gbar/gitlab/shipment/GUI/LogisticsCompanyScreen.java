@@ -1,128 +1,230 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+import dk.dtu.gbar.gitlab.shipment.Searcher;
 
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JTable;
 
-public class LogisticsCompanyScreen extends JFrame {
+public class LogisticsCompanyScreen extends JFrame implements PropertyChangeListener {
 
-    private JPanel panelJourneyRegistration;
+
     private LoginScreen parentWindow;
-    private ClientScreen clientScreen;
-    private LogIn loggedIn;
-    private JButton btnRegister;
-    private JButton btnBack;
-    private JList lstOrigin;
-    private JList lstDestination;
-    private JTextField txtCargo;
     private LogisticsCompany logisticsCompany;
+    private JPanel panelMainMenuFunctions;
+    private JButton btnLogOut;
+    private JRadioButton btnShowConcluded;
+    private JRadioButton btnShowCurrent;
+    private JRadioButton btnShowAll;
+    private JButton btnSearch;
+    private JButton btnExamine;
+    private JButton btnRegisterJourney;
+    private JTable tblJourneys;
+    private DefaultTableModel clientJourneys;
+    private Searcher search;
+    private String keyword;
+    private ArrayList<Journey> journeys;
 
 
-    public LogisticsCompanyScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
+    ///
+    public LogisticsCompanyScreen(LoginScreen parentWindow, LogisticsCompany logisticsCompany) {
         this.parentWindow = parentWindow;
-        this.loggedIn = loggedIn;
-        this.clientScreen = clientScreen;
         this.logisticsCompany = logisticsCompany;
+        search = new Searcher(logisticsCompany);
+        journeys = logisticsCompany.getJourneyList();
+        keyword = "";
+
+        logisticsCompany.addObserver(this);
+
         initialize();
     }
 
     private void initialize() {
-        panelJourneyRegistration = new JPanel();
-        parentWindow.addPanel(panelJourneyRegistration);
-        panelJourneyRegistration.setLayout(null);
-        panelJourneyRegistration.setBorder(BorderFactory.createTitledBorder("Journey Registration"));
+        panelMainMenuFunctions = new JPanel();
+        parentWindow.addPanel(panelMainMenuFunctions);
+        panelMainMenuFunctions.setLayout(null);
+        panelMainMenuFunctions.setBorder(BorderFactory.createTitledBorder("Main Menu"));
 
+        JTextField txtKeywordSearch = new JTextField(30);
+        JLabel lblKeywordSearch = new JLabel("Keyword");
 
+        JTextField txtCargoKeywordSearch = new JTextField(30);
+        JLabel lblCargoKeywordSearch = new JLabel("Cargo");
 
-        DefaultListModel<String> ports = new DefaultListModel<>();
-        for(int i = 0; i < logisticsCompany.getLocationList().size(); i++) {
-            ports.addElement(logisticsCompany.getLocationList().get(i).getPlaceName());
-        }
-        lstOrigin = new JList<>(ports);
-        lstOrigin.setBounds(100,30,80,60);
-        lstOrigin.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        lstOrigin.setVisibleRowCount(2);
+        JTextField txtOriginKeywordSearch = new JTextField(30);
+        JLabel lblOriginKeywordSearch = new JLabel("Origin");
 
-        btnRegister = new JButton("Register");
-        btnRegister.setBounds(10, 260, 150, 29);
-        btnRegister.addActionListener(new ActionListener() {
+        JTextField txtDestinationKeywordSearch = new JTextField(30);
+        JLabel lblDestinationKeywordSearch = new JLabel("Destination");
+
+        btnSearch = new JButton("Search");
+        btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
-                    System.out.println("Please Fill Out All Spaces");
+                keyword = txtKeywordSearch.getText();
+                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                if(txtFieldNotEmpty(txtCargoKeywordSearch)){
+                    searchResults = filterSearchBy(searchResults, search.cargoContains(txtCargoKeywordSearch.getText()));
                 }
-                else {
-                    if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
-                            logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()), loggedIn.getLoggedInClient()
-                            , txtCargo.getText()))){
-                    }
+                if (txtFieldNotEmpty(txtOriginKeywordSearch)){
+                    searchResults = filterSearchBy(searchResults, search.originContains(txtOriginKeywordSearch.getText()));
                 }
+                if (txtFieldNotEmpty(txtDestinationKeywordSearch)){
+                    searchResults = filterSearchBy(searchResults, search.destinationContains(txtDestinationKeywordSearch.getText()));
+                }
+                clientJourneys.setRowCount(0);
+                display(searchResults);
+                //Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
+                //pulls up journeys based on keyword and showConcluded and showCurrent
             }
+
+            private ArrayList filterSearchBy(ArrayList searchResults, Predicate predicate) {
+                return search.search(searchResults, predicate);
+            }
+
+            private boolean txtFieldNotEmpty(JTextField txtCargoKeywordSearch) {
+                return txtCargoKeywordSearch.getText().length() > 0;
+            }
+
+
         });
 
-        btnBack = new JButton("Back");
-        btnBack.setLocation(290, 11);
-        btnBack.setSize(150, 29);
-        btnBack.addActionListener(new ActionListener(){
+        btnLogOut = new JButton("Log Out");
+        btnLogOut.setLocation(290, 11);
+        btnLogOut.setSize(150, 29);
+        btnLogOut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                clientScreen.setVisible(true);
+                parentWindow.setVisible(true);
             }
         });
 
+        btnShowConcluded = new JRadioButton("Show Concluded");
+        btnShowConcluded.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnShowCurrent.setSelected(false);
+                btnShowAll.setSelected(false);
+                clientJourneys.setRowCount(0);
+                journeys = search.getConcludedJourneys(logisticsCompany.getJourneyList());
+                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                display(searchResults);
+            }
+        });
+
+        btnShowCurrent = new JRadioButton("Show Current");
+        btnShowCurrent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnShowConcluded.setSelected(false);
+                btnShowAll.setSelected(false);
+                clientJourneys.setRowCount(0);
+                journeys = search.getCurrentJourneys(logisticsCompany.getJourneyList());
+                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                display(searchResults);
+            }
+        });
+
+        btnShowAll = new JRadioButton("Show All");
+        btnShowAll.setLocation(18, 183);
+        btnShowAll.setSize(77, 29);
+        btnShowAll.setSelected(true);
+        btnShowAll.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnShowConcluded.setSelected(false);
+                btnShowCurrent.setSelected(false);
+                clientJourneys.setRowCount(0);
+                journeys = logisticsCompany.getJourneyList();
+                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                display(searchResults);
+            }
+        });
+
+        clientJourneys = new DefaultTableModel();
+        clientJourneys.addColumn("Origin");
+        clientJourneys.addColumn("Destination");
+        clientJourneys.addColumn("Cargo");
+        clientJourneys.addColumn("Journey ID");
+        for(Journey journey: logisticsCompany.getJourneyList()) {
+            clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getID()});
+        }
 
 
-        JScrollPane scrollDestination = new JScrollPane();
-        scrollDestination.setLocation(180, 143);
-        scrollDestination.setSize(96, 50);
-        JScrollPane scrollOrigin = new JScrollPane(lstOrigin);
-        scrollOrigin.setLocation(180, 73);
-        scrollOrigin.setSize(96, 50);
+        JScrollPane scrollJourneys = new JScrollPane();
+        scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        tblJourneys = new JTable(clientJourneys);
+        scrollJourneys.setViewportView(tblJourneys);
 
 
-        JLabel lblOrigin = new JLabel("Origin:");
-        lblOrigin.setBounds(130, 93, 40, 14);
-        JLabel lblDestination = new JLabel("Destination:");
-        lblDestination.setBounds(104, 161, 70, 14);
 
 
-        txtCargo = new JTextField();
-        txtCargo.setBounds(180, 207, 96, 20);
-        txtCargo.setColumns(10);
-        JLabel lblCargo = new JLabel("Cargo:");
-        lblCargo.setBounds(130, 210, 40, 14);
+
+        btnSearch.setBounds(290,74,150,29);
+        txtKeywordSearch.setBounds(102,75, 130, 26);
+        lblKeywordSearch.setBounds(21,75, 83, 26);
+
+        txtCargoKeywordSearch.setBounds(102,105, 130, 26);
+        lblCargoKeywordSearch.setBounds(21,105, 83, 26);
+        txtOriginKeywordSearch.setBounds(102,135, 130, 26);
+        lblOriginKeywordSearch.setBounds(21,135, 83, 26);
+        txtDestinationKeywordSearch.setBounds(322,135, 130, 26);
+        lblDestinationKeywordSearch.setBounds(241,135, 83, 26);
+
+        btnShowConcluded.setBounds(18,158,129,29);
+        btnShowCurrent.setBounds(149,158,105,29);
+
+        scrollJourneys.setSize(338, 214);
+        scrollJourneys.setLocation(102, 203);
+
+        panelMainMenuFunctions.add(lblKeywordSearch);
+        panelMainMenuFunctions.add(txtKeywordSearch);
+        panelMainMenuFunctions.add(txtDestinationKeywordSearch);
+        panelMainMenuFunctions.add(lblDestinationKeywordSearch);
+        panelMainMenuFunctions.add(txtOriginKeywordSearch);
+        panelMainMenuFunctions.add(lblOriginKeywordSearch);
+        panelMainMenuFunctions.add(txtCargoKeywordSearch);
+        panelMainMenuFunctions.add(lblCargoKeywordSearch);
+        panelMainMenuFunctions.add(btnShowConcluded);
+        panelMainMenuFunctions.add(btnShowCurrent);
+        panelMainMenuFunctions.add(btnShowAll);
+        panelMainMenuFunctions.add(btnLogOut);
+        panelMainMenuFunctions.add(btnSearch);
+        panelMainMenuFunctions.add(scrollJourneys);
 
 
-        panelJourneyRegistration.add(btnBack);
-        panelJourneyRegistration.add(btnRegister);
-        panelJourneyRegistration.add(lblCargo);
-        panelJourneyRegistration.add(txtCargo);
-        panelJourneyRegistration.add(lblDestination);
-        panelJourneyRegistration.add(lblOrigin);
 
-        panelJourneyRegistration.add(scrollDestination);
-        lstDestination = new JList<>(ports);
-        scrollDestination.setViewportView(lstDestination);
-        panelJourneyRegistration.add(scrollOrigin);
+
     }
 
+    public void addJourney(Journey journey) {
+        clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),journey.getDestination().getPlaceName(),
+                journey.getCargo()});
+    }
+
+
+
     private void setEnableButtons(boolean enabled) {
-        btnRegister.setEnabled(enabled);
-        btnBack.setEnabled(enabled);
+        btnLogOut.setEnabled(enabled);
+        btnShowConcluded.setEnabled(enabled);
+        btnShowCurrent.setEnabled(enabled);
+        btnShowConcluded.setEnabled(enabled);
+        btnShowAll.setEnabled(enabled);
 
 
     }
@@ -142,7 +244,20 @@ public class LogisticsCompanyScreen extends JFrame {
         else {
             enableButtons();
         }
-        panelJourneyRegistration.setVisible(visible);
+        panelMainMenuFunctions.setVisible(visible);
+    }
+
+    private void display(ArrayList<Journey> searchResults) {
+        for(Journey journey: searchResults) {
+            clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getContainer().getID()});
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        initialize();
+
     }
 
 }
+
