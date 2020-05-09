@@ -57,6 +57,7 @@ public class LoginScreen {
         btnLogin.addActionListener(e -> {
             if (login.checkClientLogin(txtLogin.getText(), password.getText())) {
                 setVisible(false);
+                
                 this.clientScreen = new ClientScreen(this, logisticsCompany, login);
                 this.clientScreen.setVisible(true);
                 txtLogin.setText("");
@@ -67,6 +68,7 @@ public class LoginScreen {
         btnAdminLogin = new JButton("Admin Login");
         btnAdminLogin.addActionListener(e -> {
             setVisible(false);
+            frame.setBounds(100,100,500,550);
             this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
             this.logisticsCompanyScreen.setVisible(true);
             txtLogin.setText("");

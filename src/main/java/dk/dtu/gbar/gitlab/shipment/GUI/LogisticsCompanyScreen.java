@@ -112,6 +112,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         btnLogOut.setSize(150, 29);
         btnLogOut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	parentWindow.frame.setBounds(100,100,475,500);
                 setVisible(false);
                 parentWindow.setVisible(true);
             }
