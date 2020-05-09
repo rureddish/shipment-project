@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 public class JourneyRegisterScreen extends JFrame {
 
@@ -31,6 +32,7 @@ public class JourneyRegisterScreen extends JFrame {
 	private JList lstDestination;
 	private JTextField txtCargo;
 	private LogisticsCompany logisticsCompany;
+	private JFrame message;
 
 	
 	public JourneyRegisterScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
@@ -38,6 +40,7 @@ public class JourneyRegisterScreen extends JFrame {
 		this.loggedIn = loggedIn;
 		this.clientScreen = clientScreen;
 		this.logisticsCompany = logisticsCompany;
+		message = new JFrame();
 		initialize();
 	}
  
@@ -47,7 +50,7 @@ public class JourneyRegisterScreen extends JFrame {
 		panelJourneyRegistration.setLayout(null);
 		panelJourneyRegistration.setBorder(BorderFactory.createTitledBorder("Journey Registration"));
 
-		
+		 
 		
 		DefaultListModel<String> ports = new DefaultListModel<>();
 		for(int i = 0; i < logisticsCompany.getLocationList().size(); i++) {
@@ -63,23 +66,22 @@ public class JourneyRegisterScreen extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
-					System.out.println("Please Fill Out All Spaces");
+					JOptionPane.showMessageDialog(message, "Please Fill Out All Spaces");
 					clear();
 				}
 				else if (lstOrigin.getSelectedIndex()==lstDestination.getSelectedIndex()) {
-					System.out.println("Wrong Itinerary");
+					JOptionPane.showMessageDialog(message, "Destination cannot be the same as origin");
 					clear();
-					System.out.println("Destination cannot be the same as origin");
 				}
 				else {
 					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
 							logisticsCompany.getLocationList().get(lstDestination.getSelectedIndex()), loggedIn.getLoggedInClient()
 							, txtCargo.getText()))){
-						System.out.println("Successfull Registration");
+						JOptionPane.showMessageDialog(message, "Successfull Registration");
 						clear();
 					}
 					else {
-						System.out.println("No Container Available In Port Of Origin");
+						JOptionPane.showMessageDialog(message, "No Container Available In Port Of Origin");
 						clear();
 					}
 				}

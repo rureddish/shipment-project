@@ -61,7 +61,7 @@ public class LoginScreen {
                 this.clientScreen = new ClientScreen(this, logisticsCompany, login);
                 this.clientScreen.setVisible(true);
                 txtLogin.setText("");
-                password.setText("");
+                password.setText("");  
             }
         });
 
