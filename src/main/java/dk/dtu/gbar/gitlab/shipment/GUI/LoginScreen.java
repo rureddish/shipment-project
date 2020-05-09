@@ -35,7 +35,7 @@ public class LoginScreen {
         initialize();
     }
 
-
+ 
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 475, 500);
@@ -55,7 +55,7 @@ public class LoginScreen {
 
         btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
-            if (login.checkClientLogin(txtLogin.getText(), password.getText())) {
+            if (login.checkClientLogin(txtLogin.getText(), String.valueOf(password.getPassword()))) {
                 setVisible(false);
                 
                 this.clientScreen = new ClientScreen(this, logisticsCompany, login);
