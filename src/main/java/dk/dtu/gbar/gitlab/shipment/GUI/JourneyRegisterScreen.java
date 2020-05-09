@@ -40,7 +40,7 @@ public class JourneyRegisterScreen extends JFrame {
 		this.logisticsCompany = logisticsCompany;
 		initialize();
 	}
-
+ 
 	private void initialize() {
 		panelJourneyRegistration = new JPanel();
 		parentWindow.addPanel(panelJourneyRegistration);
@@ -64,6 +64,9 @@ public class JourneyRegisterScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(txtCargo.getText().isBlank() || lstOrigin.getSelectedIndex() == -1 || lstDestination.getSelectedIndex() == -1 ) {
 					System.out.println("Please Fill Out All Spaces");
+				}
+				else if (lstOrigin.getSelectedIndex()==lstDestination.getSelectedIndex()) {
+					System.out.println("Wrong itinerary");
 				}
 				else {
 					if(logisticsCompany.register(new Journey(logisticsCompany.getLocationList().get(lstOrigin.getSelectedIndex()),
