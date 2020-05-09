@@ -190,7 +190,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollClients.setViewportView(tblClients);
 
 
-        btnSearch.setBounds(690,74,150,29);
+        btnSearch.setBounds(302,95,150,29);
         txtKeywordSearch.setBounds(102,75, 130, 26);
         lblKeywordSearch.setBounds(21,75, 83, 26);
 
