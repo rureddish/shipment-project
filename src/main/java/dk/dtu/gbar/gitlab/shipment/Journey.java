@@ -1,50 +1,71 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-public class Journey extends Entity {
-	private Port origin;
-	private Port destination;
-	private Container container;
-	private Client client;
-	private String cargo;
+/**
+ * A shipment belonging to a client.
+ *
+ */
+public class Journey {
+    private Container container;
+    private Client client;
+	private Location origin;
+	private Location destination;
+    private boolean isConcluded;
+    private String cargo;
+    private Integer ID;
 
-	public Journey(Port origin, Port destination, String cargo, Client client) {
-		this.origin = origin;
-		this.destination = destination;
-		this.cargo = cargo;
-		this.client = client;
+    /**
+     * @param origin The port of departure.
+     * @param destination Destination of the journey.
+     * @param client The client that registered the journey.
+     * @param cargo The content of the container
+     */
+	public Journey(Location origin, Location destination, Client client, String cargo) {
+        this.origin = origin;
+        this.destination = destination;
+        this.client = client;
+        this.cargo = cargo;
+        this.isConcluded = false;
+    }
+
+    /**
+     *
+     */
+	public void endJourney() {
+		isConcluded = true;
 	}
 
-	//getters and setters
+	public boolean isConcluded() {
+        return isConcluded;
+    }
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+    // getters and setters
+	public String getCargo() {return cargo; }
 
-	public String getCargo() {
-		return cargo;
-	}
+    public Container getContainer() {
+        return container;
+    }
 
-	public Container getContainer() {
-		return container;
-	}
+    public void setContainer(Container container) {
+        this.container = container;
+    }
 
-	public void setContainer(Container container) {
-		this.container = container;
-	}
-		
-	public Client getClient() {
-		return client;
-	}
+    public Client getClient() {
+        return client;
+    }
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
+    public Location getOrigin() {
+        return origin;
+    }
 
-	public Port getOrigin() {
-		return origin;
-	}
+    public Location getDestination() {
+        return destination;
+    }
 
-	public Port getDestination() {
-		return destination;
-	}
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
 }

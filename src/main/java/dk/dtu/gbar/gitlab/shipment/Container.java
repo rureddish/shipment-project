@@ -1,23 +1,50 @@
 package dk.dtu.gbar.gitlab.shipment;
 
 
-public class Container extends Entity {
-    private Port location;
-    private Journey[] journeyHistory;
-    private ContainerStatus status;
+import java.util.ArrayList;
+import java.util.Stack;
 
-    public Container(Port location) {
+/**
+ * Contains cargo and is moved to process the journey.
+ *
+ */
+public class Container {
+    private Stack<Journey> journeyHistory = new Stack<>();
+    private Location location;
+    private Integer ID;
+    private ContainerStatus statusHistory;
+
+    /**
+     * @param location The location at which the container is registered.
+     */
+	public Container(Location location) {
         this.location=location;
-        location.getPortcontainers().add(this);
+        location.getLocationContainers().add(this);
+        statusHistory = new ContainerStatus();
     }
 
-    // getters and setters
+	public Location getLocation() {
+		return location;
+	}
 
-
-    public Port getLocation() {
-        return location;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
+    public Stack<Journey> getJourneyHistory() {
+        return journeyHistory;
+    }
 
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+    
+    public ContainerStatus getStatusHistory(){
+    	return statusHistory;
+    }
 }
 

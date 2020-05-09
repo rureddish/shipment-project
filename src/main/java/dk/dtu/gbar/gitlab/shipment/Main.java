@@ -1,23 +1,72 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import dk.dtu.gbar.gitlab.shipment.persistence.HibernateUtil;
-import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientDao;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
-import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
+import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
 
-import javax.persistence.criteria.Root;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.awt.EventQueue;
 
 public class Main {
+
+	public static void initialLogins(LogisticsCompany logisticsCompany) {
+		Location hongkong = new Location("Hong Kong");
+		Location berlin = new Location("Berlin");
+		Location copenhagen = new Location("Copenhagen");
+		Location newyork = new Location("New York");
+		Location tokyo = new Location("Tokyo");
+		Location london = new Location("London");
+		logisticsCompany.register(tokyo);
+		logisticsCompany.register(newyork);
+		logisticsCompany.register(berlin);
+		logisticsCompany.register(hongkong);
+		logisticsCompany.register(copenhagen);
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(tokyo));
+		logisticsCompany.register(new Container(tokyo));
+		logisticsCompany.register(new Container(tokyo));
+		logisticsCompany.register(new Container(berlin));
+		logisticsCompany.register(new Container(berlin));
+		logisticsCompany.register(new Container(berlin));
+		logisticsCompany.register(new Container(newyork));
+		logisticsCompany.register(new Container(london));
+		Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
+		logisticsCompany.register(maersk);
+		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","a","a");
+		logisticsCompany.register(amazon);
+		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
+		Client maersk2 = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m2", "m");
+		logisticsCompany.register(maersk2);
+		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
+		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
+		logisticsCompany.register(new Journey(newyork, london, maersk, "babushka containers"));
+		amazon.getJourneys().get(0).endJourney();  
+
+	}
+
     public static void main(String[] args) {
-      /*  ClientService clientService = new ClientService();
+		LogisticsCompany logisticsCompany = new LogisticsCompany("admin");
+        initialLogins(logisticsCompany);
+        EventQueue.invokeLater(() -> {
+			try {
+				LoginScreen loginScreen = new LoginScreen(logisticsCompany);
+				loginScreen.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+    	 
+
+
+
+
+
+
+
+
+
+
+
+        /*  ClientService clientService = new ClientService();
         Client alice = new Client("Alice", "Test", "mail@domain.com", "Street 1");
         clientService.save(alice);
         Client client = clientService.getById(alice.getId());
@@ -52,10 +101,6 @@ public class Main {
         Client client = clientService.getById(alice.getId(),true);
         System.out.printf("%s %s %s\n", client.getId(), client.getClientName(), client.getReferencePerson());
         client.getClientsContainers().forEach(c -> System.out.println(c.getName()));*/
-        /*ClientService cs = new ClientService();
-        SearchCriteria search = new SearchCriteria("clientName","Alice");
-        Client alice = cs.search(search).get(0);
-        System.out.println(alice.getClientName());
-        HibernateUtil.shutdown();*/
+        //HibernateUtil.shutdown();
     }
 }
