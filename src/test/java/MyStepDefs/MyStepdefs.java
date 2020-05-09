@@ -316,7 +316,18 @@ public class MyStepdefs {
     public void return_the_journey_bounds_for_Hong_Kong() {
         assertEquals(journey1, searchresults.get(0));
     }
+    
+    /////Cargo Search
+    @When("client searches for journeys with cargo of {string}")
+    public void client_searches_for_journeys_with_cargo_of(String cargo) {
+    	searchresults = search.search(logisticCompany.getJourneyList(), search.cargoContains(cargo));
+    }
 
+    @Then("return the journeys with cargo of {string}")
+    public void return_the_journeys_with_cargo_of(String cargo) {
+    	assertEquals(journey1, searchresults.get(0));
+    }
+    
 ////////////////////////////
 ///	Feature : Log In
 ////////////////////////////
