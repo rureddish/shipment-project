@@ -26,11 +26,16 @@ public class Main {
 		logisticsCompany.register(new Container(hongkong));
 		logisticsCompany.register(new Container(newyork));
 		logisticsCompany.register(new Container(london));
+		Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
+		logisticsCompany.register(maersk);
 		Client amazon = new Client("Amazon", "1620 26th Street","Jeff Bezos","a","a");
 		logisticsCompany.register(amazon);
 		logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com","NewEggPass"));
+		Client maersk2 = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m2", "m");
+		logisticsCompany.register(maersk2);
 		logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
 		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
+		logisticsCompany.register(new Journey(newyork, london, maersk, "babushka containers"));
 		amazon.getJourneys().get(0).endJourney();  
 
 	}
