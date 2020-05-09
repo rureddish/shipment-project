@@ -67,12 +67,14 @@ public class LoginScreen {
 
         btnAdminLogin = new JButton("Admin Login");
         btnAdminLogin.addActionListener(e -> {
-            setVisible(false);
-            frame.setBounds(100,100,865,550);
-            this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
-            this.logisticsCompanyScreen.setVisible(true);
-            txtLogin.setText("");
-            password.setText("");
+        	if(txtLogin.getText().equals("admin") && String.valueOf(password.getPassword()).equals("admin")){
+            	setVisible(false);
+            	frame.setBounds(100,100,865,550);
+            	this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
+            	this.logisticsCompanyScreen.setVisible(true);
+            	txtLogin.setText("");
+            	password.setText("");
+        	}
         });
 
         //KeyListener trick so that you can LogIn by pressing enter
