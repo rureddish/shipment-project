@@ -1,7 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import org.hsqldb.lib.HsqlArrayHeap;
-
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -88,17 +86,19 @@ public class Searcher {
     }
 
     public ArrayList getClientsByMostJourneys(ArrayList<Client> clients) {
-        mergeSortClientsByJourneyNo(clients,0,clients.size()-1);
-        return clients;
+        ArrayList result = clients;
+        result = mergeSortClientsByJourneyNo(result,0,clients.size()-1);
+        return result;
     }
 
-    public void mergeSortClientsByJourneyNo(ArrayList list, int low, int high) {
-        if (high <= low) return;
+    public ArrayList mergeSortClientsByJourneyNo(ArrayList list, int low, int high) {
+        if (high <= low) return list;
 
         int mid = (low + high) / 2;
         mergeSortClientsByJourneyNo(list, low, mid);
         mergeSortClientsByJourneyNo(list, mid + 1, high);
         mergeClientsByJourneyNo(list, low, mid, high);
+        return list;
     }
 
     public static void mergeClientsByJourneyNo(ArrayList<Client> list, int low, int mid, int high) {

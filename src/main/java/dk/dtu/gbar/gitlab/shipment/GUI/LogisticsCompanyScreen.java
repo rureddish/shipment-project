@@ -26,6 +26,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private JRadioButton btnShowCurrent;
     private JRadioButton btnShowAll;
     private JRadioButton btnClientsByJourneyNo;
+    private JRadioButton btnSortClientsChronologically;
     private JButton btnSearch;
     private JButton btnExamine;
     private JButton btnRegisterJourney;
@@ -46,13 +47,14 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         search = new Searcher(logisticsCompany);
         journeys = logisticsCompany.getJourneyList();
         keyword = "";
-
+        clients = logisticsCompany.getClientList();
         logisticsCompany.addObserver(this);
 
         initialize();
     }
 
     private void initialize() {
+        clients = new ArrayList<>();
         panelMainMenuFunctions = new JPanel();
         JFrame frame;
         frame = new JFrame();
@@ -170,14 +172,28 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         btnClientsByJourneyNo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btnClientsByJourneyNo.setSelected(true);
+                btnSortClientsChronologically.setSelected(false);
+                clientTable.setRowCount(0);
+                ArrayList clients = (ArrayList) logisticsCompany.getClientList().clone();
+                ArrayList searchResults = search.getClientsByMostJourneys(clients);
+
+                displayClientTable(searchResults);
+            }
+        });
+
+        btnSortClientsChronologically = new JRadioButton("Sort chronologically");
+        btnSortClientsChronologically.setLocation(702, 167);
+        btnSortClientsChronologically.setSize(150, 29);
+        btnSortClientsChronologically.setSelected(true);
+        btnSortClientsChronologically.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnSortClientsChronologically.setSelected(true);
+                btnClientsByJourneyNo.setSelected(false);
                 clientTable.setRowCount(0);
                 clients = logisticsCompany.getClientList();
-                if (btnClientsByJourneyNo.isSelected()){
-                    ArrayList searchResults = search.getClientsByMostJourneys(clients);
-                    displayClientTable(searchResults);
-                }
-                else{
-                    displayClientTable(clients);
+                displayClientTable(logisticsCompany.getClientList());
+                for(Client client: logisticsCompany.getClientList()){
+                    System.out.println(client.getName());
                 }
             }
         });
@@ -186,24 +202,19 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         clientTable.addColumn("Name");
         clientTable.addColumn("Email");
         clientTable.addColumn("No. of Journeys");
-        for (
-                Client client : logisticsCompany.getClientList()) {
+        for (Client client : logisticsCompany.getClientList()) {
             clientTable.addRow(new Object[]{client.getName(), client.getEmail(), (Integer) (client.getJourneys().size())});
         }
 
 
         JScrollPane scrollJourneys = new JScrollPane();
         scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        tblJourneys = new
-
-                JTable(journeyTable);
+        tblJourneys = new JTable(journeyTable);
         scrollJourneys.setViewportView(tblJourneys);
 
         JScrollPane scrollClients = new JScrollPane();
         scrollClients.setVerticalScrollBarPolicy((JScrollPane.VERTICAL_SCROLLBAR_ALWAYS));
-        tblClients = new
-
-                JTable(clientTable);
+        tblClients = new JTable(clientTable);
         scrollClients.setViewportView(tblClients);
 
 
@@ -242,6 +253,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(btnLogOut);
         panelMainMenuFunctions.add(btnSearch);
         panelMainMenuFunctions.add(btnClientsByJourneyNo);
+        panelMainMenuFunctions.add(btnSortClientsChronologically);
+
         panelMainMenuFunctions.add(scrollJourneys);
         panelMainMenuFunctions.add(scrollClients);
 
