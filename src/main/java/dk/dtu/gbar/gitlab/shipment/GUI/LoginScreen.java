@@ -56,7 +56,7 @@ public class LoginScreen {
         btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
             if (login.checkClientLogin(txtLogin.getText(), String.valueOf(password.getPassword()))) {
-                setVisible(false);
+                setVisible(false); 
                 
                 this.clientScreen = new ClientScreen(this, logisticsCompany, login);
                 this.clientScreen.setVisible(true);
