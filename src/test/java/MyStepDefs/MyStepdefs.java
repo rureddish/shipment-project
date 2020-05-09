@@ -368,7 +368,10 @@ public class MyStepdefs {
 
     @When("client logs in")
     public void client_logs_in() {
-        logIn.checkClientLogin(emailTest, passwordTest);
+//        logIn.checkClientLogin(emailTest, passwordTest);
+    	if (logIn.checkClientEmail(emailTest)) {
+    		logIn.checkClientPassword(emailTest, passwordTest);
+    	}
     }
 
     @Then("client is logged in")

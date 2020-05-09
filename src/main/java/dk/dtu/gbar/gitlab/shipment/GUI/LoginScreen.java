@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -36,7 +37,7 @@ public class LoginScreen {
     }
 
  
-    private void initialize() {
+    private void initialize() { 
         frame = new JFrame();
         frame.setBounds(100, 100, 475, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,13 +56,21 @@ public class LoginScreen {
 
         btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
-            if (login.checkClientLogin(txtLogin.getText(), String.valueOf(password.getPassword()))) {
-                setVisible(false); 
-                
-                this.clientScreen = new ClientScreen(this, logisticsCompany, login);
-                this.clientScreen.setVisible(true);
-                txtLogin.setText("");
-                password.setText("");  
+//            if (login.checkClientLogin(txtLogin.getText(), String.valueOf(password.getPassword()))) {
+        	if (!login.checkClientEmail(txtLogin.getText())) {
+        		JOptionPane.showMessageDialog(null, "Wrong Email","Message",JOptionPane.WARNING_MESSAGE);
+        	}
+        	else {
+        		if (!login.checkClientPassword(txtLogin.getText(), String.valueOf(password.getPassword()))) {
+        			JOptionPane.showMessageDialog(null, "Wrong Password","Message",JOptionPane.WARNING_MESSAGE);
+        		}
+        		else {
+        			setVisible(false); 
+	                this.clientScreen = new ClientScreen(this, logisticsCompany, login);
+	                this.clientScreen.setVisible(true);
+	                txtLogin.setText("");
+	                password.setText("");  
+        		}
             }
         });
 

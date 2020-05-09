@@ -21,20 +21,38 @@ public class LogIn {
      * @param email The email entered into the login screen.
      * @param password The password entered in login screen.
      */
-    public boolean checkClientLogin(String email, String password) {
-        ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
+//    public boolean checkClientLogin(String email, String password) {
+//        ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
+//        if (client.size() == 0) {
+//            System.out.println("Wrong email");
+//            return false;
+//        } else {
+//            if (client.get(0).getPassword().equals(password)) {
+//                loggedInClient = client.get(0);
+//                return true;
+//            } else {
+//                System.out.println("Wrong password");
+//                return false;
+//            }
+//        }
+//    }
+    
+    public boolean checkClientEmail(String email) {
+    	ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
         if (client.size() == 0) {
             System.out.println("Wrong email");
             return false;
-        } else {
-            if (client.get(0).getPassword().equals(password)) {
-                loggedInClient = client.get(0);
-                return true;
-            } else {
-                System.out.println("Wrong password");
-                return false;
-            }
         }
+        return true;
+    }
+    
+    public boolean checkClientPassword(String email, String password) {
+    	ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
+    	if (client.get(0).getPassword().equals(password)) {
+            loggedInClient = client.get(0);
+            return true;
+    	}
+        return false;
     }
 
     public boolean adminLogIn(String passwordTest) {
