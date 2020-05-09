@@ -7,7 +7,6 @@ package dk.dtu.gbar.gitlab.shipment;
 public class Journey {
     private Container container;
     private Client client;
-	private ContainerStatus status;
 	private Location origin;
 	private Location destination;
     private boolean isConcluded;
