@@ -20,10 +20,13 @@ public class Main {
 		logisticsCompany.register(copenhagen);
 		logisticsCompany.register(new Container(hongkong));
 		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(tokyo));
 		logisticsCompany.register(new Container(tokyo));
 		logisticsCompany.register(new Container(tokyo));
 		logisticsCompany.register(new Container(berlin));
-		logisticsCompany.register(new Container(hongkong));
+		logisticsCompany.register(new Container(berlin));
+		logisticsCompany.register(new Container(berlin));
 		logisticsCompany.register(new Container(newyork));
 		logisticsCompany.register(new Container(london));
 		Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
