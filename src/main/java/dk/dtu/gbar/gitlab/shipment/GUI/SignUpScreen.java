@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,7 +24,7 @@ public class SignUpScreen extends JFrame {
 	private LoginScreen loginScreen;
 	private JPanel signUpPanel;
 	private JButton btnBack;
-	private JButton btnRegister;
+	private JButton btnRegister; 
 	private LogisticsCompany logisticsCompany;
 
 	
@@ -75,15 +76,15 @@ public class SignUpScreen extends JFrame {
 		btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtUsername.getText().isBlank() || password.getText().isBlank() || 
+				if(txtUsername.getText().isBlank() || password.getPassword().length==0 || 
 				txtEmail.getText().isBlank() || txtRefPerson.getText().isBlank() || 
 				txtAddress.getText().isBlank()) {
-					System.out.println("Please fill in all Spaces");
+					JOptionPane.showMessageDialog(null, "Please fill in all Spaces","Message",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
 					if(logisticsCompany.register(new Client(txtUsername.getText(),txtAddress.getText(),txtRefPerson.getText(),
 					txtEmail.getText(), String.valueOf(password.getPassword())))) {
-						System.out.println("Register Succesfull");
+						JOptionPane.showMessageDialog(null, "Register Succesfull");
 						txtUsername.setText("");
 						password.setText("");
 						txtEmail.setText("");
@@ -93,7 +94,7 @@ public class SignUpScreen extends JFrame {
 						loginScreen.setVisible(true);
 					}
 					else {
-						System.out.println("Email already in use.");
+						JOptionPane.showMessageDialog(null, "Email already in use.","Message",JOptionPane.WARNING_MESSAGE);
 					}
 					
 
