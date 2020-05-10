@@ -129,7 +129,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
                 btnShowCurrent.setSelected(false);
                 btnShowAll.setSelected(false);
                 clientJourneys.setRowCount(0);
-                journeys = search.getConcludedJourneys(journeys);
+                journeys = search.getConcludedJourneys((List<Journey>) loggedIn.getLoggedInClient().getClientsJourneys());
                 List searchResults = search.journeySearchByString(journeys, keyword);
                 display(searchResults);
             }
@@ -141,8 +141,8 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
                 btnShowConcluded.setSelected(false);
                 btnShowAll.setSelected(false);
                 clientJourneys.setRowCount(0);
-                journeys = search.getCurrentJourneys(journeys);
-                List searchResults = search.journeySearchByString(journeys, keyword);
+                journeys = search.getCurrentJourneys((List<Journey>) loggedIn.getLoggedInClient().getClientsJourneys());
+                List<Journey> searchResults = search.journeySearchByString(journeys, keyword);
                 display(searchResults);
             }
         });
@@ -167,9 +167,10 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
         clientJourneys.addColumn("Destination");
         clientJourneys.addColumn("Cargo");
         clientJourneys.addColumn("Journey ID");
-        for (Journey journey : loggedIn.getLoggedInClient().getClientsJourneys()) {
+        display((List<Journey>) loggedIn.getLoggedInClient().getClientsJourneys());
+        /*for (Journey journey : loggedIn.getLoggedInClient().getClientsJourneys()) {
             clientJourneys.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getId()});
-        }
+        }*/
 
 
         JScrollPane scrollJourneys = new JScrollPane();
@@ -185,6 +186,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 journeyRegisterScreen.setVisible(true);
+                journeyRegisterScreen.setNewOnes(new ArrayList<>());
             }
         });
 
@@ -275,9 +277,10 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
         panelMainMenuFunctions.setVisible(visible);
     }
 
-    private void display(List<Journey> searchResults) {
+    public void display(List<Journey> searchResults) {
         for (Journey journey : searchResults) {
             clientJourneys.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getId()});
+            this.repaint();
         }
     }
 

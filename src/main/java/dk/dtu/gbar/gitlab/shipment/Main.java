@@ -10,7 +10,6 @@ import java.awt.EventQueue;
 public class Main {
 
     public static void initialLogins(LogisticsCompany logisticsCompany) {
-        System.out.println("ok");
         Port hongkong = new Port("Hong kong", "0");
         Port berlin = new Port("Berlin", "0");
         Port newyork = new Port("New York", "0");
@@ -23,7 +22,6 @@ public class Main {
         logisticsCompany.register(hongkong);
         logisticsCompany.register(copenhagen);
         logisticsCompany.register(london);
-        System.out.println("ports done");
         logisticsCompany.register(new Container("0", hongkong));
         logisticsCompany.register(new Container("1", hongkong));
         logisticsCompany.register(new Container("2", hongkong));
@@ -35,7 +33,6 @@ public class Main {
         logisticsCompany.register(new Container("8", berlin));
         logisticsCompany.register(new Container("9", newyork));
         logisticsCompany.register(new Container("10", london));
-        System.out.println("containers done");
         //ClientOld maersk = new ClientOld("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
         Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", Bcrypt.hashPassword("m"));
         logisticsCompany.register(maersk);
@@ -44,7 +41,6 @@ public class Main {
         logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com", Bcrypt.hashPassword("NewEggPass")));
         Client maersk2 = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m2", Bcrypt.hashPassword("m"));
         logisticsCompany.register(maersk2);
-        System.out.println("clients done");
 		/*logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
 		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
 		logisticsCompany.register(new Journey(newyork, london, maersk, "babushka containers"));*/

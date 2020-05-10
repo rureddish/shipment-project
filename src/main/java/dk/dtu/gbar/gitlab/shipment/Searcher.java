@@ -68,9 +68,9 @@ public class Searcher {
     }
 
     // Journey
-    public Predicate<Journey> excludeConcludedJourneys = (x -> x.getSailStatus() == JourneySailStatus.FINISHED);
+    public Predicate<Journey> excludeConcludedJourneys = (x -> x.getSailStatus() != JourneySailStatus.FINISHED);
 
-    public Predicate<Journey> excludeCurrentJourneys = (x -> x.getSailStatus() != JourneySailStatus.FINISHED);
+    public Predicate<Journey> excludeCurrentJourneys = (x -> x.getSailStatus() == JourneySailStatus.FINISHED);
 
 
     public Predicate<Journey> originContains(String string) {

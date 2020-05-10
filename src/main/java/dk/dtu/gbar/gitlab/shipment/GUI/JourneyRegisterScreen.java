@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Port;
 
 import javax.swing.JTextField;
@@ -33,6 +34,7 @@ public class JourneyRegisterScreen extends JFrame {
     private JList<String> lstDestination;
     private JTextField txtCargo;
     private LogisticsCompany logisticsCompany;
+    private List<Journey> newOnes;
 
 
     public JourneyRegisterScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany) {
@@ -70,15 +72,16 @@ public class JourneyRegisterScreen extends JFrame {
                     JOptionPane.showMessageDialog(null, "Destination cannot be the same as origin", "Message", JOptionPane.WARNING_MESSAGE);
                     clear();
                 } else {
-                    if (logisticsCompany.register(lstOrigin.getSelectedValue(),
+                    Journey j = logisticsCompany.register(lstOrigin.getSelectedValue(),
                             lstDestination.getSelectedValue(), loggedIn.getLoggedInClient()
-                            , txtCargo.getText())!=null) {
+                            , txtCargo.getText());
+                    if (j != null) {
+                        newOnes.add(j);
                         JOptionPane.showMessageDialog(null, "Successfull Registration");
-                        clear();
                     } else {
                         JOptionPane.showMessageDialog(null, "No Container Available In Port Of Origin");
-                        clear();
                     }
+                    clear();
                 }
             }
         });
@@ -90,6 +93,7 @@ public class JourneyRegisterScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 clientScreen.setVisible(true);
+                clientScreen.display(newOnes);
             }
         });
 
@@ -156,5 +160,13 @@ public class JourneyRegisterScreen extends JFrame {
         lstOrigin.clearSelection();
         lstDestination.clearSelection();
         txtCargo.setText("");
+    }
+
+    public List<Journey> getNewOnes() {
+        return newOnes;
+    }
+
+    public void setNewOnes(List<Journey> newOnes) {
+        this.newOnes = newOnes;
     }
 }

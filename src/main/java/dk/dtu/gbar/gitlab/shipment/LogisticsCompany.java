@@ -114,7 +114,7 @@ public class LogisticsCompany {
             Port destinationPort = ps.search(new SearchCriteria("name", destination)).get(0);
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
             js.save(journey);
-            support.firePropertyChange("Journey Added", null, null);
+            //support.firePropertyChange("Journey Added", null, null);
             return journey;
         }
         return null;
