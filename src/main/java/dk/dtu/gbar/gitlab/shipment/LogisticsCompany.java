@@ -1,13 +1,16 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.ClientStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.*;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.JourneyService;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.PortService;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Database of all objects in the system.
@@ -15,131 +18,158 @@ import java.util.ArrayList;
  * Registers objects to these lists, so they are in the system and their
  * index in the list acts as ID.
  */
-public class LogisticsCompany{
-	private String password;
-	private ArrayList<Client> clientList = new ArrayList();
-	private ArrayList<Container> containerList = new ArrayList<>();
-	private ArrayList<Journey> journeyList = new ArrayList<>();
-	private ArrayList<Ship> shipList = new ArrayList<>();
-	private ArrayList<Location> locationList = new ArrayList<>();
-	Location atSea = new Location("At sea");
-	Searcher search = new Searcher(this);
-	private ClientService cs = new ClientService();
+public class LogisticsCompany {
+    private String password;
+    private ArrayList<Client> clientList = new ArrayList();
+    private ArrayList<Container> containerList = new ArrayList<>();
+    private ArrayList<Journey> journeyList = new ArrayList<>();
+    private ArrayList<Ship> shipList = new ArrayList<>();
+    private ArrayList<Location> locationList = new ArrayList<>();
+    Location atSea = new Location("At sea");
+    Searcher search = new Searcher(this);
+    private ClientService cs = new ClientService();
+    private PortService ps = new PortService();
+    private JourneyService js = new JourneyService();
 
-	PropertyChangeSupport support = new PropertyChangeSupport(this);
+    PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-	/**
-	 *
-	 * @param password Password for logging in as the logistics company.
-	 */
-	public LogisticsCompany(String password) {
-		this.password = password;
-	}
+    /**
+     * @param password Password for logging in as the logistics company.
+     */
+    public LogisticsCompany(String password) {
+        this.password = password;
+    }
 
 
-	/**
-	 * 	Registers client if email not in use, returns false otherwise
-	 * @param userName user name of the client
-	 * @param address address
-	 * @param refPerson reference person
-	 * @param email email that should not be in use
-	 * @param password password in plaintext
-	 * @return whether the register was successful
-	 */
-	public boolean register(String userName,String address, String refPerson,String email, String password ) {
-		if (!clientEmailAlreadyInUse(email)) {
-			Client client = new Client(userName,address,refPerson,email,Bcrypt.hashPassword(password));
-			cs.save(client);
-			//clientList.add(client);
-			return  true;
-		}
-		return false;
-	}
-	public boolean register (Client client){
-		if(!clientEmailAlreadyInUse(client.getEmail())){
-			cs.save(client);
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Registers client if email not in use, returns false otherwise
+     *
+     * @param userName  user name of the client
+     * @param address   address
+     * @param refPerson reference person
+     * @param email     email that should not be in use
+     * @param password  password in plaintext
+     * @return whether the register was successful
+     */
+    public boolean register(String userName, String address, String refPerson, String email, String password) {
+        if (!clientEmailAlreadyInUse(email)) {
+            Client client = new Client(userName, address, refPerson, email, Bcrypt.hashPassword(password));
+            cs.save(client);
+            //clientList.add(client);
+            return true;
+        }
+        return false;
+    }
 
-	public void register(Container container){
-		container.setID(containerList.size());
-		containerList.add(container);
-	}
+    public boolean register(Client client) {
+        if (!clientEmailAlreadyInUse(client.getEmail())) {
+            cs.save(client);
+            return true;
+        }
+        return false;
+    }
 
-	public void register(Location location){
-		locationList.add(location);
-	}
+   /* public void register(Container container) {
+        container.setID(containerList.size());
+        containerList.add(container);
+    }*/
 
-	/** if there are containers at origin journey is registered.
-	 * returns false if not successful
-	 * @param journey Journey being registered
-	 * @return
-	 */
-	public boolean register(Journey journey) {
-		if (journeyOriginHasContainers(journey)) {
-			journey.setID(journeyList.size());
-			journeyList.add(journey);
-			journey.setContainer(journey.getOrigin().getLocationContainers().remove());
-			journey.getContainer().getJourneyHistory().add(journey);
-			journey.getClient().getJourneys().add(journey);
+    public void register(Location location) {
+        locationList.add(location);
+    }
 
-			support.firePropertyChange("Journey Added",null,null);
-			return true;
-		} else {
-			return  false;
-		}
-	}
+    /**
+     * if there are containers at origin journey is registered.
+     * returns false if not successful
+     *
+     * @param
+     * @return
+     */
+   /* public boolean register(Journey journey) {
+        if (journeyOriginHasContainers(journey)) {
+            journey.setID(journeyList.size());
+            journeyList.add(journey);
+            journey.setContainer(journey.getOrigin().getLocationContainers().remove());
+            journey.getContainer().getJourneyHistory().add(journey);
+            journey.getClient().getJourneys().add(journey);
 
-	public void register(Ship ship){
-		shipList.add(ship);
-	}
+            support.firePropertyChange("Journey Added", null, null);
+            return true;
+        } else {
+            return false;
+        }
+    }*/
 
-	public void removeClient(Client client) {
+    public boolean register(String origin, String destination, Client loggedInClient, String content) {
+        Port originPort = ps.search(new SearchCriteria("NAME", origin)).get(0);
+        Collection<Container> containers = originPort.getPortContainers();
+        if (containers.size() > 0) {
+            Container container = containers.iterator().next();
+            container.setContainerLocation(null);
+            Port destinationPort = ps.search(new SearchCriteria("NAME", destination)).get(0);
+            Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
+            js.save(journey);
+            support.firePropertyChange("Journey Added", null, null);
+            return true;
+        }
+        return false;
+    }
+
+
+    public void register(Ship ship) {
+        shipList.add(ship);
+    }
+
+    public void removeClient(Client client) {
 		/*client.setAddress("Redacted");
 		client.setRefPerson("Redacted");
 		client.setName("Redacted");
 		client.setEmail("Redacted");*/
-		client.setClientStatus(ClientStatus.DELETED);
-	}
+        client.setClientStatus(ClientStatus.DELETED);
+    }
 
-	public boolean clientEmailAlreadyInUse(String email) {
-		return 0 < cs.search(new SearchCriteria("EMAIL",email)).size();
-		//return 0 < search.search(clientList, search.emailContains(client.getEmail())).size();
-	}
+    public boolean clientEmailAlreadyInUse(String email) {
+        return 0 < cs.search(new SearchCriteria("EMAIL", email)).size();
+        //return 0 < search.search(clientList, search.emailContains(client.getEmail())).size();
+    }
 
-	public boolean journeyOriginHasContainers(Journey object) {
-		return 0 < object.getOrigin().getLocationContainers().size();
-	}
+    /*public boolean journeyOriginHasContainers(Journey object) {
+        return 0 < object.getOrigin().getLocationContainers().size();
+    }*/
 
-	//Getters and Setters
+    public List<Port> getAllPorts() {
+        return ps.getAll();
+    }
+
+    //Getters and Setters
 
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public ArrayList<Ship> getShipList() {
-		return shipList;
-	}
+    public ArrayList<Ship> getShipList() {
+        return shipList;
+    }
 
-	public ArrayList<Client> getClientList() {
-		return clientList;
-	}
+    public ArrayList<Client> getClientList() {
+        return clientList;
+    }
 
-	public ArrayList<Container> getContainerList(){
-		return containerList;
-	}
+    public ArrayList<Container> getContainerList() {
+        return containerList;
+    }
 
-	public ArrayList<Journey> getJourneyList(){
-		return journeyList;
-	}
-	public ArrayList<Location> getLocationList(){
-		return locationList;
-	}
+    public ArrayList<Journey> getJourneyList() {
+        return journeyList;
+    }
 
-	public void addObserver(PropertyChangeListener listener) {
-		support.addPropertyChangeListener(listener);
-	}
+    public ArrayList<Location> getLocationList() {
+        return locationList;
+    }
+
+    public void addObserver(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
 }

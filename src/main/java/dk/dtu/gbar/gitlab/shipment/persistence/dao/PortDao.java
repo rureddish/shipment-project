@@ -1,9 +1,11 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.dao;
 
 import dk.dtu.gbar.gitlab.shipment.persistence.Connection;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Port;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
+import org.hibernate.Hibernate;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,6 +17,14 @@ public class PortDao extends Connection implements PortDaoInterface {
     @Override
     public Port getById(int id) {
         return getSession().get(Port.class, id);
+    }
+
+    @Override
+    public Port getById(int id, boolean eager) {
+        if(!eager) return getById(id);
+        Port p = getSession().get(Port.class,id);
+        Hibernate.initialize(p);
+        return p;
     }
 
     @Override

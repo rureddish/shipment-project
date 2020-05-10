@@ -18,6 +18,7 @@ public class Port {
     private PortStatus status;
     private Collection<Location> visitedList; //ships that visited this port on their journeys
     private Collection<PathPort> pathsGoingTrough; //paths that goes trough this port
+    private Collection<Container> portContainers; // containers that are located in this port
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,6 +93,15 @@ public class Port {
 
     public void setPathsGoingTrough(Collection<PathPort> pathPortsById) {
         this.pathsGoingTrough = pathPortsById;
+    }
+
+    @OneToMany(mappedBy = "containerLocation")
+    public Collection<Container> getPortContainers() {
+        return portContainers;
+    }
+
+    public void setPortContainers(Collection<Container> portContainers) {
+        this.portContainers = portContainers;
     }
 
     @PreRemove

@@ -3,9 +3,13 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.PortDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.PortDaoInterface;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Port;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class PortService implements PortDaoInterface {
@@ -21,6 +25,19 @@ public class PortService implements PortDaoInterface {
         Port port = portDao.getById(id);
         portDao.closeSession();
         return port;
+    }
+    @Override
+    @Transactional
+    @Fetch(FetchMode.JOIN)
+    public Port getById(int id, boolean children) {
+        if (children) {
+            portDao.openTransaction();
+            Port p = portDao.getById(id, true);
+            portDao.closeTransaction();
+            return p;
+        } else {
+            return getById(id);
+        }
     }
 
     @Override

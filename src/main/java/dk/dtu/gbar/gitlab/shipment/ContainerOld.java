@@ -8,7 +8,7 @@ import java.util.Stack;
  * Contains cargo and is moved to process the journey.
  *
  */
-public class Container {
+public class ContainerOld {
     private Stack<Journey> journeyHistory = new Stack<>();
     private Location location;
     private Integer ID;
@@ -17,7 +17,7 @@ public class Container {
     /**
      * @param location The location at which the container is registered.
      */
-	public Container(Location location) {
+	public ContainerOld(Location location) {
         this.location=location;
         location.getLocationContainers().add(this);
         statusHistory = new ContainerStatus();

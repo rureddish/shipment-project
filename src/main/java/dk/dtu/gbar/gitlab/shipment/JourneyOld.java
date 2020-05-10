@@ -4,7 +4,7 @@ package dk.dtu.gbar.gitlab.shipment;
  * A shipment belonging to a client.
  *
  */
-public class Journey {
+public class JourneyOld {
     private Container container;
     private Client client;
 	private Location origin;
@@ -19,7 +19,7 @@ public class Journey {
      * @param client The client that registered the journey.
      * @param cargo The content of the container
      */
-	public Journey(Location origin, Location destination, Client client, String cargo) {
+	public JourneyOld(Location origin, Location destination, Client client, String cargo) {
         this.origin = origin;
         this.destination = destination;
         this.client = client;

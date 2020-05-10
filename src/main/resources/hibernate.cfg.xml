@@ -22,6 +22,7 @@
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Location"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Path"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.PathPort"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Port"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Location"/>
 
         <!-- <property name="connection.username"/> -->

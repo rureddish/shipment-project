@@ -12,6 +12,7 @@ public class Container {
     private Boolean onJourney;
     private Client containerOwner;
     private Collection<Journey> containerJourneys;
+    private Port containerLocation;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +77,16 @@ public class Container {
 
     public void setContainerJourneys(Collection<Journey> journeysById) {
         this.containerJourneys = journeysById;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "port_fk", referencedColumnName = "id")
+    public Port getContainerLocation() {
+        return containerLocation;
+    }
+
+    public void setContainerLocation(Port containerLocation) {
+        this.containerLocation = containerLocation;
     }
 
     protected Container() {

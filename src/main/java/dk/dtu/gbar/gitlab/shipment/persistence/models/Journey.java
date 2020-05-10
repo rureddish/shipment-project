@@ -14,10 +14,10 @@ public class Journey {
     private Container journeyContainer;
     private Path journeyPath;
     private Client journeyClient;
-    private PathPort journeyOrigin;
-    private PathPort journeyDestination;
-    private PathPort journeyCurrentLocation;
-    private PathPort journeyNextLocation;
+    private Port journeyOrigin;
+    private Port journeyDestination;
+    private Port journeyCurrentLocation;
+    private Port journeyNextLocation;
     private Collection<Location> journeyTravelHistory;
 
     @Id
@@ -86,7 +86,7 @@ public class Journey {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "container_fk", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "container_fk", referencedColumnName = "id", nullable = true)
     public Container getJourneyContainer() {
         return journeyContainer;
     }
@@ -96,7 +96,7 @@ public class Journey {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "path_fk", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "path_fk", referencedColumnName = "id", nullable = true)
     public Path getJourneyPath() {
         return journeyPath;
     }
@@ -117,42 +117,42 @@ public class Journey {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "origin", referencedColumnName = "id", nullable = false)
-    public PathPort getJourneyOrigin() {
+    public Port getJourneyOrigin() {
         return journeyOrigin;
     }
 
-    public void setJourneyOrigin(PathPort pathPortByOrigin) {
-        this.journeyOrigin = pathPortByOrigin;
+    public void setJourneyOrigin(Port portByOrigin) {
+        this.journeyOrigin = portByOrigin;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destination", referencedColumnName = "id", nullable = false)
-    public PathPort getJourneyDestination() {
+    public Port getJourneyDestination() {
         return journeyDestination;
     }
 
-    public void setJourneyDestination(PathPort pathPortByDestination) {
-        this.journeyDestination = pathPortByDestination;
+    public void setJourneyDestination(Port portByDestination) {
+        this.journeyDestination = portByDestination;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "current_location", referencedColumnName = "id", nullable = false)
-    public PathPort getJourneyCurrentLocation() {
+    public Port getJourneyCurrentLocation() {
         return journeyCurrentLocation;
     }
 
-    public void setJourneyCurrentLocation(PathPort pathPortByCurrentLocation) {
-        this.journeyCurrentLocation = pathPortByCurrentLocation;
+    public void setJourneyCurrentLocation(Port portByCurrentLocation) {
+        this.journeyCurrentLocation = portByCurrentLocation;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "next_location", referencedColumnName = "id")
-    public PathPort getJourneyNextLocation() {
+    public Port getJourneyNextLocation() {
         return journeyNextLocation;
     }
 
-    public void setJourneyNextLocation(PathPort pathPortByNextLocation) {
-        this.journeyNextLocation = pathPortByNextLocation;
+    public void setJourneyNextLocation(Port portByNextLocation) {
+        this.journeyNextLocation = portByNextLocation;
     }
 
     @OneToMany(mappedBy = "locationJourneyParent",fetch = FetchType.LAZY)
@@ -167,7 +167,7 @@ public class Journey {
     protected Journey(){
     }
 
-    public Journey(JourneySailStatus sailStatus, String containerContent, Container journeyContainer, Path journeyPath, Client journeyClient, PathPort journeyOrigin, PathPort journeyDestination, PathPort journeyCurrentLocation, PathPort journeyNextLocation) {
+    public Journey(JourneySailStatus sailStatus, String containerContent, Container journeyContainer, Path journeyPath, Client journeyClient, Port journeyOrigin, Port journeyDestination, Port journeyCurrentLocation, Port journeyNextLocation) {
         this.sailStatus = sailStatus;
         this.containerContent = containerContent;
         this.journeyContainer = journeyContainer;
@@ -179,7 +179,7 @@ public class Journey {
         this.journeyNextLocation = journeyNextLocation;
     }
 
-    public Journey(String containerContent, Container journeyContainer, Path journeyPath, Client journeyClient, PathPort journeyOrigin, PathPort journeyDestination, PathPort journeyCurrentLocation, PathPort journeyNextLocation) {
+    public Journey(String containerContent, Container journeyContainer, Path journeyPath, Client journeyClient, Port journeyOrigin, Port journeyDestination, Port journeyCurrentLocation, Port journeyNextLocation) {
         this.containerContent = containerContent;
         this.journeyContainer = journeyContainer;
         this.journeyPath = journeyPath;
