@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
+        <property name="connection.url">jdbc:hsqldb:file:C:/Users/waage/IdeaProjects/shipment-project/src/main/resources/persistence/database</property>
         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
         <property name="connection.pool_size">20</property>
         <!-- DEBUG -->
@@ -24,6 +24,7 @@
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.PathPort"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Port"/>
         <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Location"/>
+        <mapping class="dk.dtu.gbar.gitlab.shipment.persistence.models.Ship"/>
 
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->

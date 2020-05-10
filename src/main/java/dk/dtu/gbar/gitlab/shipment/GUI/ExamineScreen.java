@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 

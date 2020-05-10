@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 import javax.swing.BorderFactory;
@@ -22,6 +23,7 @@ import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import dk.dtu.gbar.gitlab.shipment.Searcher;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 
 import javax.swing.JTable;
 
@@ -45,7 +47,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 	private DefaultTableModel clientJourneys;
 	private Searcher search;
 	private String keyword;
-	private ArrayList<Journey> journeys;
+	private Collection<Journey> journeys;
 	
 	
 	///
@@ -54,7 +56,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		this.logisticsCompany = logisticsCompany;
 		this.loggedIn = loggedIn;
 		search = new Searcher(logisticsCompany);
-		journeys = loggedIn.getLoggedInClient().getJourneys();
+		journeys = loggedIn.getLoggedInClient().getClientsJourneys();
 		keyword = "";
 		
 		logisticsCompany.addObserver(this);
@@ -155,7 +157,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 				btnShowConcluded.setSelected(false);
 				btnShowCurrent.setSelected(false);
 				clientJourneys.setRowCount(0);
-				journeys = loggedIn.getLoggedInClient().getJourneys();
+				journeys = loggedIn.getLoggedInClient().getClientsJourneys();
 				ArrayList searchResults = search.journeySearchByString(journeys, keyword);
 				display(searchResults);				
 			}
@@ -166,7 +168,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 		clientJourneys.addColumn("Destination");
 		clientJourneys.addColumn("Cargo");
 		clientJourneys.addColumn("Journey ID");
-		for(Journey journey: loggedIn.getLoggedInClient().getJourneys()) {
+		for(Journey journey: loggedIn.getLoggedInClient().getClientsJourneys()) {
 			clientJourneys.addRow(new Object[] {journey.getOrigin().getPlaceName(),	journey.getDestination().getPlaceName(),journey.getCargo(),journey.getID()});
 		}
 

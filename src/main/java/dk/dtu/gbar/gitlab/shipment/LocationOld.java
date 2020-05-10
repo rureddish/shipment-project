@@ -5,14 +5,14 @@ import java.util.*;
 /**
  * Objects have locations which change with journeys.
  */
-public class Location {
+public class LocationOld {
     private String placeName;
     private Queue<Container> portcontainers = new LinkedList<>();
 
     /**
      * @param placeName The name of the location to be registered
      */
-    public Location(String placeName){
+    public LocationOld(String placeName){
         this.placeName = placeName;
     }
 

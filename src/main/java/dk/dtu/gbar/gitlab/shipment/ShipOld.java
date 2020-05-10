@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Holds containers and is used to process journeys.
  */
-public class Ship{
+public class ShipOld{
 	private ArrayList<Container> containers = new ArrayList<>();
 	private Location location;
 	Location atSea = new Location("At sea");
@@ -20,7 +20,7 @@ public class Ship{
 	 *
 	 * @param location
 	 */
-	public Ship (Location location, LogisticsCompany logisticsCompany) {
+	public ShipOld (Location location, LogisticsCompany logisticsCompany) {
 		this.location = location;
 		this.logisticsCompany = logisticsCompany;
 	}

@@ -20,13 +20,7 @@ import java.util.List;
  */
 public class LogisticsCompany {
     private String password;
-    private ArrayList<Client> clientList = new ArrayList();
-    private ArrayList<Container> containerList = new ArrayList<>();
-    private ArrayList<Journey> journeyList = new ArrayList<>();
     private ArrayList<Ship> shipList = new ArrayList<>();
-    private ArrayList<Location> locationList = new ArrayList<>();
-    Location atSea = new Location("At sea");
-    Searcher search = new Searcher(this);
     private ClientService cs = new ClientService();
     private PortService ps = new PortService();
     private JourneyService js = new JourneyService();
@@ -73,10 +67,6 @@ public class LogisticsCompany {
         container.setID(containerList.size());
         containerList.add(container);
     }*/
-
-    public void register(Location location) {
-        locationList.add(location);
-    }
 
     /**
      * if there are containers at origin journey is registered.
@@ -150,22 +140,6 @@ public class LogisticsCompany {
 
     public ArrayList<Ship> getShipList() {
         return shipList;
-    }
-
-    public ArrayList<Client> getClientList() {
-        return clientList;
-    }
-
-    public ArrayList<Container> getContainerList() {
-        return containerList;
-    }
-
-    public ArrayList<Journey> getJourneyList() {
-        return journeyList;
-    }
-
-    public ArrayList<Location> getLocationList() {
-        return locationList;
     }
 
     public void addObserver(PropertyChangeListener listener) {
