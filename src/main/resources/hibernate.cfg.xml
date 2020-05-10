@@ -6,11 +6,12 @@
     <session-factory>
          <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
          <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
-         <property name="connection.pool_size">20</property>
+         <property name="connection.pool_size">50</property>
 
          <!-- DEBUG -->
         <property name="show_sql">false</property>
         <property name="format_sql">false</property>
+        <property name="cascade">all</property>
         <!-- CAUTION TO N+1 PROBLEM WITH ORM -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!-- SQL dialect -->

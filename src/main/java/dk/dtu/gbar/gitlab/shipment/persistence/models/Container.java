@@ -81,7 +81,7 @@ public class Container {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "port_fk", referencedColumnName = "id")
+    @JoinColumn(name = "port_fk", referencedColumnName = "id", nullable = true)
     public Port getContainerLocation() {
         return containerLocation;
     }
