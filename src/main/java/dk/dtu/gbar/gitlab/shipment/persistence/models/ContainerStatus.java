@@ -1,9 +1,11 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -98,5 +100,7 @@ public class ContainerStatus {
         this.statusName = statusName;
         this.statusValue = statusValue;
         this.journeyStatusParent = journeyStatusParent;
+        Date date = new Date();
+        this.date = new Timestamp(date.getTime());
     }
 }

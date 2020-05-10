@@ -8,8 +8,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,6 +43,7 @@ public class MyStepdefs {
     ClientService cs = new ClientService();
     ContainerService con = new ContainerService();
     ContainerStatusService css = new ContainerStatusService();
+    JourneyService js = new JourneyService();
 
     List<ContainerStatus> containerStatus;
 
@@ -214,6 +213,7 @@ public class MyStepdefs {
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
         logisticCompany.register(copenhagen);
         logisticCompany.register(hongKong);
+        logisticCompany.register(client);
         journey1 = logisticCompany.register(copenhagen.getName(), hongKong.getName(), client, cargo);
         //journey1 = new Journey(copenhagen, hongKong, client, cargo);
         //logisticCompany.register(journey1);
@@ -456,7 +456,7 @@ public class MyStepdefs {
     //  Feature Container Status Update
     ////////////////////////////////////////
 
-    @Given("the container has a temperature of {int}, pressure of {int} and humidity of {int}")
+    @Given("the container has a temperature of {string}, pressure of {string} and humidity of {string}")
     public void the_container_has_a_temperature_of_pressure_of_and_humidity_of(String temp, String pressure, String humidity) {
         this.temp = temp;
         this.pressure = pressure;
@@ -465,9 +465,13 @@ public class MyStepdefs {
 
     @When("a worker updates the container information")
     public void a_worker_updates_the_container_information() {
+        js.save(journey1);
         ContainerStatus cs1 = new ContainerStatus(ContainerStatusName.HUMIDITY, humidity, journey1);
         ContainerStatus cs2 = new ContainerStatus(ContainerStatusName.PRESSURE, pressure, journey1);
         ContainerStatus cs3 = new ContainerStatus(ContainerStatusName.TEMPERATURE, temp, journey1);
+        css.save(cs1);
+        css.save(cs2);
+        css.save(cs3);
         containerStatus = con.getLastStatuses(journey1.getJourneyContainer());
     }
 

@@ -277,7 +277,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
 
     private void display(List<Journey> searchResults) {
         for (Journey journey : searchResults) {
-            clientJourneys.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getJourneyContainer().getId()});
+            clientJourneys.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getId()});
         }
     }
 
