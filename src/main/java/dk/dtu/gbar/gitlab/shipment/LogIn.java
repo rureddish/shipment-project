@@ -43,6 +43,13 @@ public class LogIn {
 //            }
 //        }
 //    }
+    /**
+     * Checks whether Client's login details are correct.
+     * 
+     * @param email     Client's email    
+     * @param password  Client's password
+     * @return		 	Boolean representing whether the Client is logged in after the checks.
+     */
     public boolean loginClient(String email, String password) {
         System.out.println(email);
         List<Client> search = cs.search(new SearchCriteria("email", email));
@@ -67,7 +74,14 @@ public class LogIn {
     	}
         return false;
     }*/
-
+    
+    /**
+     * Checks whether Administrator's login details are correct.
+     * 
+     * @param username    	Admin's email    
+     * @param passwordTest  Admin's password
+     * @return		 		Boolean representing whether the Admin is logged in after the checks.
+     */
     public boolean adminLogIn(String username, String passwordTest) {
         if (username.equals("admin")) {
             if (logisticsCompany.getPassword().equals(passwordTest)) {

@@ -58,7 +58,12 @@ public class LogisticsCompany {
         }
         return false;
     }
-
+    
+    /**
+     * Registers port if not already in use
+     * @param port
+     * @return 		Whether registration was successful
+     */
     public boolean register(Port port) {
         if (ps.search(new SearchCriteria("name", port.getName())).size() > 0) {
             return false;
@@ -66,7 +71,12 @@ public class LogisticsCompany {
         ps.save(port);
         return true;
     }
-
+    
+    /**
+     * Registers client if email not in use, returns false otherwise
+     * @param client  Client to be registered
+     * @return		  Whether the registration was successful
+     */
     public boolean register(Client client) {
         if (!clientEmailAlreadyInUse(client.getEmail())) {
             cs.save(client);
@@ -74,7 +84,12 @@ public class LogisticsCompany {
         }
         return false;
     }
-
+    
+	/**
+	 * Registers container if not already in use
+	 * @param container Container to be registered
+	 * @return			Whether the registration was successful
+	 */
     public boolean register(Container container) {
         if (cos.search(new SearchCriteria("name", container.getName())).size() > 0) {
             return false;
@@ -106,6 +121,15 @@ public class LogisticsCompany {
             return false;
         }
     }*/
+    
+    /**
+     * Registers containers for Journeys. 
+     * @param origin		  Origin of the journey
+     * @param destination	  Destination of the Journey
+     * @param loggedInClient  Client that is ordering the Journey
+     * @param content         Content of the container
+     * @return				  The newly created Journey
+     */
     public Journey register(String origin, String destination, Client loggedInClient, String content) {
         Port originPort = ps.search(new SearchCriteria("name", origin)).get(0);
         System.out.println(originPort.getName());
@@ -121,7 +145,14 @@ public class LogisticsCompany {
         }
         return null;
     }
-
+    /**
+     * Registers containers for Journeys. 
+     * @param content 		Content of the container
+     * @param client        Client that is ordering the Journey
+     * @param origin        Origin of the journey
+     * @param destination   Destination of the Journey
+     * @return              Whether the registration was successful
+     */
     public boolean register(String content, Client client, Port origin, Port destination) {
         Collection<Container> containers = origin.getPortContainers();
         if (containers != null) {
@@ -137,11 +168,15 @@ public class LogisticsCompany {
         return false;
     }
 
-
+    /**
+     * Register Ship in the fleet.
+     * @param ship	Ship to be registered
+     */ 
     public void register(Ship ship) {
         shipList.add(ship);
     }
-
+    
+    
     public void removeClient(Client client) {
 		/*client.setAddress("Redacted");
 		client.setRefPerson("Redacted");
