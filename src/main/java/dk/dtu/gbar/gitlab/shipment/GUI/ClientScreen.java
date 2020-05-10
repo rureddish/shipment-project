@@ -119,7 +119,7 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 parentWindow.setVisible(true);
-                loggedIn = null;
+                loggedIn.logOut();
             }
         });
 

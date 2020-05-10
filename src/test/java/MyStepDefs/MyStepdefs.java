@@ -500,10 +500,10 @@ public class MyStepdefs {
 	//  Feature Advanced Query
 	////////////////////////////////////////
     
-    @When("admin searches for clients with most journeys")
+    /*@When("admin searches for clients with most journeys")
     public void admin_searches_for_client_with_most_journeys() {
         clientSearch = cs.search.getClientsByMostJourneys(clients);
-    }
+    }*/
 
 }
 
