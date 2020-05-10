@@ -108,7 +108,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         });
 
         btnLogOut = new JButton("Log Out");
-        btnLogOut.setLocation(690, 11);
+        btnLogOut.setLocation(1130, 11);
         btnLogOut.setSize(150, 29);
         btnLogOut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

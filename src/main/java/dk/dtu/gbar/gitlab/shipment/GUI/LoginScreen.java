@@ -73,7 +73,7 @@ public class LoginScreen {
         btnAdminLogin.addActionListener(e -> {
        	if(login.adminLogIn(txtLogin.getText(), String.valueOf(password.getPassword()))){
             	setVisible(false);
-            	frame.setBounds(100,100,865,550);
+            	frame.setBounds(50,50,1300,550);
             	this.logisticsCompanyScreen = new LogisticsCompanyScreen(this, logisticsCompany);
             	this.logisticsCompanyScreen.setVisible(true);
             	txtLogin.setText("");
