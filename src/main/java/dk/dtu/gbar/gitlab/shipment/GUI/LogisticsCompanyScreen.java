@@ -29,6 +29,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private JRadioButton btnShowAll;
     private JRadioButton btnClientsByJourneyNo;
     private JRadioButton btnSortClientsChronologically;
+    private JRadioButton btnSortContainersChronologically;
+    private JRadioButton btnContainersByLocation;
     private JButton btnSearch;
     private JButton btnExamine;
     private JButton btnRegisterJourney;
@@ -42,6 +44,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private String keyword;
     private List<Journey> journeys;
     private List<Client> clients;
+    private List<Container> containers;
 
 
     ///
@@ -52,6 +55,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         journeys = logisticsCompany.getJourneys();
         keyword = "";
         clients = logisticsCompany.getClients();
+        containers = logisticsCompany.getContainers();
         logisticsCompany.addObserver(this);
 
         initialize();
@@ -201,6 +205,33 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 }
             }
         });
+        btnContainersByLocation = new JRadioButton("Sort Location");
+        btnContainersByLocation.setLocation(1058, 183);
+        btnContainersByLocation.setSize(150,29);
+        btnContainersByLocation.setSelected(false);
+        btnContainersByLocation.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnContainersByLocation.setSelected(true);
+        		btnSortContainersChronologically.setSelected(false);
+        		List containers = logisticsCompany.getContainers();
+        	//	List searchResults 
+        	}
+        });
+        
+        btnSortContainersChronologically = new JRadioButton("Sort Chronologically");
+        btnSortContainersChronologically.setLocation(828,183);
+        btnSortContainersChronologically.setSize(150,29);
+        btnSortContainersChronologically.setSelected(true);
+        btnSortContainersChronologically.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnSortContainersChronologically.setSelected(true);
+        		btnContainersByLocation.setSelected(false);
+        		containerTable.setRowCount(0);
+        		containers = logisticsCompany.getContainers();
+        		displayContainerTable(logisticsCompany.getContainers());
+        		
+        	}
+        });
 
         clientTable = new DefaultTableModel();
         clientTable.addColumn("Name");
@@ -273,6 +304,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(btnSearch);
         panelMainMenuFunctions.add(btnClientsByJourneyNo);
         panelMainMenuFunctions.add(btnSortClientsChronologically);
+        panelMainMenuFunctions.add(btnSortContainersChronologically);
+        panelMainMenuFunctions.add(btnContainersByLocation);
 
         panelMainMenuFunctions.add(scrollJourneys);
         panelMainMenuFunctions.add(scrollClients);
@@ -324,6 +357,12 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         for (Client client : searchResults) {
             clientTable.addRow(new Object[]{client.getClientName(), client.getEmail(), (client.getClientsJourneys().size())});
         }
+    }
+    
+    private void displayContainerTable(List<Container> searchResults) {
+    	for(Container container : searchResults) {
+    		containerTable.addRow(new Object[] {container.getId().toString(), container.getContainerLocation().getName(),container.getOnJourney().toString()});
+    	}
     }
 
 
