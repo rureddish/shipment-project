@@ -491,6 +491,17 @@ public class MyStepdefs {
     public void the_date_is_automatically_stored() {
         assertNotEquals(journey1.getJourneyContainerStatusHistory().size(), 0);
     }
+    
+	////////////////////////////////////////
+	//  Feature Advanced Query
+	////////////////////////////////////////
+    
+    @When("admin searches for clients with most journeys")
+    public void admin_searches_for_client_with_most_journeys() {
+        clientSearch = cs.search.getClientsByMostJourneys(clients);
+    }
 
 }
+
+
 
