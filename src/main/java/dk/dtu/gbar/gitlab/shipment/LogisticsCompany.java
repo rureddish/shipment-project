@@ -3,6 +3,7 @@ package dk.dtu.gbar.gitlab.shipment;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.*;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.JourneyService;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.PortService;
 
@@ -22,6 +23,7 @@ public class LogisticsCompany {
     private String password;
     private ArrayList<Ship> shipList = new ArrayList<>();
     private ClientService cs = new ClientService();
+    private ContainerService cos = new ContainerService();
     private PortService ps = new PortService();
     private JourneyService js = new JourneyService();
 
@@ -55,6 +57,14 @@ public class LogisticsCompany {
         return false;
     }
 
+    public boolean register(Port port) {
+        if (ps.search(new SearchCriteria("NAME", port.getName())).size() == 0) {
+            ps.save(port);
+            return true;
+        }
+        return false;
+    }
+
     public boolean register(Client client) {
         if (!clientEmailAlreadyInUse(client.getEmail())) {
             cs.save(client);
@@ -63,10 +73,15 @@ public class LogisticsCompany {
         return false;
     }
 
-   /* public void register(Container container) {
-        container.setID(containerList.size());
-        containerList.add(container);
-    }*/
+    public boolean register(Container container) {
+        if (cos.search(new SearchCriteria("NAME", container.getName())).size() == 0) {
+            cos.save(container);
+            return true;
+        }
+        return false;
+        /*container.setID(containerList.size());
+        containerList.add(container);*/
+    }
 
     /**
      * if there are containers at origin journey is registered.
@@ -89,7 +104,6 @@ public class LogisticsCompany {
             return false;
         }
     }*/
-
     public boolean register(String origin, String destination, Client loggedInClient, String content) {
         Port originPort = ps.search(new SearchCriteria("NAME", origin)).get(0);
         Collection<Container> containers = originPort.getPortContainers();
@@ -98,6 +112,19 @@ public class LogisticsCompany {
             container.setContainerLocation(null);
             Port destinationPort = ps.search(new SearchCriteria("NAME", destination)).get(0);
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
+            js.save(journey);
+            support.firePropertyChange("Journey Added", null, null);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean register(String content, Client client, Port origin, Port destination) {
+        Collection<Container> containers = origin.getPortContainers();
+        if (containers.size() > 0) {
+            Container container = containers.iterator().next();
+            container.setContainerLocation(null);
+            Journey journey = new Journey(content, container,client,origin,destination);
             js.save(journey);
             support.firePropertyChange("Journey Added", null, null);
             return true;

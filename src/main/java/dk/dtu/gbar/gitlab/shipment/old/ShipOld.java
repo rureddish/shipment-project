@@ -1,5 +1,6 @@
-package dk.dtu.gbar.gitlab.shipment;
+package dk.dtu.gbar.gitlab.shipment.old;
 
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import org.hsqldb.persist.Log;
 
 import java.util.*;

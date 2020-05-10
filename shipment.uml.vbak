@@ -16,7 +16,7 @@
     <node x="1669.1628787878788" y="0.0">dk.dtu.gbar.gitlab.shipment.persistence</node>
     <node x="510.54166666666663" y="1744.0">dk.dtu.gbar.gitlab.shipment.ClientUser</node>
     <node x="1211.5863173539747" y="1150.0">dk.dtu.gbar.gitlab.shipment.Journey</node>
-    <node x="0.0" y="133.0">dk.dtu.gbar.gitlab.shipment.Searcher</node>
+    <node x="0.0" y="133.0">dk.dtu.gbar.gitlab.shipment.old.Searcher</node>
     <node x="1209.7291666666667" y="955.0">dk.dtu.gbar.gitlab.shipment.Container</node>
     <node x="730.1868001753494" y="615.0">dk.dtu.gbar.gitlab.shipment.LogisticsCompany</node>
     <node x="689.356591165245" y="1889.0">dk.dtu.gbar.gitlab.shipment.LogisticsCompanyUser</node>
@@ -33,7 +33,7 @@
       <point x="1377.6174242424242" y="555.0" />
       <point x="110.4545454545455" y="58.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.Searcher" target="dk.dtu.gbar.gitlab.shipment.Client">
+    <edge source="dk.dtu.gbar.gitlab.shipment.old.Searcher" target="dk.dtu.gbar.gitlab.shipment.Client">
       <point x="0.0" y="102.5" />
       <point x="180.0" y="1405.0" />
       <point x="510.64999999999986" y="1405.0" />
@@ -76,7 +76,7 @@
       <point x="1288.0200216450216" y="113.0" />
       <point x="20.85714285714289" y="36.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.LogIn" target="dk.dtu.gbar.gitlab.shipment.Searcher">
+    <edge source="dk.dtu.gbar.gitlab.shipment.LogIn" target="dk.dtu.gbar.gitlab.shipment.old.Searcher">
       <point x="-49.25" y="-47.5" />
       <point x="223.5649244985782" y="1714.0" />
       <point x="147.0" y="1714.0" />
@@ -124,7 +124,7 @@
       <point x="856.0982578319117" y="595.0" />
       <point x="-96.66666666666663" y="36.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.ClientUser" target="dk.dtu.gbar.gitlab.shipment.Searcher">
+    <edge source="dk.dtu.gbar.gitlab.shipment.ClientUser" target="dk.dtu.gbar.gitlab.shipment.old.Searcher">
       <point x="-128.33333333333337" y="-47.5" />
       <point x="536.2083333333333" y="1704.0" />
       <point x="158.0" y="1704.0" />
@@ -188,7 +188,7 @@
       <point x="859.7708333333333" y="378.0" />
       <point x="69.0" y="47.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.ClientList" target="dk.dtu.gbar.gitlab.shipment.Searcher">
+    <edge source="dk.dtu.gbar.gitlab.shipment.ClientList" target="dk.dtu.gbar.gitlab.shipment.old.Searcher">
       <point x="-31.875" y="-36.5" />
       <point x="308.12499999999994" y="388.0" />
       <point x="340.0" y="388.0" />
@@ -273,7 +273,7 @@
       <point x="711.3499999999999" y="1405.0" />
       <point x="100.35000000000002" y="-124.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.Searcher" target="dk.dtu.gbar.gitlab.shipment.Journey">
+    <edge source="dk.dtu.gbar.gitlab.shipment.old.Searcher" target="dk.dtu.gbar.gitlab.shipment.Journey">
       <point x="40.0" y="102.5" />
       <point x="220.0" y="368.0" />
       <point x="191.0" y="368.0" />
@@ -305,7 +305,7 @@
       <point x="555.2499999999999" y="1385.0" />
       <point x="-55.75000000000006" y="-124.5" />
     </edge>
-    <edge source="dk.dtu.gbar.gitlab.shipment.Searcher" target="dk.dtu.gbar.gitlab.shipment.Entity">
+    <edge source="dk.dtu.gbar.gitlab.shipment.old.Searcher" target="dk.dtu.gbar.gitlab.shipment.Entity">
       <point x="0.0" y="-102.5" />
       <point x="180.0" y="93.0" />
       <point x="1204.59145021645" y="93.0" />

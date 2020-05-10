@@ -103,17 +103,23 @@ public class Container {
     protected Container() {
     }
 
-    public Container(String name, Boolean onJourney, Client containerOwner) {
+    public Container(String name, Boolean onJourney, Client containerOwner, Port containerLocation) {
         this.name = name;
         this.onJourney = onJourney;
         this.containerOwner = containerOwner;
+        this.containerShip = null;
+        this.containerLocation = containerLocation;
     }
 
     public Container(String name, Client containerOwner) {
-        this(name, false, containerOwner);
+        this(name, false, containerOwner, null);
     }
 
     public Container(String name) {
-        this(name, false, null);
+        this(name, false, null, null);
+    }
+
+    public Container(String name, Port containerLocation) {
+        this(name, false, null, containerLocation);
     }
 }

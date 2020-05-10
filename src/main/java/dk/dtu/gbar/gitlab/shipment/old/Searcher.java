@@ -1,4 +1,6 @@
-package dk.dtu.gbar.gitlab.shipment;
+package dk.dtu.gbar.gitlab.shipment.old;
+
+import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 
 import java.util.*;
 import java.util.function.Predicate;

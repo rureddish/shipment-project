@@ -1,6 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment.GUI;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -22,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
-import dk.dtu.gbar.gitlab.shipment.Searcher;
+import dk.dtu.gbar.gitlab.shipment.old.Searcher;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 
 import javax.swing.JTable;

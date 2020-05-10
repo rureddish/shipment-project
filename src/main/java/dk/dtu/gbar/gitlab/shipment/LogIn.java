@@ -1,11 +1,10 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import dk.dtu.gbar.gitlab.shipment.persistence.dao.ClientDao;
+import dk.dtu.gbar.gitlab.shipment.old.Searcher;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

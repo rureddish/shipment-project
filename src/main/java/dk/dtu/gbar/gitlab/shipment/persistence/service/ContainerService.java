@@ -4,6 +4,8 @@ import dk.dtu.gbar.gitlab.shipment.persistence.dao.ContainerDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ContainerDaoInterface;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
+import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 
 import java.util.List;
 
@@ -63,6 +65,12 @@ public class ContainerService implements ContainerDaoInterface {
         List<ContainerStatus> s = containerDao.getLastStatuses(container);
         containerDao.closeSession();
         return s;
+    }
+    public List<Container> search(SearchCriteria search) {
+        containerDao.openSession();
+        List<Container> containers = containerDao.search(search);
+        containerDao.closeSession();
+        return containers;
     }
 
 }

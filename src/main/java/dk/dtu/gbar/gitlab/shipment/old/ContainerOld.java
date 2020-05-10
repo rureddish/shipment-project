@@ -1,5 +1,7 @@
-package dk.dtu.gbar.gitlab.shipment;
+package dk.dtu.gbar.gitlab.shipment.old;
 
+
+import dk.dtu.gbar.gitlab.shipment.ContainerStatus;
 
 import java.util.ArrayList;
 import java.util.Stack;

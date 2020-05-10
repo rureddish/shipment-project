@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import dk.dtu.gbar.gitlab.shipment.Client;
 import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
-import dk.dtu.gbar.gitlab.shipment.Searcher;
+import dk.dtu.gbar.gitlab.shipment.old.Searcher;
 
 public class LogisticsCompanyScreen extends JFrame implements PropertyChangeListener {
 

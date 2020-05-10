@@ -1,13 +1,13 @@
 package MyStepDefs;
 
 import dk.dtu.gbar.gitlab.shipment.*;
+import dk.dtu.gbar.gitlab.shipment.old.Searcher;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

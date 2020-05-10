@@ -67,7 +67,7 @@ public class Journey {
         return Objects.hash(id, sailStatus, containerContent);
     }
 
-    @OneToMany(mappedBy = "journeyStatusParent",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "journeyStatusParent", fetch = FetchType.LAZY)
     public Collection<ContainerStatus> getJourneyContainerStatusHistory() {
         return journeyContainerStatusHistory;
     }
@@ -155,7 +155,7 @@ public class Journey {
         this.journeyNextLocation = portByNextLocation;
     }
 
-    @OneToMany(mappedBy = "locationJourneyParent",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "locationJourneyParent", fetch = FetchType.LAZY)
     public Collection<Location> getJourneyTravelHistory() {
         return journeyTravelHistory;
     }
@@ -164,7 +164,7 @@ public class Journey {
         this.journeyTravelHistory = locationsById;
     }
 
-    protected Journey(){
+    protected Journey() {
     }
 
     public Journey(JourneySailStatus sailStatus, String containerContent, Container journeyContainer, Path journeyPath, Client journeyClient, Port journeyOrigin, Port journeyDestination, Port journeyCurrentLocation, Port journeyNextLocation) {
@@ -189,5 +189,9 @@ public class Journey {
         this.journeyCurrentLocation = journeyCurrentLocation;
         this.journeyNextLocation = journeyNextLocation;
         this.sailStatus = JourneySailStatus.PREPARING;
+    }
+
+    public Journey(String content, Container container, Client client, Port origin, Port destination) {
+        this(content, container, null, client, origin, destination, origin, destination);
     }
 }
