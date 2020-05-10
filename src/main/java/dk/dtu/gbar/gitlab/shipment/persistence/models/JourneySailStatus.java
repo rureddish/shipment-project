@@ -1,7 +1,7 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 public enum JourneySailStatus {
-    PREPARING("Preparing"), IN_DOCK("In dock"), SAILING("Sailing"), FINISHED("Finished");
+    PREPARING("PREPARING"), IN_DOCK("IN DOCK"), SAILING("SAILING"), FINISHED("FINISHED");
     private String status;
 
     JourneySailStatus(String status) {
