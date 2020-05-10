@@ -109,6 +109,7 @@ public class LogisticsCompany {
         Collection<Container> containers = originPort.getPortContainers();
         if (containers.size() > 0) {
             Container container = containers.iterator().next();
+            System.out.println(container.getName());
             container.setContainerLocation(null);
             Port destinationPort = ps.search(new SearchCriteria("name", destination)).get(0);
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);

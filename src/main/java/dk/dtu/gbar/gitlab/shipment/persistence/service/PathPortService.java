@@ -7,7 +7,7 @@ import dk.dtu.gbar.gitlab.shipment.persistence.models.PathPort;
 import java.util.List;
 
 public class PathPortService implements PathPortDaoInterface {
-    PathPortDao pathPortDao;
+    private static PathPortDao pathPortDao;
 
     public PathPortService() {
         this.pathPortDao = new PathPortDao();

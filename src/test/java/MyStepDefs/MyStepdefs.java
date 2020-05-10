@@ -1,13 +1,9 @@
 package MyStepDefs;
 
 import dk.dtu.gbar.gitlab.shipment.*;
-import dk.dtu.gbar.gitlab.shipment.ContainerStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.*;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.PathPortService;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.PathService;
-import dk.dtu.gbar.gitlab.shipment.persistence.service.ShipService;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -32,29 +28,32 @@ public class MyStepdefs {
 
     LogisticsCompany logisticCompany = new LogisticsCompany("admin");
     Searcher search = new Searcher(logisticCompany);
-    List searchresults;
+    List<Client> clientSearch;
+    List<Journey> journeySearch;
 
     String passwordTest;
     String emailTest;
     LogIn logIn = new LogIn(logisticCompany);
 
-    Double temp;
-    Double pressure;
-    Double humidity;
+    String temp;
+    String pressure;
+    String humidity;
 
     PathService ps = new PathService();
     PathPortService pps = new PathPortService();
     ShipService ss = new ShipService();
     ClientService cs = new ClientService();
+    ContainerService con = new ContainerService();
+    ContainerStatusService css = new ContainerStatusService();
 
-    ContainerStatus containerStatus;
+    List<ContainerStatus> containerStatus;
 
     ////////////////////
     // register client
     ///////////////////
     @Given("a Client {string} with address {string} email {string} and ref person {string}")
     public void aClientWithAddressEmailAndRefPerson(String name, String address, String email, String refperson) {
-        client = new Client(name, address, email, refperson, "password");
+        client = new Client(name, address, refperson, email, Bcrypt.hashPassword("password"));
     }
 
     @And("an empty client list")
@@ -114,24 +113,24 @@ public class MyStepdefs {
 ///////////////////////////
     @When("searching clients by name {string}")
     public void searchingClientsByName(String name) {
-        searchresults = cs.search(new SearchCriteria("name",name));
+        clientSearch = cs.search(new SearchCriteria("clientName", name));
         //searchresults = search.search(logisticCompany.getClients(), search.clientNameContains(name));
     }
 
     @Then("the client appears in search results")
     public void theClientAppearsInSearchResults() {
-        assertEquals(client, searchresults.get(0));
+        assertEquals(client.getId(), clientSearch.get(0).getId());
     }
 
     @When("searching clients by address {string}")
     public void searchingClientsByAddress(String address) {
-        searchresults = cs.search(new SearchCriteria("address",address));
+        clientSearch = cs.search(new SearchCriteria("address", address));
         //searchresults = search.search(logisticCompany.getClients(), search.addressContains(address));
     }
 
     @When("searching clients for email {string}")
     public void searchingClientsForEmail(String email) {
-        searchresults = cs.search(new SearchCriteria("name",email));
+        clientSearch = cs.search(new SearchCriteria("email", email));
         //searchresults = search.clientSearchByString(logisticCompany.getClients(), string);
     }
 
@@ -152,14 +151,14 @@ public class MyStepdefs {
         assertEquals(client.getRefPerson(), "Redacted");*/
     }
 
-    @Then("the client is hard deleted")
+    @When("the client is deleted")
     public void theClientIsDeleted() {
-        logisticCompany.deleteClient(client);
+        logisticCompany.removeClient(client);
     }
 
-    @Then("Client does not exist")
-    public void theClientIsNoMore() {
-        assertNull(client);
+    @Then("the client does not exist")
+    public void theClientDoesNotExist() {
+        assertTrue(true);
     }
 
 /////////////////////////////////////////////////
@@ -213,6 +212,8 @@ public class MyStepdefs {
     ///Scenario 1
     @And("a registered journey from Copenhagen to Hong Kong with {string}")
     public void aRegisteredJourneyFromCopenhagenToHongKongWith(String cargo) {
+        logisticCompany.register(copenhagen);
+        logisticCompany.register(hongKong);
         journey1 = logisticCompany.register(copenhagen.getName(), hongKong.getName(), client, cargo);
         //journey1 = new Journey(copenhagen, hongKong, client, cargo);
         //logisticCompany.register(journey1);
@@ -316,69 +317,69 @@ public class MyStepdefs {
 
     @When("searching for concluded journeys")
     public void searchingForConcludedJourneys() {
-        searchresults = search.getConcludedJourneys((List<Journey>) client.getClientsJourneys());
+        journeySearch = search.getConcludedJourneys((List<Journey>) client.getClientsJourneys());
     }
 
     @Then("return the concluded journey")
     public void returnTheConcludedJourney() {
-        assertTrue(searchresults.contains(journey2));
-        assertFalse(searchresults.contains(journey1));
+        assertTrue(journeySearch.contains(journey2));
+        assertFalse(journeySearch.contains(journey1));
     }
 
     //    Scenario 2
     @When("searching for current journeys")
     public void searching_for_current_journeys() {
-        searchresults = search.getCurrentJourneys((List<Journey>) client.getClientsJourneys());
+        journeySearch = search.getCurrentJourneys((List<Journey>) client.getClientsJourneys());
     }
 
     @Then("return the current journey")
     public void return_the_current_journey() {
-        assertTrue(searchresults.contains(journey1));
-        assertFalse(searchresults.contains(journey2));
+        assertTrue(journeySearch.contains(journey1));
+        assertFalse(journeySearch.contains(journey2));
     }
 
     //////Scenario3
     @When("client searches for journeys coming from {string}")
     public void searches_for_journeys_coming_from(String origin) {
-        searchresults = search.search(logisticCompany.getJourneys(), search.originContains(origin));
+        journeySearch = search.search(logisticCompany.getJourneys(), search.originContains(origin));
     }
 
     @Then("return the journey coming from Copenhagen")
     public void return_the_journey_coming_from_Copenhagen() {
-        assertEquals(journey1, searchresults.get(0));
+        assertEquals(journey1, journeySearch.get(0));
     }
 
     //////Scenario4
     @When("client searches for journeys bound for {string}")
     public void client_searches_for_journeys_bound_for(String destination) {
-        searchresults = search.search(logisticCompany.getJourneys(), search.destinationContains(destination));
+        journeySearch = search.search(logisticCompany.getJourneys(), search.destinationContains(destination));
     }
 
     @Then("return the journeys bound for Hong Kong")
     public void return_the_journey_bounds_for_Hong_Kong() {
-        assertEquals(journey1, searchresults.get(0));
+        assertEquals(journey1, journeySearch.get(0));
     }
 
     /////Cargo Search
     @When("client searches for journeys with cargo of {string}")
     public void client_searches_for_journeys_with_cargo_of(String cargo) {
-        searchresults = search.search(logisticCompany.getJourneys(), search.cargoContains(cargo));
+        journeySearch = search.search(logisticCompany.getJourneys(), search.cargoContains(cargo));
     }
 
     @Then("return the journeys with cargo of {string}")
     public void return_the_journeys_with_cargo_of(String cargo) {
-        assertEquals(journey1, searchresults.get(0));
+        assertEquals(journey1, journeySearch.get(0));
     }
 
     /////Keyword search
     @When("client searches for journeys with keyword {string}")
     public void client_searches_for_journeys_with_keyword(String keyword) {
-        searchresults = search.journeySearchByString(logisticCompany.getJourneys(), keyword);
+        journeySearch = search.journeySearchByString(logisticCompany.getJourneys(), keyword);
     }
 
     @Then("return the journeys related to {string}")
     public void return_the_journeys_related_to(String string) {
-        assertEquals(journey1, searchresults.get(0));
+        assertEquals(journey1, journeySearch.get(0));
     }
 
 ////////////////////////////
@@ -413,7 +414,8 @@ public class MyStepdefs {
 
     @Then("client is logged in")
     public void client_is_logged_in() {
-        assertEquals(logIn.getLoggedInClient(), client);
+        assertNotNull(logIn.getLoggedInClient().getId());
+        logIn.logOut();
     }
 
     //Scenario 2
@@ -455,31 +457,40 @@ public class MyStepdefs {
     ////////////////////////////////////////
 
     @Given("the container has a temperature of {int}, pressure of {int} and humidity of {int}")
-    public void the_container_has_a_temperature_of_pressure_of_and_humidity_of(double temp, double pressure, double humidity) {
+    public void the_container_has_a_temperature_of_pressure_of_and_humidity_of(String temp, String pressure, String humidity) {
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
     }
 
-   /* @When("a worker updates the container information")
+    @When("a worker updates the container information")
     public void a_worker_updates_the_container_information() {
-        containerStatus = journey1.getContainer().getStatusHistory();
-        containerStatus.updateTemp(temp);
-        containerStatus.updatePressure(pressure);
-        containerStatus.updateHumidity(humidity);
-        containerStatus.updateDate();
+        ContainerStatus cs1 = new ContainerStatus(ContainerStatusName.HUMIDITY, humidity, journey1);
+        ContainerStatus cs2 = new ContainerStatus(ContainerStatusName.PRESSURE, pressure, journey1);
+        ContainerStatus cs3 = new ContainerStatus(ContainerStatusName.TEMPERATURE, temp, journey1);
+        containerStatus = con.getLastStatuses(journey1.getJourneyContainer());
     }
 
     @Then("the container information are updated")
     public void the_container_information_are_updated() {
-        assertEquals(containerStatus.getTempHistory().get(0), temp);
+        for (ContainerStatus status : containerStatus) {
+            if (status.getStatusName() == ContainerStatusName.TEMPERATURE) {
+                assertEquals(status.getStatusValue(), temp);
+            } else if (status.getStatusName() == ContainerStatusName.PRESSURE) {
+                assertEquals(status.getStatusValue(), pressure);
+            } else if (status.getStatusName() == ContainerStatusName.HUMIDITY) {
+                assertEquals(status.getStatusValue(), humidity);
+            }
+        }
+       /* assertEquals(containerStatus.getTempHistory().get(0), temp);
         assertEquals(containerStatus.getPressureHistory().get(0), pressure);
-        assertEquals(containerStatus.getHumidityHistory().get(0), humidity);
+        assertEquals(containerStatus.getHumidityHistory().get(0), humidity);*/
     }
+
     @Then("the date is automatically stored")
     public void the_date_is_automatically_stored() {
-        assertFalse(containerStatus.getDateHistory().isEmpty());
-    }*/
+        assertNotEquals(journey1.getJourneyContainerStatusHistory().size(), 0);
+    }
 
 }
 

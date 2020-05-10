@@ -32,7 +32,7 @@ public class Client {
     }
 
     @Basic
-    @Column(name = "CLIENT_NAME", nullable = false, length = 255)
+    @Column(name = "client_name", nullable = false, length = 255)
     public String getClientName() {
         return clientName;
     }

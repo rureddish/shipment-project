@@ -2,10 +2,8 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.PathDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.PathDaoInterface;
-import dk.dtu.gbar.gitlab.shipment.persistence.dao.PortDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Path;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.PathPort;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Ship;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 
 import java.util.List;

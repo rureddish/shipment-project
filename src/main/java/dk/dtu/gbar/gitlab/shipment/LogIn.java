@@ -44,6 +44,7 @@ public class LogIn {
 //        }
 //    }
     public boolean loginClient(String email, String password) {
+        System.out.println(email);
         List<Client> search = cs.search(new SearchCriteria("email", email));
         //ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
         if (search.size() == 0) {
