@@ -55,14 +55,13 @@ public class Main {
     public static void main(String[] args) {
 		LogisticsCompany logisticsCompany = new LogisticsCompany("admin");
         initialLogins(logisticsCompany);
-        EventQueue.invokeLater(() -> {
+        /*EventQueue.invokeLater(() -> {
 			try {
 				LoginScreen loginScreen = new LoginScreen(logisticsCompany);
 				loginScreen.frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		});
+			}*/
     	 
 
 
