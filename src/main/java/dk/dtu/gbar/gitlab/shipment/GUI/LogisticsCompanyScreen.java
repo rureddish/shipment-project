@@ -32,6 +32,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private JRadioButton btnSortContainersChronologically;
     private JRadioButton btnContainersByLocation;
     private JButton btnSearch;
+    private JButton btnSearchClients;
     private JButton btnExamine;
     private JButton btnRegisterJourney;
     private JTable tblJourneys;
@@ -113,6 +114,31 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
 
         });
+        
+        JTextField txtClientKeywordSearch = new JTextField(30);
+        txtClientKeywordSearch.setLocation(521, 96);
+        txtClientKeywordSearch.setSize(130, 26);
+        JLabel lblClientKeywordSearch = new JLabel("Client");
+        lblClientKeywordSearch.setLocation(428, 96);
+        lblClientKeywordSearch.setSize(83, 26);
+        
+        JTextField txtEmailKeywordSearch = new JTextField(30);
+        txtEmailKeywordSearch.setLocation(521, 125);
+        txtEmailKeywordSearch.setSize(130, 26);
+        JLabel lblEmailKeywordSearch = new JLabel("Email");
+        lblEmailKeywordSearch.setLocation(428, 125);
+        lblEmailKeywordSearch.setSize(83, 26);
+        
+        
+        btnSearchClients = new JButton("Search");
+        btnSearchClients.setSize(150,29);
+        btnSearchClients.setLocation(616,183);
+        
+        btnSearchClients.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
 
         btnLogOut = new JButton("Log Out");
         btnLogOut.setLocation(1130, 11);
@@ -190,7 +216,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         });
 
         btnSortClientsChronologically = new JRadioButton("Sort chronologically");
-        btnSortClientsChronologically.setLocation(616, 183);
+        btnSortClientsChronologically.setLocation(428, 158);
         btnSortClientsChronologically.setSize(150, 29);
         btnSortClientsChronologically.setSelected(true);
         btnSortClientsChronologically.addActionListener(new ActionListener() {
@@ -288,6 +314,10 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollContainers.setSize(380, 214);
         scrollContainers.setLocation(828,219);
 
+        panelMainMenuFunctions.add(txtEmailKeywordSearch);
+        panelMainMenuFunctions.add(lblEmailKeywordSearch);
+        panelMainMenuFunctions.add(txtClientKeywordSearch);
+        panelMainMenuFunctions.add(lblClientKeywordSearch);
         panelMainMenuFunctions.add(lblKeywordSearch);
         panelMainMenuFunctions.add(txtKeywordSearch);
         panelMainMenuFunctions.add(txtDestinationKeywordSearch);
@@ -302,6 +332,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(btnShowAll);
         panelMainMenuFunctions.add(btnLogOut);
         panelMainMenuFunctions.add(btnSearch);
+        panelMainMenuFunctions.add(btnSearchClients);
         panelMainMenuFunctions.add(btnClientsByJourneyNo);
         panelMainMenuFunctions.add(btnSortClientsChronologically);
         panelMainMenuFunctions.add(btnSortContainersChronologically);
