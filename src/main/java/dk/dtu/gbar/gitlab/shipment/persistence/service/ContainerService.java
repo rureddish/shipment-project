@@ -66,6 +66,18 @@ public class ContainerService implements ContainerDaoInterface {
         containerDao.closeSession();
         return s;
     }
+    public List<Journey> getAllJourneys(Container container){
+        containerDao.openSession();
+        List<Journey> j = containerDao.getAllJourneys(container);
+        containerDao.closeSession();
+        return j;
+    }
+    public Journey getCurrentJourney(Container container){
+        containerDao.openSession();
+        Journey j = containerDao.getCurrentJourney(container);
+        containerDao.closeSession();
+        return j;
+    }
     public List<Container> search(SearchCriteria search) {
         containerDao.openSession();
         List<Container> containers = containerDao.search(search);

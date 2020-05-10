@@ -58,8 +58,6 @@ public class LogisticsCompany {
     }
 
     public boolean register(Port port) {
-        Collection<Port> search = ps.search(new SearchCriteria("name", port.getName()));
-
         if (ps.search(new SearchCriteria("name", port.getName())).size() > 0) {
             return false;
         }
@@ -106,7 +104,7 @@ public class LogisticsCompany {
             return false;
         }
     }*/
-    public boolean register(String origin, String destination, Client loggedInClient, String content) {
+    public Journey register(String origin, String destination, Client loggedInClient, String content) {
         Port originPort = ps.search(new SearchCriteria("name", origin)).get(0);
         Collection<Container> containers = originPort.getPortContainers();
         if (containers.size() > 0) {
@@ -116,9 +114,9 @@ public class LogisticsCompany {
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
             js.save(journey);
             support.firePropertyChange("Journey Added", null, null);
-            return true;
+            return journey;
         }
-        return false;
+        return null;
     }
 
     public boolean register(String content, Client client, Port origin, Port destination) {
@@ -145,6 +143,10 @@ public class LogisticsCompany {
 		client.setName("Redacted");
 		client.setEmail("Redacted");*/
         client.setClientStatus(ClientStatus.DELETED);
+    }
+
+    public void deleteClient(Client client) {
+        cs.deleteById(client.getId());
     }
 
     public boolean clientEmailAlreadyInUse(String email) {
@@ -181,5 +183,9 @@ public class LogisticsCompany {
 
     public List<Client> getClients() {
         return cs.getAll();
+    }
+
+    public List<Container> getContainers() {
+        return cos.getAll();
     }
 }

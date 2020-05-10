@@ -2,9 +2,10 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ShipDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.ShipDaoInterface;
-import dk.dtu.gbar.gitlab.shipment.persistence.models.Ship;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.*;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class ShipService implements ShipDaoInterface {
     @Override
     public Ship getById(int id) {
         shipDao.openSession();
-        Ship ship =shipDao.getById(id);
+        Ship ship = shipDao.getById(id);
         shipDao.closeSession();
         return ship;
     }
@@ -53,10 +54,50 @@ public class ShipService implements ShipDaoInterface {
         shipDao.openSession();
 
     }
+
     public List<Ship> search(SearchCriteria search) {
         shipDao.openSession();
         List<Ship> ports = shipDao.search(search);
         shipDao.closeSession();
         return ports;
+    }
+
+    public void depart(Ship ship) {
+        Collection<Container> containers = ship.getShipContainers();
+        ship.setShipPort(null);
+        for (Container c : containers) {
+            c.setOnJourney(true);
+        }
+        if (ship.getShipPath() != null && ship.getCurrentNode() == null) {
+            Path p = ship.getShipPath();
+            PathService ps = new PathService();
+            PathPort pp = ps.start(p);
+            ship.setCurrentNode(pp);
+            for (Container c : containers) {
+                ContainerService cs = new ContainerService();
+                Journey j = cs.getCurrentJourney(c);
+                j.setJourneyNextLocation(pp.getPortParent());
+            }
+        }
+
+    }
+
+    public void arrive(Ship ship) {
+        PathPort pp = ship.getCurrentNode();
+        ship.setShipPort(pp.getNext().getPortParent());
+        ship.setCurrentNode(pp.getNext());
+        for (Container c : ship.getShipContainers()) {
+            ContainerService cs = new ContainerService();
+            Journey j = cs.getCurrentJourney(c);
+            j.setJourneyNextLocation(ship.getCurrentNode().getNext().getPortParent());
+            if (j.getJourneyDestination() == ship.getShipPort()) {
+                j.setSailStatus(JourneySailStatus.FINISHED);
+                c.setOnJourney(false);
+                c.setContainerShip(null);
+                j.getJourneyContainer().setContainerLocation(ship.getShipPort());
+            }
+
+        }
+
     }
 }

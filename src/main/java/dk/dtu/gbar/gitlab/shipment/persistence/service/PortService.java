@@ -66,7 +66,7 @@ public class PortService implements PortDaoInterface {
     public void deleteAll() {
         portDao.openSession();
         portDao.deleteAll();
-        portDao.openSession();
+        portDao.closeSession();
     }
 
     public List<Port> search(SearchCriteria search) {

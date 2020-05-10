@@ -72,7 +72,7 @@ public class JourneyRegisterScreen extends JFrame {
                 } else {
                     if (logisticsCompany.register(lstOrigin.getSelectedValue(),
                             lstDestination.getSelectedValue(), loggedIn.getLoggedInClient()
-                            , txtCargo.getText())) {
+                            , txtCargo.getText())!=null) {
                         JOptionPane.showMessageDialog(null, "Successfull Registration");
                         clear();
                     } else {

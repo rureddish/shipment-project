@@ -91,7 +91,7 @@ public class Container {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SHIP_FK", referencedColumnName = "id")
+    @JoinColumn(name = "ship_fk", referencedColumnName = "id")
     public Ship getContainerShip() {
         return containerShip;
     }

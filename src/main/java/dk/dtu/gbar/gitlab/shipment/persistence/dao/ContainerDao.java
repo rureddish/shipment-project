@@ -3,6 +3,7 @@ package dk.dtu.gbar.gitlab.shipment.persistence.dao;
 import dk.dtu.gbar.gitlab.shipment.persistence.Connection;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import org.hibernate.query.Query;
 
@@ -43,16 +44,33 @@ public class ContainerDao extends Connection implements ContainerDaoInterface {
         Query<ContainerStatus> query = getSession().createQuery("FROM ContainerStatus " +
                 "WHERE journeyStatusParent = (FROM Journey WHERE journeyContainer = :container) " +
                 "AND id in (SELECT MAX(id) FROM ContainerStatus " +
-                "GROUP BY statusName)",ContainerStatus.class);
-        query.setParameter("container",container);
+                "GROUP BY statusName)", ContainerStatus.class);
+        query.setParameter("container", container);
         return query.list();
     }
-    public List<Container> search (SearchCriteria search){
+
+    public List<Journey> getAllJourneys(Container container) {
+        Query<Journey> query = getSession().createQuery("FROM Journey " +
+                "WHERE journeyContainer =  :container ", Journey.class);
+        query.setParameter("container", container);
+        return query.list();
+    }
+
+    public Journey getCurrentJourney(Container container) {
+        Query<Journey> query = getSession().createQuery("FROM Journey " +
+                "WHERE journeyContainer =  :container AND sailStatus != 'FINISHED'", Journey.class);
+        query.setParameter("container", container);
+        return query.list().get(0);
+    }
+
+    public List<Container> search(SearchCriteria search) {
         CriteriaBuilder cb = getSession().getCriteriaBuilder();
         CriteriaQuery<Container> criteria = cb.createQuery(Container.class);
         Root<Container> root = criteria.from(Container.class);
-        Predicate predicate = cb.like(root.get(search.getFieldName()),search.getValue());
+        Predicate predicate = cb.like(root.get(search.getFieldName()), search.getValue());
         criteria.select(root).where(predicate);
         return getSession().createQuery(criteria).getResultList();
     }
+
+
 }

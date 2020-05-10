@@ -4,10 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:hsqldb:file:C:/Users/waage/IdeaProjects/shipment-project/src/main/resources/persistence/database</property>
-        <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
-        <property name="connection.pool_size">20</property>
-        <!-- DEBUG -->
+        <!-- <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
+         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>-->
+         <property name="connection.pool_size">20</property>
+
+         <!-- DEBUG -->
         <property name="show_sql">false</property>
         <property name="format_sql">false</property>
         <!-- CAUTION TO N+1 PROBLEM WITH ORM -->
