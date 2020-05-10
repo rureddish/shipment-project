@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import dk.dtu.gbar.gitlab.shipment.Searcher;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 
 public class LogisticsCompanyScreen extends JFrame implements PropertyChangeListener {
@@ -33,8 +34,10 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private JButton btnRegisterJourney;
     private JTable tblJourneys;
     private JTable tblClients;
+    private JTable tblContainers;
     private DefaultTableModel journeyTable;
     private DefaultTableModel clientTable;
+    private DefaultTableModel containerTable;
     private Searcher search;
     private String keyword;
     private List<Journey> journeys;
@@ -207,6 +210,13 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
             clientTable.addRow(new Object[]{client.getClientName(), client.getEmail(), (client.getClientsJourneys().size())});
         }
 
+        containerTable = new DefaultTableModel();
+        containerTable.addColumn("Container ID");
+        containerTable.addColumn("Container Location");
+        containerTable.addColumn("Container on Journey");
+        for(Container container : logisticsCompany.getContainers()) {
+        	containerTable.addRow(new Object[] {container.getId().toString(), container.getContainerLocation().getName(),container.getOnJourney().toString()});
+        }
 
         JScrollPane scrollJourneys = new JScrollPane();
         scrollJourneys.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -217,6 +227,11 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollClients.setVerticalScrollBarPolicy((JScrollPane.VERTICAL_SCROLLBAR_ALWAYS));
         tblClients = new JTable(clientTable);
         scrollClients.setViewportView(tblClients);
+        
+        JScrollPane scrollContainers = new JScrollPane();
+        scrollContainers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        tblContainers = new JTable(containerTable);
+        scrollContainers.setViewportView(tblContainers);
 
 
         btnSearch.setBounds(302, 95, 150, 29);
@@ -238,6 +253,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
         scrollClients.setSize(338, 214);
         scrollClients.setLocation(502, 203);
+        
+        scrollContainers.setSize(380, 214);
+        scrollContainers.setLocation(895,203);
 
         panelMainMenuFunctions.add(lblKeywordSearch);
         panelMainMenuFunctions.add(txtKeywordSearch);
@@ -258,6 +276,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
         panelMainMenuFunctions.add(scrollJourneys);
         panelMainMenuFunctions.add(scrollClients);
+        panelMainMenuFunctions.add(scrollContainers);
 
 
     }
