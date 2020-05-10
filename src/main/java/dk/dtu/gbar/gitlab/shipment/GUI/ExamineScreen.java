@@ -30,14 +30,16 @@ public class ExamineScreen extends JFrame {
 	private int journeyID;
 	private JButton btnBack;
 	private JLabel lblJourneyStatus;
+	private int journeyIndex;
 	
 	
-	public ExamineScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany, int journeyID) {
+	public ExamineScreen(LoginScreen parentWindow, ClientScreen clientScreen, LogIn loggedIn, LogisticsCompany logisticsCompany, int journeyID, int journeyIndex) {
 		this.parentWindow = parentWindow;
 		this.clientScreen = clientScreen;
 		this.loggedIn = loggedIn;
 		this.logisticsCompany = logisticsCompany;
 		this.journeyID = journeyID;
+		this.journeyIndex = journeyIndex;
 		initialize();
 	}
 	private void initialize() {
@@ -59,7 +61,7 @@ public class ExamineScreen extends JFrame {
 		});
 		lblJourneyStatus = new JLabel("Journey Status for Journey ID " + journeyID);
  		lblJourneyStatus.setBounds(10, 26, 192, 14);
- 		Journey currentJourney = logisticsCompany.getJourneys().get(journeyID-1);
+ 		Journey currentJourney = logisticsCompany.getJourneys().get(journeyIndex);
  		JTextArea txtStatus = new JTextArea(
  				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
  				"Container Contents: " + currentJourney.getContainerContent() +"\n"+

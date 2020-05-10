@@ -195,9 +195,10 @@ public class ClientScreen extends JFrame implements PropertyChangeListener {
         btnExamine.setBounds(290, 428, 150, 29);
         btnExamine.addActionListener(e -> {
             if (tblJourneys.getSelectedRow() != -1) {
-                int containerID = (int) clientJourneys.getValueAt(tblJourneys.getSelectedRow(), 3);
+                int journeyID = (int) clientJourneys.getValueAt(tblJourneys.getSelectedRow(), 3);
+                int journeyIndex = tblJourneys.getSelectedRow();
                 setVisible(false);
-                this.examineScreen = new ExamineScreen(parentWindow, this, loggedIn, logisticsCompany, containerID);
+                this.examineScreen = new ExamineScreen(parentWindow, this, loggedIn, logisticsCompany, journeyID, journeyIndex);
                 examineScreen.setVisible(true);
             }
         });
