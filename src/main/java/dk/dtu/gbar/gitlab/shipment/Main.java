@@ -23,7 +23,7 @@ public class Main {
         logisticsCompany.register(hongkong);
         logisticsCompany.register(copenhagen);
         logisticsCompany.register(london);
-        logisticsCompany.register(new Container("A", hongkong));
+        /*logisticsCompany.register(new Container("A", hongkong));
         logisticsCompany.register(new Container("B", hongkong));
         logisticsCompany.register(new Container("C", hongkong));
         logisticsCompany.register(new Container("D", tokyo));
@@ -33,7 +33,7 @@ public class Main {
         logisticsCompany.register(new Container("H", berlin));
         logisticsCompany.register(new Container("I", berlin));
         logisticsCompany.register(new Container("J", newyork));
-        logisticsCompany.register(new Container("K", london));
+        logisticsCompany.register(new Container("K", london));*/
         //ClientOld maersk = new ClientOld("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", "m");
         Client maersk = new Client("Maersk", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", Bcrypt.hashPassword("m"));
         logisticsCompany.register(maersk);
@@ -53,33 +53,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Client maersk = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m", Bcrypt.hashPassword("m"));
-        ClientService cs = new ClientService();
-        cs.save(maersk);
-        PortService ps = new PortService();
-        Port hongkong = new Port("Hong kong2", "0");
-        ps.save(hongkong);
-        ContainerService con = new ContainerService();
-        Container container = new Container("LULW");
-        con.save(container);
-        container.setName("CHANGED");
-        JourneyService js = new JourneyService();
-        Journey journey = new Journey("CONTENT",container,maersk,hongkong,hongkong);
-        js.save(journey);
-        ContainerStatusService css = new ContainerStatusService();
-        List<ContainerStatus> statusList = con.getLastStatuses(container);
-        ContainerStatus stat1 = new ContainerStatus(ContainerStatusName.TEMPERATURE,"10",journey);
-        ContainerStatus stat2 = new ContainerStatus(ContainerStatusName.HUMIDITY,"10",journey);
-        ContainerStatus stat3 = new ContainerStatus(ContainerStatusName.PRESSURE,"10",journey);
-        css.save(stat1);
-        css.save(stat2);
-        css.save(stat3);
-        //List<ContainerStatus> statusList = con.getLastStatuses(container);
-        for(ContainerStatus s: statusList){
-            System.out.println(s.getStatusName());
-            System.out.println(s.getStatusValue());
-        }
-        HibernateUtil.shutdown();
         LogisticsCompany logisticsCompany = new LogisticsCompany("admin");
         initialLogins(logisticsCompany);
         EventQueue.invokeLater(() -> {
@@ -93,7 +66,7 @@ public class Main {
         HibernateUtil.shutdown();
     }
 }
-    	 
+
 
 
 

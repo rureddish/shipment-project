@@ -381,7 +381,7 @@ public class MyStepdefs {
         con.save(container);
         journey2 = new Journey("oranges", container, null, client, hongKong, cpn, hongKong, cpn);
         journey2.setSailStatus(JourneySailStatus.FINISHED);
-        journey2 = logisticCompany.register(hongKong.getName(), copenhagen.getName(), client, "oranges");
+        //journey2 = logisticCompany.register(hongKong.getName(), copenhagen.getName(), client, "oranges");
         // journey2 = new Journey(hongKong, copenhagen, client, "oranges");
         //logisticCompany.register(journey2);
         js.save(journey2);
