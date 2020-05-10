@@ -62,6 +62,14 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         initialize();
     }
 
+    private List filterSearchBy(List searchResults, Predicate predicate) {
+        return search.search(searchResults, predicate);
+    }
+
+    private boolean txtFieldNotEmpty(JTextField txtCargoKeywordSearch) {
+        return txtCargoKeywordSearch.getText().length() > 0;
+    }
+
     private void initialize() {
         clients = new ArrayList<>();
         panelMainMenuFunctions = new JPanel();
@@ -103,48 +111,36 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 //Checks what's in the txtKeywordSearch as well as if showConcluded and showCurrent are enabled
                 //pulls up journeys based on keyword and showConcluded and showCurrent
             }
-
-            private List filterSearchBy(List searchResults, Predicate predicate) {
-                return search.search(searchResults, predicate);
-            }
-
-            private boolean txtFieldNotEmpty(JTextField txtCargoKeywordSearch) {
-                return txtCargoKeywordSearch.getText().length() > 0;
-            }
-
-
         });
         JTextField txtKeywordSearch2 = new JTextField(30);
         txtKeywordSearch2.setLocation(521, 68);
         txtKeywordSearch2.setSize(130, 26);
-        
+
         JLabel lblKeywordSearch2 = new JLabel("Keyword");
         lblKeywordSearch2.setLocation(428, 68);
-        lblKeywordSearch2.setSize(83,26);
-        
-        
+        lblKeywordSearch2.setSize(83, 26);
+
         JTextField txtClientKeywordSearch = new JTextField(30);
         txtClientKeywordSearch.setLocation(521, 96);
         txtClientKeywordSearch.setSize(130, 26);
         JLabel lblClientKeywordSearch = new JLabel("Client");
         lblClientKeywordSearch.setLocation(428, 96);
         lblClientKeywordSearch.setSize(83, 26);
-        
+
         JTextField txtEmailKeywordSearch = new JTextField(30);
         txtEmailKeywordSearch.setLocation(521, 125);
         txtEmailKeywordSearch.setSize(130, 26);
         JLabel lblEmailKeywordSearch = new JLabel("Email");
         lblEmailKeywordSearch.setLocation(428, 125);
         lblEmailKeywordSearch.setSize(83, 26);
-        
-        
+
         btnSearchClients = new JButton("Search");
-        btnSearchClients.setSize(150,29);
-        btnSearchClients.setLocation(616,183);
-        
+        btnSearchClients.setSize(150, 29);
+        btnSearchClients.setLocation(616, 183);
+
         btnSearchClients.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		keyword = txtKeywordSearch2.getText();
+            public void actionPerformed(ActionEvent e) {
+                keyword = txtKeywordSearch2.getText();
                 List searchResults = search.clientSearchByString(clients, keyword);
                 if (txtFieldNotEmpty(txtClientKeywordSearch)) {
                     searchResults = filterSearchBy(searchResults, search.clientNameContains(txtClientKeywordSearch.getText()));
@@ -152,12 +148,13 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 if (txtFieldNotEmpty(txtEmailKeywordSearch)) {
                     searchResults = filterSearchBy(searchResults, search.emailContains(txtEmailKeywordSearch.getText()));
                 }
-                
+
                 clientTable.setRowCount(0);
                 displayClientTable(searchResults);
-        		
-        	}
-        	private List filterSearchBy(List searchResults, Predicate predicate) {
+
+            }
+
+            private List filterSearchBy(List searchResults, Predicate predicate) {
                 return search.search(searchResults, predicate);
             }
 
@@ -236,7 +233,6 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 clientTable.setRowCount(0);
                 List clients = logisticsCompany.getClients();
                 List searchResults = search.getClientsByMostJourneys(clients);
-
                 displayClientTable(searchResults);
             }
         });
@@ -252,37 +248,34 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 clientTable.setRowCount(0);
                 clients = logisticsCompany.getClients();
                 displayClientTable(logisticsCompany.getClients());
-                for(Client client: logisticsCompany.getClients()){
-                    System.out.println(client.getClientName());
-                }
             }
         });
         btnContainersByLocation = new JRadioButton("Sort Location");
         btnContainersByLocation.setLocation(1058, 183);
-        btnContainersByLocation.setSize(150,29);
+        btnContainersByLocation.setSize(150, 29);
         btnContainersByLocation.setSelected(false);
         btnContainersByLocation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnContainersByLocation.setSelected(true);
-        		btnSortContainersChronologically.setSelected(false);
-        		List containers = logisticsCompany.getContainers();
-        	//	List searchResults 
-        	}
+            public void actionPerformed(ActionEvent e) {
+                btnContainersByLocation.setSelected(true);
+                btnSortContainersChronologically.setSelected(false);
+                List containers = logisticsCompany.getContainers();
+                //	List searchResults
+            }
         });
-        
+
         btnSortContainersChronologically = new JRadioButton("Sort Chronologically");
-        btnSortContainersChronologically.setLocation(828,183);
-        btnSortContainersChronologically.setSize(150,29);
+        btnSortContainersChronologically.setLocation(828, 183);
+        btnSortContainersChronologically.setSize(150, 29);
         btnSortContainersChronologically.setSelected(true);
         btnSortContainersChronologically.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnSortContainersChronologically.setSelected(true);
-        		btnContainersByLocation.setSelected(false);
-        		containerTable.setRowCount(0);
-        		containers = logisticsCompany.getContainers();
-        		displayContainerTable(logisticsCompany.getContainers());
-        		
-        	}
+            public void actionPerformed(ActionEvent e) {
+                btnSortContainersChronologically.setSelected(true);
+                btnContainersByLocation.setSelected(false);
+                containerTable.setRowCount(0);
+                containers = logisticsCompany.getContainers();
+                displayContainerTable(logisticsCompany.getContainers());
+
+            }
         });
 
         clientTable = new DefaultTableModel();
@@ -297,8 +290,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         containerTable.addColumn("Container ID");
         containerTable.addColumn("Container Location");
         containerTable.addColumn("Container on Journey");
-        for(Container container : logisticsCompany.getContainers()) {
-        	containerTable.addRow(new Object[] {container.getId().toString(), container.getContainerLocation().getName(),container.getOnJourney().toString()});
+        for (Container container : logisticsCompany.getContainers()) {
+            containerTable.addRow(new Object[]{container.getId().toString(), container.getContainerLocation().getName(), container.getOnJourney().toString()});
         }
 
         JScrollPane scrollJourneys = new JScrollPane();
@@ -310,7 +303,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollClients.setVerticalScrollBarPolicy((JScrollPane.VERTICAL_SCROLLBAR_ALWAYS));
         tblClients = new JTable(clientTable);
         scrollClients.setViewportView(tblClients);
-        
+
         JScrollPane scrollContainers = new JScrollPane();
         scrollContainers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         tblContainers = new JTable(containerTable);
@@ -336,9 +329,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
         scrollClients.setSize(338, 214);
         scrollClients.setLocation(428, 219);
-        
+
         scrollContainers.setSize(380, 214);
-        scrollContainers.setLocation(828,219);
+        scrollContainers.setLocation(828, 219);
 
         panelMainMenuFunctions.add(txtEmailKeywordSearch);
         panelMainMenuFunctions.add(lblEmailKeywordSearch);
@@ -354,7 +347,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(lblCargoKeywordSearch);
         panelMainMenuFunctions.add(txtKeywordSearch2);
         panelMainMenuFunctions.add(lblKeywordSearch2);
-        
+
 
         panelMainMenuFunctions.add(btnShowConcluded);
         panelMainMenuFunctions.add(btnShowCurrent);
@@ -418,11 +411,11 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
             clientTable.addRow(new Object[]{client.getClientName(), client.getEmail(), (client.getClientsJourneys().size())});
         }
     }
-    
+
     private void displayContainerTable(List<Container> searchResults) {
-    	for(Container container : searchResults) {
-    		containerTable.addRow(new Object[] {container.getId().toString(), container.getContainerLocation().getName(),container.getOnJourney().toString()});
-    	}
+        for (Container container : searchResults) {
+            containerTable.addRow(new Object[]{container.getId().toString(), container.getContainerLocation().getName(), container.getOnJourney().toString()});
+        }
     }
 
 
