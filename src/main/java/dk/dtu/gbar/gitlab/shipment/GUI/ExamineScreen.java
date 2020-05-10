@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
+import dk.dtu.gbar.gitlab.shipment.persistence.service.ContainerService;
 
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -62,10 +63,11 @@ public class ExamineScreen extends JFrame {
 		lblJourneyStatus = new JLabel("Journey Status for Journey ID " + journeyID);
  		lblJourneyStatus.setBounds(10, 26, 192, 14);
  		Journey currentJourney = logisticsCompany.getJourneys().get(journeyIndex);
+ 		ContainerService cs = new ContainerService();
  		JTextArea txtStatus = new JTextArea(
  				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
  				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
- 				"Container Status: " + currentJourney.getJourneyContainerStatusHistory().toString()
+ 				"Container Status: " + cs.getLastStatuses(currentJourney.getJourneyContainer())
  				
  				);
 		txtStatus.setBounds(10, 85, 430, 204);
