@@ -57,6 +57,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         keyword = "";
         clients = logisticsCompany.getClients();
         containers = logisticsCompany.getContainers();
+        // List of subjects to be Observed by LogisticsCompanyScreen
         logisticsCompany.addObserver(this);
 
         initialize();
