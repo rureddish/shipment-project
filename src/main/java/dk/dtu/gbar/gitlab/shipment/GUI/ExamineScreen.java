@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import dk.dtu.gbar.gitlab.shipment.LogIn;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -58,13 +59,14 @@ public class ExamineScreen extends JFrame {
 		});
 		lblJourneyStatus = new JLabel("Journey Status for Journey ID " + journeyID);
  		lblJourneyStatus.setBounds(10, 26, 192, 14);
- 		
+ 		Journey currentJourney = logisticsCompany.getJourneys().get(journeyID-1);
  		JTextArea txtStatus = new JTextArea(
- 				"This is an editable JTextArea. " +
- 				"A text area is a \"plain\" text component, "
+ 				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
+ 				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
+ 				"Container Status: " + currentJourney.getJourneyContainerStatusHistory().toString()
  				
  				);
-		txtStatus.setBounds(10, 85, 124, 78);
+		txtStatus.setBounds(10, 85, 430, 204);
 		
 		
 		panelExamine.add(lblJourneyStatus);
