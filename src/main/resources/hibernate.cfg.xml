@@ -4,8 +4,8 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
-         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>-->
+         <property name="connection.url">jdbc:hsqldb:file:./src/main/resources/persistence/database</property>
+         <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
          <property name="connection.pool_size">20</property>
 
          <!-- DEBUG -->
