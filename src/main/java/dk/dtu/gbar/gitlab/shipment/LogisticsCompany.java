@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class LogisticsCompany {
     private ContainerService cos = new ContainerService();
     private PortService ps = new PortService();
     private JourneyService js = new JourneyService();
+    private ContainerService con = new ContainerService();
 
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -106,10 +108,10 @@ public class LogisticsCompany {
     }*/
     public Journey register(String origin, String destination, Client loggedInClient, String content) {
         Port originPort = ps.search(new SearchCriteria("name", origin)).get(0);
+        System.out.println(originPort.getName());
         Collection<Container> containers = originPort.getPortContainers();
         if (containers.size() > 0) {
             Container container = containers.iterator().next();
-            System.out.println(container.getName());
             container.setContainerLocation(null);
             Port destinationPort = ps.search(new SearchCriteria("name", destination)).get(0);
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
@@ -124,6 +126,8 @@ public class LogisticsCompany {
         Collection<Container> containers = origin.getPortContainers();
         if (containers != null) {
             Container container = containers.iterator().next();
+            container.setContainerLocation(null);
+            System.out.println(container.getId());
             container.setContainerLocation(null);
             Journey journey = new Journey(content, container, client, origin, destination);
             js.save(journey);

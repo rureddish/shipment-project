@@ -1,7 +1,6 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,8 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Immutable
-@Table(name = "container_status", schema = "PUBLIC", catalog = "SHIPMENT")
+@Table(name = "container_status", schema = "public", catalog = "shipment")
 public class ContainerStatus {
     private Integer id;
     private ContainerStatusName statusName;
@@ -76,7 +74,7 @@ public class ContainerStatus {
         return Objects.hash(id, statusName, statusValue, date);
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "journey_fk", referencedColumnName = "id", nullable = false)
     public Journey getJourneyStatusParent() {
         return journeyStatusParent;

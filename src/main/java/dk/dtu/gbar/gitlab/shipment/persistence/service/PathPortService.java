@@ -10,7 +10,7 @@ public class PathPortService implements PathPortDaoInterface {
     private static PathPortDao pathPortDao;
 
     public PathPortService() {
-        this.pathPortDao = new PathPortDao();
+        pathPortDao = new PathPortDao();
     }
 
     @Override

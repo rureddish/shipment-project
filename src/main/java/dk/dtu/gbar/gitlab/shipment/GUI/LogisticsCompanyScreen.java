@@ -224,7 +224,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
         btnClientsByJourneyNo = new JRadioButton("Sort by no. of journeys");
         btnClientsByJourneyNo.setLocation(428, 183);
-        btnClientsByJourneyNo.setSize(150, 29);
+        btnClientsByJourneyNo.setSize(182, 29);
         btnClientsByJourneyNo.setSelected(false);
         btnClientsByJourneyNo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

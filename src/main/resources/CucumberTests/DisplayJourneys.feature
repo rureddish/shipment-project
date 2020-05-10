@@ -4,7 +4,7 @@ Feature: Clients can see their containers and data but not other clients'
 
   @tag1
   Scenario: search for concluded journeys
-    Given a Client "client" with address "address" email "email" and ref person "refperson"
+    Given a Client "client4" with address "address4" email "email4" and ref person "refperson4"
     And a journey in progress
     And a concluded journey
     When searching for concluded journeys

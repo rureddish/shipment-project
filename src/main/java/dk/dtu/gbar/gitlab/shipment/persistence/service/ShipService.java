@@ -64,20 +64,23 @@ public class ShipService implements ShipDaoInterface {
 
     public void depart(Ship ship) {
         Collection<Container> containers = ship.getShipContainers();
-        ship.setShipPort(null);
-        for (Container c : containers) {
-            c.setOnJourney(true);
+        if (containers != null) {
+            for (Container c : containers) {
+                c.setOnJourney(true);
+            }
         }
+        ship.setShipPort(null);
         if (ship.getShipPath() != null && ship.getCurrentNode() == null) {
             Path p = ship.getShipPath();
             PathService ps = new PathService();
-            PathPort pp = ps.start(p);
-            ship.setCurrentNode(pp);
-            for (Container c : containers) {
+            //PathPort pp = ps.start(p);
+            //ship.setCurrentNode(pp);
+
+            /*for (Container c : containers) {/*
                 ContainerService cs = new ContainerService();
                 Journey j = cs.getCurrentJourney(c);
-                j.setJourneyNextLocation(pp.getPortParent());
-            }
+                j.setJourneyNextLocation(p.getSeaPath().iterator().next().getPortParent());
+            }*/
         }
 
     }
@@ -86,15 +89,15 @@ public class ShipService implements ShipDaoInterface {
         PathPort pp = ship.getCurrentNode();
         ship.setShipPort(pp.getNext().getPortParent());
         ship.setCurrentNode(pp.getNext());
-        for (Container c : ship.getShipContainers()) {
-            ContainerService cs = new ContainerService();
-            Journey j = cs.getCurrentJourney(c);
-            j.setJourneyNextLocation(ship.getCurrentNode().getNext().getPortParent());
-            if (j.getJourneyDestination() == ship.getShipPort()) {
-                j.setSailStatus(JourneySailStatus.FINISHED);
-                c.setOnJourney(false);
-                c.setContainerShip(null);
-                j.getJourneyContainer().setContainerLocation(ship.getShipPort());
+        if (ship.getShipContainers() != null) {
+            for (Container c : ship.getShipContainers()) {
+                ContainerService cs = new ContainerService();
+                Journey j = cs.getCurrentJourney(c);
+                    j.setSailStatus(JourneySailStatus.FINISHED);
+                    c.setOnJourney(false);
+                    c.setContainerShip(null);
+                    j.getJourneyContainer().setContainerLocation(ship.getShipPort());
+
             }
 
         }

@@ -5,6 +5,7 @@ import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.ContainerStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
+import org.hibernate.Hibernate;
 import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,6 +18,13 @@ public class ContainerDao extends Connection implements ContainerDaoInterface {
     @Override
     public Container getById(int id) {
         return getSession().get(Container.class, id);
+    }
+
+    public Container getById(int id, boolean eager) {
+        if(!eager) return getById(id);
+        Container c = getSession().get(Container.class,id);
+        Hibernate.initialize(c);
+        return c;
     }
 
     @Override

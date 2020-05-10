@@ -75,7 +75,9 @@ public class JourneyRegisterScreen extends JFrame {
                     Journey j = logisticsCompany.register(lstOrigin.getSelectedValue(),
                             lstDestination.getSelectedValue(), loggedIn.getLoggedInClient()
                             , txtCargo.getText());
+
                     if (j != null) {
+                        j.getJourneyContainer().setContainerLocation(null);
                         newOnes.add(j);
                         JOptionPane.showMessageDialog(null, "Successfull Registration");
                     } else {

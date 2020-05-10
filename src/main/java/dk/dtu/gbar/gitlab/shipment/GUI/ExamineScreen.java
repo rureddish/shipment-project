@@ -65,12 +65,22 @@ public class ExamineScreen extends JFrame {
  		Journey currentJourney = logisticsCompany.getJourneys().get(journeyIndex);
  		ContainerService cs = new ContainerService();
  		JTextArea txtStatus;
- 		txtStatus = new JTextArea(
-	 				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
-	 				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
-	 				"Container Status: NA" 
-	 				
-	 				);
+ 		if(cs.getLastStatuses(currentJourney.getJourneyContainer()).size()>0) {
+ 			txtStatus = new JTextArea(
+ 	 				"Journey Container ID: " + currentJourney.getJourneyContainer().getId() +"\n"+
+ 	 				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
+ 	 				"Container Status: " + cs.getLastStatuses(currentJourney.getJourneyContainer()).get(cs.getLastStatuses(currentJourney.getJourneyContainer()).size()).getStatusName()
+ 	 				
+ 	 				);
+ 		}
+ 		else {
+ 			txtStatus = new JTextArea(
+ 	 				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
+ 	 				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
+ 	 				"Container Status: NA" 
+ 	 				
+ 	 				);
+ 		}
  		
 		txtStatus.setBounds(10, 85, 430, 204);
 		
