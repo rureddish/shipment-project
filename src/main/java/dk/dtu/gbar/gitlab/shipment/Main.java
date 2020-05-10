@@ -3,6 +3,7 @@ package dk.dtu.gbar.gitlab.shipment;
 import dk.dtu.gbar.gitlab.shipment.GUI.LoginScreen;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Container;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Port;
 
 import java.awt.EventQueue;
@@ -41,9 +42,7 @@ public class Main {
         logisticsCompany.register(new Client("New Egg", "1234 Street st", "Fred Chang", "Newegg@gmail.com", Bcrypt.hashPassword("NewEggPass")));
         Client maersk2 = new Client("Maersk2", "Havnepromenaden 42", "A.P. McKinney Maersk Møller", "m2", Bcrypt.hashPassword("m"));
         logisticsCompany.register(maersk2);
-		/*logisticsCompany.register(new Journey(hongkong,copenhagen, amazon, "worker's rights"));
-		logisticsCompany.register(new Journey(tokyo,london,amazon, "Giant Teeth"));
-		logisticsCompany.register(new Journey(newyork, london, maersk, "babushka containers"));*/
+
         /*logisticsCompany.register("worker's rights", amazon, hongkong, copenhagen);
         logisticsCompany.register("Giants Teeth", amazon, tokyo, london);
         logisticsCompany.register("babuska containers", maersk, newyork, london);
