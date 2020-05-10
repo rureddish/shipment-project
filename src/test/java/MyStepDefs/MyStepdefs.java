@@ -1,7 +1,8 @@
 package MyStepDefs;
 
 import dk.dtu.gbar.gitlab.shipment.*;
-import dk.dtu.gbar.gitlab.shipment.old.Searcher;
+import dk.dtu.gbar.gitlab.shipment.ContainerStatus;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

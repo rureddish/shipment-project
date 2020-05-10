@@ -3,7 +3,9 @@ package dk.dtu.gbar.gitlab.shipment.persistence.service;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.JourneyDao;
 import dk.dtu.gbar.gitlab.shipment.persistence.dao.JourneyDaoInterface;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.JourneySailStatus;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
+import org.hibernate.Filter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -73,6 +75,16 @@ public class JourneyService implements JourneyDaoInterface {
         List<Journey> journeys = journeyDao.search(search);
         journeyDao.closeSession();
         return journeys;
+    }
+    public List<Journey> getFiltered(JourneySailStatus status){
+        journeyDao.openSession();
+        Filter filter = journeyDao.getSession().enableFilter("statusFilter");
+        filter.setParameter("status",status);
+        journeyDao.getSession().beginTransaction();
+        List<Journey> journeys = journeyDao.getAll();
+        journeyDao.closeTransaction();
+        return journeys;
+
     }
 }
 

@@ -1,10 +1,16 @@
 package dk.dtu.gbar.gitlab.shipment.persistence.models;
 
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@FilterDef(name = "statusFilter", parameters = {
+        @ParamDef(name = "status", type = "string")
+})
 public class Journey {
     private Integer id;
     private JourneySailStatus sailStatus;

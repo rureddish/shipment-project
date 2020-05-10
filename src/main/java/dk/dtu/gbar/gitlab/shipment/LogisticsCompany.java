@@ -58,11 +58,13 @@ public class LogisticsCompany {
     }
 
     public boolean register(Port port) {
-        if (ps.search(new SearchCriteria("NAME", port.getName())).size() == 0) {
-            ps.save(port);
-            return true;
+        Collection<Port> search = ps.search(new SearchCriteria("name", port.getName()));
+
+        if (ps.search(new SearchCriteria("name", port.getName())).size() > 0) {
+            return false;
         }
-        return false;
+        ps.save(port);
+        return true;
     }
 
     public boolean register(Client client) {
@@ -74,11 +76,11 @@ public class LogisticsCompany {
     }
 
     public boolean register(Container container) {
-        if (cos.search(new SearchCriteria("NAME", container.getName())).size() == 0) {
-            cos.save(container);
-            return true;
+        if (cos.search(new SearchCriteria("name", container.getName())).size() > 0) {
+            return false;
         }
-        return false;
+        cos.save(container);
+        return true;
         /*container.setID(containerList.size());
         containerList.add(container);*/
     }
@@ -105,12 +107,12 @@ public class LogisticsCompany {
         }
     }*/
     public boolean register(String origin, String destination, Client loggedInClient, String content) {
-        Port originPort = ps.search(new SearchCriteria("NAME", origin)).get(0);
+        Port originPort = ps.search(new SearchCriteria("name", origin)).get(0);
         Collection<Container> containers = originPort.getPortContainers();
         if (containers.size() > 0) {
             Container container = containers.iterator().next();
             container.setContainerLocation(null);
-            Port destinationPort = ps.search(new SearchCriteria("NAME", destination)).get(0);
+            Port destinationPort = ps.search(new SearchCriteria("name", destination)).get(0);
             Journey journey = new Journey(content, container, null, loggedInClient, originPort, destinationPort, originPort, destinationPort);
             js.save(journey);
             support.firePropertyChange("Journey Added", null, null);
@@ -121,10 +123,10 @@ public class LogisticsCompany {
 
     public boolean register(String content, Client client, Port origin, Port destination) {
         Collection<Container> containers = origin.getPortContainers();
-        if (containers.size() > 0) {
+        if (containers != null) {
             Container container = containers.iterator().next();
             container.setContainerLocation(null);
-            Journey journey = new Journey(content, container,client,origin,destination);
+            Journey journey = new Journey(content, container, client, origin, destination);
             js.save(journey);
             support.firePropertyChange("Journey Added", null, null);
             return true;
@@ -146,7 +148,7 @@ public class LogisticsCompany {
     }
 
     public boolean clientEmailAlreadyInUse(String email) {
-        return 0 < cs.search(new SearchCriteria("EMAIL", email)).size();
+        return 0 < cs.search(new SearchCriteria("email", email)).size();
         //return 0 < search.search(clientList, search.emailContains(client.getEmail())).size();
     }
 
@@ -154,7 +156,7 @@ public class LogisticsCompany {
         return 0 < object.getOrigin().getLocationContainers().size();
     }*/
 
-    public List<Port> getAllPorts() {
+    public List<Port> getPorts() {
         return ps.getAll();
     }
 
@@ -173,4 +175,11 @@ public class LogisticsCompany {
         support.addPropertyChangeListener(listener);
     }
 
+    public List<Journey> getJourneys() {
+        return js.getAll();
+    }
+
+    public List<Client> getClients() {
+        return cs.getAll();
+    }
 }

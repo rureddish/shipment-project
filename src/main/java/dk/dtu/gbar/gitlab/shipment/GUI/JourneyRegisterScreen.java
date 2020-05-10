@@ -51,7 +51,7 @@ public class JourneyRegisterScreen extends JFrame {
 
 
         DefaultListModel<String> ports = new DefaultListModel<>();
-        for (Port port : logisticsCompany.getAllPorts()) {
+        for (Port port : logisticsCompany.getPorts()) {
             ports.addElement(port.getName());
         }
         lstOrigin = new JList<>(ports);

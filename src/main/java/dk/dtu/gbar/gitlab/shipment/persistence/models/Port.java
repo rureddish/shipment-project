@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @SQLDelete(sql = "UPDATE port SET 'status' = 'DELETED' WHERE id = ?", check = ResultCheckStyle.COUNT)
-@Where(clause = "status <> DELETED")
+@Where(clause = "status != 'DELETED'")
 public class Port {
     private Integer id;
     private String name;

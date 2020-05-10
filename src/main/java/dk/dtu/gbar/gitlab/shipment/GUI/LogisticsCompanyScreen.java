@@ -5,15 +5,16 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import dk.dtu.gbar.gitlab.shipment.Client;
-import dk.dtu.gbar.gitlab.shipment.Journey;
 import dk.dtu.gbar.gitlab.shipment.LogisticsCompany;
-import dk.dtu.gbar.gitlab.shipment.old.Searcher;
+import dk.dtu.gbar.gitlab.shipment.Searcher;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
+import dk.dtu.gbar.gitlab.shipment.persistence.models.Journey;
 
 public class LogisticsCompanyScreen extends JFrame implements PropertyChangeListener {
 
@@ -36,8 +37,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     private DefaultTableModel clientTable;
     private Searcher search;
     private String keyword;
-    private ArrayList<Journey> journeys;
-    private ArrayList<Client> clients;
+    private List<Journey> journeys;
+    private List<Client> clients;
 
 
     ///
@@ -45,9 +46,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         this.parentWindow = parentWindow;
         this.logisticsCompany = logisticsCompany;
         search = new Searcher(logisticsCompany);
-        journeys = logisticsCompany.getJourneyList();
+        journeys = logisticsCompany.getJourneys();
         keyword = "";
-        clients = logisticsCompany.getClientList();
+        clients = logisticsCompany.getClients();
         logisticsCompany.addObserver(this);
 
         initialize();
@@ -79,7 +80,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 keyword = txtKeywordSearch.getText();
-                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                List searchResults = search.journeySearchByString(journeys, keyword);
                 if (txtFieldNotEmpty(txtCargoKeywordSearch)) {
                     searchResults = filterSearchBy(searchResults, search.cargoContains(txtCargoKeywordSearch.getText()));
                 }
@@ -95,7 +96,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 //pulls up journeys based on keyword and showConcluded and showCurrent
             }
 
-            private ArrayList filterSearchBy(ArrayList searchResults, Predicate predicate) {
+            private List filterSearchBy(List searchResults, Predicate predicate) {
                 return search.search(searchResults, predicate);
             }
 
@@ -123,8 +124,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 btnShowCurrent.setSelected(false);
                 btnShowAll.setSelected(false);
                 journeyTable.setRowCount(0);
-                journeys = search.getConcludedJourneys(logisticsCompany.getJourneyList());
-                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                journeys = search.getConcludedJourneys(journeys);
+                List searchResults = search.journeySearchByString(journeys, keyword);
                 displayJourneyTable(searchResults);
             }
         });
@@ -135,8 +136,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 btnShowConcluded.setSelected(false);
                 btnShowAll.setSelected(false);
                 journeyTable.setRowCount(0);
-                journeys = search.getCurrentJourneys(logisticsCompany.getJourneyList());
-                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                journeys = search.getCurrentJourneys(journeys);
+                List searchResults = search.journeySearchByString(journeys, keyword);
                 displayJourneyTable(searchResults);
             }
         });
@@ -150,8 +151,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 btnShowConcluded.setSelected(false);
                 btnShowCurrent.setSelected(false);
                 journeyTable.setRowCount(0);
-                journeys = logisticsCompany.getJourneyList();
-                ArrayList searchResults = search.journeySearchByString(journeys, keyword);
+                journeys = logisticsCompany.getJourneys();
+                List searchResults = search.journeySearchByString(journeys, keyword);
                 displayJourneyTable(searchResults);
             }
         });
@@ -161,8 +162,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         journeyTable.addColumn("Destination");
         journeyTable.addColumn("Cargo");
         journeyTable.addColumn("Journey ID");
-        for (Journey journey : logisticsCompany.getJourneyList()) {
-            journeyTable.addRow(new Object[]{journey.getOrigin().getPlaceName(), journey.getDestination().getPlaceName(), journey.getCargo(), journey.getID()});
+        for (Journey journey : logisticsCompany.getJourneys()) {
+            journeyTable.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getId()});
         }
 
         btnClientsByJourneyNo = new JRadioButton("Sort by no. of journeys");
@@ -174,8 +175,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 btnClientsByJourneyNo.setSelected(true);
                 btnSortClientsChronologically.setSelected(false);
                 clientTable.setRowCount(0);
-                ArrayList clients = (ArrayList) logisticsCompany.getClientList().clone();
-                ArrayList searchResults = search.getClientsByMostJourneys(clients);
+                List clients = logisticsCompany.getClients();
+                List searchResults = search.getClientsByMostJourneys(clients);
 
                 displayClientTable(searchResults);
             }
@@ -190,10 +191,10 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
                 btnSortClientsChronologically.setSelected(true);
                 btnClientsByJourneyNo.setSelected(false);
                 clientTable.setRowCount(0);
-                clients = logisticsCompany.getClientList();
-                displayClientTable(logisticsCompany.getClientList());
-                for(Client client: logisticsCompany.getClientList()){
-                    System.out.println(client.getName());
+                clients = logisticsCompany.getClients();
+                displayClientTable(logisticsCompany.getClients());
+                for(Client client: logisticsCompany.getClients()){
+                    System.out.println(client.getClientName());
                 }
             }
         });
@@ -202,8 +203,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         clientTable.addColumn("Name");
         clientTable.addColumn("Email");
         clientTable.addColumn("No. of Journeys");
-        for (Client client : logisticsCompany.getClientList()) {
-            clientTable.addRow(new Object[]{client.getName(), client.getEmail(), (Integer) (client.getJourneys().size())});
+        for (Client client : logisticsCompany.getClients()) {
+            clientTable.addRow(new Object[]{client.getClientName(), client.getEmail(), (client.getClientsJourneys().size())});
         }
 
 
@@ -262,8 +263,8 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
     }
 
     public void addJourney(Journey journey) {
-        journeyTable.addRow(new Object[]{journey.getOrigin().getPlaceName(), journey.getDestination().getPlaceName(),
-                journey.getCargo()});
+        journeyTable.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(),
+                journey.getContainerContent()});
     }
 
 
@@ -294,15 +295,15 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.setVisible(visible);
     }
 
-    private void displayJourneyTable(ArrayList<Journey> searchResults) {
+    private void displayJourneyTable(List<Journey> searchResults) {
         for (Journey journey : searchResults) {
-            journeyTable.addRow(new Object[]{journey.getOrigin().getPlaceName(), journey.getDestination().getPlaceName(), journey.getCargo(), journey.getContainer().getID()});
+            journeyTable.addRow(new Object[]{journey.getJourneyOrigin().getName(), journey.getJourneyDestination().getName(), journey.getContainerContent(), journey.getJourneyContainer().getId()});
         }
     }
 
-    private void displayClientTable(ArrayList<Client> searchResults) {
+    private void displayClientTable(List<Client> searchResults) {
         for (Client client : searchResults) {
-            clientTable.addRow(new Object[]{client.getName(), client.getEmail(), (Integer) (client.getJourneys().size())});
+            clientTable.addRow(new Object[]{client.getClientName(), client.getEmail(), (client.getClientsJourneys().size())});
         }
     }
 

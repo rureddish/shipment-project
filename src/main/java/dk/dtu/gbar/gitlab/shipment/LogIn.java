@@ -1,6 +1,5 @@
 package dk.dtu.gbar.gitlab.shipment;
 
-import dk.dtu.gbar.gitlab.shipment.old.Searcher;
 import dk.dtu.gbar.gitlab.shipment.persistence.models.Client;
 import dk.dtu.gbar.gitlab.shipment.persistence.search.SearchCriteria;
 import dk.dtu.gbar.gitlab.shipment.persistence.service.ClientService;
@@ -45,7 +44,7 @@ public class LogIn {
 //        }
 //    }
     public boolean loginClient(String email, String password) {
-        List<Client> search = cs.search(new SearchCriteria("EMAIL", email));
+        List<Client> search = cs.search(new SearchCriteria("email", email));
         //ArrayList<Client> client = (searcher.search(logisticsCompany.getClientList(), searcher.emailContains(email)));
         if (search.size() == 0) {
             System.out.println("Wrong email");
