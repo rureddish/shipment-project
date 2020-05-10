@@ -114,6 +114,14 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
 
 
         });
+        JTextField txtKeywordSearch2 = new JTextField(30);
+        txtKeywordSearch2.setLocation(521, 68);
+        txtKeywordSearch2.setSize(130, 26);
+        
+        JLabel lblKeywordSearch2 = new JLabel("Keyword");
+        lblKeywordSearch2.setLocation(428, 68);
+        lblKeywordSearch2.setSize(83,26);
+        
         
         JTextField txtClientKeywordSearch = new JTextField(30);
         txtClientKeywordSearch.setLocation(521, 96);
@@ -136,8 +144,26 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         
         btnSearchClients.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		keyword = txtKeywordSearch2.getText();
+                List searchResults = search.clientSearchByString(clients, keyword);
+                if (txtFieldNotEmpty(txtClientKeywordSearch)) {
+                    searchResults = filterSearchBy(searchResults, search.clientNameContains(txtClientKeywordSearch.getText()));
+                }
+                if (txtFieldNotEmpty(txtEmailKeywordSearch)) {
+                    searchResults = filterSearchBy(searchResults, search.emailContains(txtEmailKeywordSearch.getText()));
+                }
+                
+                clientTable.setRowCount(0);
+                displayClientTable(searchResults);
         		
         	}
+        	private List filterSearchBy(List searchResults, Predicate predicate) {
+                return search.search(searchResults, predicate);
+            }
+
+            private boolean txtFieldNotEmpty(JTextField txtCargoKeywordSearch) {
+                return txtCargoKeywordSearch.getText().length() > 0;
+            }
         });
 
         btnLogOut = new JButton("Log Out");
@@ -326,6 +352,9 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         panelMainMenuFunctions.add(lblOriginKeywordSearch);
         panelMainMenuFunctions.add(txtCargoKeywordSearch);
         panelMainMenuFunctions.add(lblCargoKeywordSearch);
+        panelMainMenuFunctions.add(txtKeywordSearch2);
+        panelMainMenuFunctions.add(lblKeywordSearch2);
+        
 
         panelMainMenuFunctions.add(btnShowConcluded);
         panelMainMenuFunctions.add(btnShowCurrent);
