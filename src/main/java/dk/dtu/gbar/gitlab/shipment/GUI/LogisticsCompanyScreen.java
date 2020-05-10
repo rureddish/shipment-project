@@ -170,7 +170,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         }
 
         btnClientsByJourneyNo = new JRadioButton("Sort by no. of journeys");
-        btnClientsByJourneyNo.setLocation(502, 167);
+        btnClientsByJourneyNo.setLocation(428, 183);
         btnClientsByJourneyNo.setSize(150, 29);
         btnClientsByJourneyNo.setSelected(false);
         btnClientsByJourneyNo.addActionListener(new ActionListener() {
@@ -186,7 +186,7 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         });
 
         btnSortClientsChronologically = new JRadioButton("Sort chronologically");
-        btnSortClientsChronologically.setLocation(702, 167);
+        btnSortClientsChronologically.setLocation(616, 183);
         btnSortClientsChronologically.setSize(150, 29);
         btnSortClientsChronologically.setSelected(true);
         btnSortClientsChronologically.addActionListener(new ActionListener() {
@@ -234,28 +234,28 @@ public class LogisticsCompanyScreen extends JFrame implements PropertyChangeList
         scrollContainers.setViewportView(tblContainers);
 
 
-        btnSearch.setBounds(302, 95, 150, 29);
-        txtKeywordSearch.setBounds(102, 75, 130, 26);
-        lblKeywordSearch.setBounds(21, 75, 83, 26);
+        btnSearch.setBounds(216, 183, 150, 29);
+        txtKeywordSearch.setBounds(102, 38, 130, 26);
+        lblKeywordSearch.setBounds(21, 38, 83, 26);
 
-        txtCargoKeywordSearch.setBounds(102, 105, 130, 26);
-        lblCargoKeywordSearch.setBounds(21, 105, 83, 26);
-        txtOriginKeywordSearch.setBounds(102, 135, 130, 26);
-        lblOriginKeywordSearch.setBounds(21, 135, 83, 26);
-        txtDestinationKeywordSearch.setBounds(322, 135, 130, 26);
-        lblDestinationKeywordSearch.setBounds(241, 135, 83, 26);
+        txtCargoKeywordSearch.setBounds(102, 68, 130, 26);
+        lblCargoKeywordSearch.setBounds(21, 68, 83, 26);
+        txtOriginKeywordSearch.setBounds(102, 96, 130, 26);
+        lblOriginKeywordSearch.setBounds(21, 96, 83, 26);
+        txtDestinationKeywordSearch.setBounds(102, 125, 130, 26);
+        lblDestinationKeywordSearch.setBounds(21, 125, 83, 26);
 
         btnShowConcluded.setBounds(18, 158, 129, 29);
-        btnShowCurrent.setBounds(149, 158, 105, 29);
+        btnShowCurrent.setBounds(102, 183, 105, 29);
 
         scrollJourneys.setSize(338, 214);
-        scrollJourneys.setLocation(102, 203);
+        scrollJourneys.setLocation(28, 219);
 
         scrollClients.setSize(338, 214);
-        scrollClients.setLocation(502, 203);
+        scrollClients.setLocation(428, 219);
         
         scrollContainers.setSize(380, 214);
-        scrollContainers.setLocation(895,203);
+        scrollContainers.setLocation(828,219);
 
         panelMainMenuFunctions.add(lblKeywordSearch);
         panelMainMenuFunctions.add(txtKeywordSearch);
