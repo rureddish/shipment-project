@@ -61,7 +61,9 @@ public class ExamineScreen extends JFrame {
  		lblJourneyStatus.setBounds(10, 26, 192, 14);
  		Journey currentJourney = logisticsCompany.getJourneys().get(journeyID-1);
  		JTextArea txtStatus = new JTextArea(
- 				"Journey Container ID " + currentJourney.getJourneyContainer().getName()
+ 				"Journey Container ID: " + currentJourney.getJourneyContainer().getName() +"\n"+
+ 				"Container Contents: " + currentJourney.getContainerContent() +"\n"+
+ 				"Container Status: " + currentJourney.getJourneyContainerStatusHistory().toString()
  				
  				);
 		txtStatus.setBounds(10, 85, 430, 204);
